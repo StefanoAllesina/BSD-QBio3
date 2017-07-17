@@ -1,6 +1,6 @@
 # Defensive programming
 
-Stephanie Palmer
+Sarah Cobey
 
 - assertions
 - unit testing
