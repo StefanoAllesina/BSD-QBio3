@@ -1,6 +1,6 @@
 # Reproducibility of data analysis
 
-Sarah Cobey
+Stephanie Palmer
 
 - organizing data and code (directory structure)
 - writing notebooks in Rmd
