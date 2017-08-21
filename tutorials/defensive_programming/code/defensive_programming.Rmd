@@ -35,7 +35,7 @@ In the first part of this tutorial, we will review key principles of defensive p
 
 Part 1 focuses on defense. You saw a few of these principles in [Basic Computing 2](https://github.com/StefanoAllesina/BSD-QBio3/blob/master/tutorials/basic_computing_2/code/basic_computing_2.Rmd), but they are important enough to be repeated here.
 
-1. [Before writing code, draft your program as a series of modular functions with high-level documentation, and develop tests for it.](#principle-1-before-writing-code-draft-your-program-as-a-series-of-modular-functions-with-high-level-documentation-and-develop-tests-for-it-pr)
+1. [Before writing code, draft your program as a series of modular functions with high-level documentation, and develop tests for it.](#principle-1-before-writing-code-draft-your-program-as-a-series-of-modular-functions-with-high-level-documentation-and-develop-tests-for-it)
 2. [Write clearly and cautiously.](#principle-2-write-clearly-and-cautiously)
 3. [Develop one function at a time, and test it before writing another.](#principle-3-develop-one-function-at-a-time-and-test-it-before-writing-another)
 4. [Document often.](#principle-4-document-often)
@@ -45,13 +45,13 @@ Part 1 focuses on defense. You saw a few of these principles in [Basic Computing
 
 In part 2, we will focus on what to do when tests (from Principle 3) indicate something is wrong.
 
-### Principle 1. Before writing code, draft your program as a series of modular functions with high-level documentation, and develop tests for it. {#pr1}
+### Principle 1. Before writing code, draft your program as a series of modular functions with high-level documentation, and develop tests for it.
 
 Many of us have had the experience of writing a long paper only to realize, several pages in, that we in fact need to say something slightly different. Restructuring a paper at this stage can be a real chore. Outlining your code as you would outline a paper avoids this problem. In fact, outlining your code can be even more helpful because it helps you think not just generally about how your algorithm will flow and where you want to end up, but also about what building blocks (functions and containers) you'll use to get there. Thinking about the "big picture" design will prevent you from coding yourself into a tight spot---when you realize hundreds of lines in that you should've been tracking past states of a variable, for instance, but your current containers are only storing the current state. Drafting also makes the actual writing much more easy and fun.
 
 For complex programs, your draft may start as a diagram or flowchart showing how major functions and variables relate to one another or brief notes about each of step of the algorithm. These outlines are known as pseudocode, and there are myriad customs for pseudocode and programmers loyal to particular styles. For simple scripts, it is often sufficient to write pseudocode as placeholder comments. For instance, if we are simulating a population in which individuals can be born or die (and nothing else happens), we could write:
 
-```
+```{r, eval=FALSE}
 # initialize population size (N), birth rate (b), death rate (d), total simulation time (t_max), and time (t=0)
 # while N > 0 and t < t_max
 # ...generate random numbers to determine whether next event is birth or death, and time to event (dt)
@@ -60,9 +60,15 @@ For complex programs, your draft may start as a diagram or flowchart showing how
 
 Here, `b` and `d` are per capita rates. This is an example of the [Gillespie algorithm](https://en.wikipedia.org/wiki/Gillespie_algorithm). It was initially developed as an exact stochastic approach for simulating chemical reaction kinetics, and it is widely used in biology, chemistry, and physics. 
 
-Can you see some weaknesses of the pseudocode so far? First, it lacks obvious modularity. The first step under the `while` loop could become its own function that is defined separately. Second, it is missing a critical feature, in that it's not obvious what is being output: do we want the population size at the end of the simulation, or the population size at each event? If the latter, we may need to initialize a container, such as a dataframe, in which we store the value of `N` and `t` at every event. After further thought, we might decide such a container would be too big---perhaps we only need to know the value of `N` at 1/1000th the typical rate of births, and so we might introduce an additional loop to store `N` only when the new time `(t+dt)` exceeds the most recent prescribed observation/sampling time. This sampling time would need to be stored in an extra variable, and we could also make the sampling procedure into its own function.
+Can you see some limitations of the pseudocode so far? First, it lacks obvious modularity, though this is partly due to its vagueness. The first step under the `while` loop could become its own function that is defined separately. Second, it is missing a critical feature, in that it's not obvious what is being output: do we want the population size at the end of the simulation, or the population size at each event? If the latter, we may need to initialize a container, such as a dataframe, in which we store the value of `N` and `t` at every event. After further thought, we might decide such a container would be too big---perhaps we only need to know the value of `N` at 1/1000th the typical rate of births, and so we might introduce an additional loop to store `N` only when the new time `(t+dt)` exceeds the most recent prescribed observation/sampling time. This sampling time would need to be stored in an extra variable, and we could also make the sampling procedure into its own function. And maybe we want a function to plot `N` over time at the end.
 
-The next stage of drafting is to consider how the code might go wrong, and what it would take to convince ourselves that it is accurate. We'll spend more time on this later, but now is the time to think of every possible sanity check for the code. Sometimes this can lead to changes in code design. For instance,
+The next stage of drafting is to consider how the code might go wrong, and what it would take to convince ourselves that it is accurate. We'll spend more time on this later, but now is the time to think of every possible sanity check for the code. Sometimes this can lead to changes in code design. 
+
+> **Exercise**
+>  
+> What sanity checks and tests would you include for the code above?
+
+Some examples:
 
 * Initial values of `b`, `d`, and `t_max` should be non-negative and not change
 * The population size `N` should probably start as a positive whole number and never fall below zero
@@ -75,24 +81,103 @@ Some of these criteria arise from common sense or assumptions we want to build i
 
 The bottom line is that we have identified some tests for the (1) inputs, (2) intermediate variable states (like `N`), (3) final outputs to test that the program is running correctly. Note that one of our tests, the fraction of birth to death events, is not something we were originally tracking, and thus we might decide now to create a separate function and variables to handle these quantities. We will talk in more detail about how to implement these tests in [Principle 3](#pr3). Generally, tests of specific functions are known as **unit tests**, and tests of aggregate behavior (like the trajectories of 10,000 simulations) are known as **system tests**. As a general principle, we need to have both, and we need as much as possible to compare their outputs to analytic expectations. It is also very useful to identify what you want to see right away. For instance, you may want to write a function to plot the population size over time *before* you code anything else because the visual feedback can be extremely helpful.
 
+> "Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a *computer* what to do, let us concentrate rather on explaining to *human beings* what we want a computer to do." -Donald Knuth
+
 This is also a good time to draft very high-level documentation for your code, for instance in a `readme.MD` file. What are the inputs, what does the code do, and what does it return?
 
 > **Exercise**
 > 
 > Assume there are two discrete populations. Each has nonoverlapping generations and the same generation time. Their per capita birth rates are `b1` and `b2`. Some of the newborns migrate between populations.
 > * Write pseudocode to calculate the distribution of population frequencies after 100 generations.
-> * Do you think the code is optimally modular?
+> * Is your code is optimally modular?
 > * What are the inputs and outputs of the program? Of each function?
 > * How could you test the inputs, functions, and overall program?
-> * Compare your answers to your neighbors'.
+> * Discuss your approach with your neighbor.
 
 ### Principle 2. Write clearly and cautiously.
 
+You're already on your way to writing clearly and cautiously if you outline your program before you start writing it. Here we'll discuss some practices to follow as you write.
+
+A general rule is that it is more important for scientific code to be readable than it is for it to be fast. Do not obsess too much about efficiency when writing.
+
+> "Premature optimization is the root of all evil." -Donald Knuth
+
+**Develop useful conventions for your variable and function names.** There are many conventions, some followed more religiously than others. It's most important to be consistent within your own code. 
+* Don't make yourself and others guess at meaning by making names too short. It's generally better to write out `maxSubstitutionRatePerSitePerYear` or `max.sub.rate.per.site.yr` than `maxSR`.
+* However, very common variables should have short names.
+* When helpful, incorporate identifiers like `df` (data frame), `ctr` (counter), or `idx` (index) into variable names to remind you of their purpose or structure.
+* Customarily, variables that start with capital letters indicate global scope in `R`, and function names also start with capital letters. People argue about conventions, and they vary from language to language. Here's [Google's style guide](https://google.github.io/styleguide/Rguide.xml).
+
+**Do not use magic numbers.** "Magic numbers" refer to numbers hard-coded in your functions and main program. Any number that could possibly vary should be in a separate section for parameters. The following code is not robust:
+
+```{r, eval=FALSE}
+while ((age >= 5) && (inSchool == TRUE)) {
+  yearsInSchool = yearsInSchool + 1
+}
+```
+
+We may decide the age cutoff of 5 is inappropriate, but even if we never do, being unable to change the cutoff limits our ability to test the code. Better:
+
+```{r, eval=FALSE}
+while ((age >= AgeStartSchool) && (inSchool == TRUE)) {
+  yearsInSchool = yearsInSchool + 1
+}
+```
+
+Most of the time, the only numbers that should be hard-coded are 0 and 1.
+
+**Use labels for column and row names, and load functions by argument.** 
+
+Don't force (or trust) yourself to remember that the first column of your data frame contains the time, the second column contains the counts, and so on. When reviewing code later, it's harder to interpret `cellCounts[,1]` than `cellCounts$time`.
+
+In the same vein, if you have a function taking multiple inputs, it is safest to pass them in with named arguments. For instance, the function
+
+```{r, eval=FALSE}
+BirthdayGiftSuggestion <- function(age,budget) {
+  # ...
+}
+```
+
+could be called with 
+
+```{r, eval=FALSE}
+BirthdayGiftSuggestion(age=30,budget=20)
+# or
+BirthdayGiftSuggestion(30,20)
+```
+
+but the former is obviously safer.
+
+**Avoid repetitive code.** If you ever find yourself copying and pasting a section of code, perhaps modifying it slightly each time, stop. It's almost certainly worth writing a function instead. The code will be easier to read, and if you find an error, it will be easier to debug.
+
+
 ### Principle 3. Develop one function at a time, and test it before writing another.
+
+The first part of this principle is easy for scientists to understand. When building code, we want to change one thing at a time. It makes it easier to understand what's going on. Thus, we start by writing just a single function. It might not do exactly what we want it to do in the final program (e.g., it might contain mostly placeholders for functions it calls that we haven't written yet), but we want to be intimately familiar with how our code works in every stage of development.
+
+The second part of this principle underscores one of the most important rules in defensive programming: **do not believe anything works until you have tested it thoroughly, and then keep your guard up.** *Expect* your code to contain bugs, and leave yourself time to play with the code (e.g., by trying to "break" it) until you can convince yourself they are gone. This involves an extra layer of defensive programming beyond the straightforward good practices discussed in Principle 2. Testing the code as you build it makes it much faster to find problems.
+
+**Assertions**
+
+**Exceptions**
+
+**`Stopifnot`**
+
+**Unit tests**
+
+**System tests**
+
+**Input tests**
 
 ### Principle 4. Document often.
 
+
+
 ### Principle 5. Refactor often.
+
+To refactor code is to revise it to make it clearer, safer, or more efficient. Because it involves no changes in the scientific outputs (results) of the program, it might feel pointless, but it's usually not. Refactor when you realize that your variable and function names no longer reflect their true content or purpose (rename things quickly with `Ctrl + Alt + Shift + M`), when certain functions are obselete or should be split into two, when another data structure would work dramatically better, etc. Any code that you'll be working with for more than a week, or that others might ever use, should probably be refactored a few times. Debugging will be easier, and the [code will smell better](https://en.wikipedia.org/wiki/Code_smell).
+
+Run unit and system tests after refactoring to make sure you haven't messed anything up.
 
 ### Principle 6. When you run your code, save each "experiment" in a separate directory with a complete copy of the code repository and all parameters.
 
