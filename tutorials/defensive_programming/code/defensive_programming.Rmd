@@ -35,13 +35,13 @@ In the first part of this tutorial, we will review key principles of defensive p
 
 Part 1 focuses on defense. You saw a few of these principles in [Basic Computing 2](https://github.com/StefanoAllesina/BSD-QBio3/blob/master/tutorials/basic_computing_2/code/basic_computing_2.Rmd), but they are important enough to be repeated here.
 
-1. [Before writing code, draft your program as a series of modular functions with high-level documentation, and develop tests for it.](#pr1)
-2. [Write clearly and cautiously.](#pr2)
-3. [Develop one function at a time, and test it before writing another.](#pr3)
-4. [Document often.](#pr4)
-5. [Refactor often.](#pr5)
-6. [When you run your code, save each "experiment" in a separate directory with a complete copy of the code repository and all parameters.](#pr6)
-7. [Don't be *too* defensive.](#pr7)
+1. [Before writing code, draft your program as a series of modular functions with high-level documentation, and develop tests for it.](#principle-1-before-writing-code-draft-your-program-as-a-series-of-modular-functions-with-high-level-documentation-and-develop-tests-for-it-pr)
+2. [Write clearly and cautiously.](#principle-2-write-clearly-and-cautiously)
+3. [Develop one function at a time, and test it before writing another.](#principle-3-develop-one-function-at-a-time-and-test-it-before-writing-another)
+4. [Document often.](#principle-4-document-often)
+5. [Refactor often.](#principle-5-refactor-often)
+6. [When you run your code, save each "experiment" in a separate directory with a complete copy of the code repository and all parameters.](#principle-6-when-you-run-your-code-save-each-experiment-in-a-separate-directory-with-a-complete-copy-of-the-code-repository-and-all-parameters)
+7. [Don't be *too* defensive.](#principle-7-dont-be-too-defensive)
 
 In part 2, we will focus on what to do when tests (from Principle 3) indicate something is wrong.
 
