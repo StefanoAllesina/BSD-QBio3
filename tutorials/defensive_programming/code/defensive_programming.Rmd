@@ -80,22 +80,22 @@ This is also a good time to draft very high-level documentation for your code, f
 > **Exercise**
 > 
 > Assume there are two discrete populations. Each has nonoverlapping generations and the same generation time. Their per capita birth rates are `b1` and `b2`. Some of the newborns migrate between populations.
-> *Write pseudocode to calculate the distribution of population frequencies after 100 generations.
-> *Do you think the code is optimally modular?
-> *What are the inputs and outputs of the program? Of each function?
-> *How could you test the inputs, functions, and overall program?
-> *Compare your answers to your neighbors'.
+> * Write pseudocode to calculate the distribution of population frequencies after 100 generations.
+> * Do you think the code is optimally modular?
+> * What are the inputs and outputs of the program? Of each function?
+> * How could you test the inputs, functions, and overall program?
+> * Compare your answers to your neighbors'.
 
-### Principle 2. Write clearly and cautiously. {#pr2}
+### Principle 2. Write clearly and cautiously.
 
-### Principle 3. Develop one function at a time, and test it before writing another. {#pr3}
+### Principle 3. Develop one function at a time, and test it before writing another.
 
-### Principle 4. Document often. {#pr4}
+### Principle 4. Document often.
 
-### Principle 5. Refactor often. {#pr5}
+### Principle 5. Refactor often.
 
-### Principle 6. When you run your code, save each "experiment" in a separate directory with a complete copy of the code repository and all parameters. {#pr6}
+### Principle 6. When you run your code, save each "experiment" in a separate directory with a complete copy of the code repository and all parameters.
 
-### Principle 7. Don't be *too* defensive. {#pr7}
+### Principle 7. Don't be *too* defensive.
 
 # Part 2: Debugging in R

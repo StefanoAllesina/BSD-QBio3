@@ -162,10 +162,10 @@ $(document).ready(function () {
 <h3>Principle 1. Before writing code, draft your program as a series of modular functions with high-level documentation, and develop tests for it.</h3>
 <p>Many of us have had the experience of writing a long paper only to realize, several pages in, that we in fact need to say something slightly different. Restructuring a paper at this stage can be a real chore. Outlining your code as you would outline a paper avoids this problem. In fact, outlining your code can be even more helpful because it helps you think not just generally about how your algorithm will flow and where you want to end up, but also about what building blocks (functions and containers) you’ll use to get there. Thinking about the “big picture” design will prevent you from coding yourself into a tight spot—when you realize hundreds of lines in that you should’ve been tracking past states of a variable, for instance, but your current containers are only storing the current state. Drafting also makes the actual writing much more easy and fun.</p>
 <p>For complex programs, your draft may start as a diagram or flowchart showing how major functions and variables relate to one another or brief notes about each of step of the algorithm. These outlines are known as pseudocode, and there are myriad customs for pseudocode and programmers loyal to particular styles. For simple scripts, it is often sufficient to write pseudocode as placeholder comments. For instance, if we are simulating a population in which individuals can be born or die (and nothing else happens), we could write:</p>
-<pre><code>% initialize population size (N), birth rate (b), death rate (d), total simulation time (t_max), and time (t=0)
-% while N &gt; 0 and t &lt; t_max
-% ...generate random numbers to determine whether next event is birth or death, and time to event (dt)
-% ...update N (increment if birth, decrement if death) and update time t to t+dt</code></pre>
+<pre><code># initialize population size (N), birth rate (b), death rate (d), total simulation time (t_max), and time (t=0)
+# while N &gt; 0 and t &lt; t_max
+# ...generate random numbers to determine whether next event is birth or death, and time to event (dt)
+# ...update N (increment if birth, decrement if death) and update time t to t+dt</code></pre>
 <p>Here, <code>b</code> and <code>d</code> are per capita rates. This is an example of the <a href="https://en.wikipedia.org/wiki/Gillespie_algorithm">Gillespie algorithm</a>. It was initially developed as an exact stochastic approach for simulating chemical reaction kinetics, and it is widely used in biology, chemistry, and physics.</p>
 <p>Can you see some weaknesses of the pseudocode so far? First, it lacks obvious modularity. The first step under the <code>while</code> loop could become its own function that is defined separately. Second, it is missing a critical feature, in that it’s not obvious what is being output: do we want the population size at the end of the simulation, or the population size at each event? If the latter, we may need to initialize a container, such as a dataframe, in which we store the value of <code>N</code> and <code>t</code> at every event. After further thought, we might decide such a container would be too big—perhaps we only need to know the value of <code>N</code> at 1/1000th the typical rate of births, and so we might introduce an additional loop to store <code>N</code> only when the new time <code>(t+dt)</code> exceeds the most recent prescribed observation/sampling time. This sampling time would need to be stored in an extra variable, and we could also make the sampling procedure into its own function.</p>
 <p>The next stage of drafting is to consider how the code might go wrong, and what it would take to convince ourselves that it is accurate. We’ll spend more time on this later, but now is the time to think of every possible sanity check for the code. Sometimes this can lead to changes in code design. For instance,</p>
@@ -182,25 +182,25 @@ $(document).ready(function () {
 <p>This is also a good time to draft very high-level documentation for your code, for instance in a <code>readme.MD</code> file. What are the inputs, what does the code do, and what does it return?</p>
 <blockquote>
 <p><strong>Exercise</strong></p>
-<p>Assume there are two discrete populations. Each has nonoverlapping generations and the same generation time. Their per capita birth rates are <code>b1</code> and <code>b2</code>. Some of the newborns migrate between populations. Write pseudocode to calculate the distribution of population frequencies after 100 generations. Do you think the code is optimally modular? What are the inputs and outputs of the program? Of each function? How could you test the inputs, functions, and overall program? Compare your answers to your neighbors’.</p>
+<p>Assume there are two discrete populations. Each has nonoverlapping generations and the same generation time. Their per capita birth rates are <code>b1</code> and <code>b2</code>. Some of the newborns migrate between populations. * Write pseudocode to calculate the distribution of population frequencies after 100 generations. * Do you think the code is optimally modular? * What are the inputs and outputs of the program? Of each function? * How could you test the inputs, functions, and overall program? * Compare your answers to your neighbors’.</p>
 </blockquote>
 </div>
-<div id="pr2" class="section level3">
+<div id="principle-2.-write-clearly-and-cautiously." class="section level3">
 <h3>Principle 2. Write clearly and cautiously.</h3>
 </div>
-<div id="pr3" class="section level3">
+<div id="principle-3.-develop-one-function-at-a-time-and-test-it-before-writing-another." class="section level3">
 <h3>Principle 3. Develop one function at a time, and test it before writing another.</h3>
 </div>
-<div id="pr4" class="section level3">
+<div id="principle-4.-document-often." class="section level3">
 <h3>Principle 4. Document often.</h3>
 </div>
-<div id="pr5" class="section level3">
+<div id="principle-5.-refactor-often." class="section level3">
 <h3>Principle 5. Refactor often.</h3>
 </div>
-<div id="pr6" class="section level3">
+<div id="principle-6.-when-you-run-your-code-save-each-experiment-in-a-separate-directory-with-a-complete-copy-of-the-code-repository-and-all-parameters." class="section level3">
 <h3>Principle 6. When you run your code, save each “experiment” in a separate directory with a complete copy of the code repository and all parameters.</h3>
 </div>
-<div id="pr7" class="section level3">
+<div id="principle-7.-dont-be-too-defensive." class="section level3">
 <h3>Principle 7. Don’t be <em>too</em> defensive.</h3>
 </div>
 </div>
