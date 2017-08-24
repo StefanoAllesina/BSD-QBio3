@@ -41,7 +41,25 @@ output:
 **2:30-2:45**         Coffee break                        
 **2:45-4:30**         Basic comp. II                      
 **5:00-6:30**         Dinner                              
-**6:30-9:30**         Welcome – Nishi & Prince            
+**6:30-7:30**         Welcome – Nishi & Prince            
+**7:35-8:10**         Life after PhD a)                    (*M.mulatta M.musculus*)
+                      Life after PhD b)                    (*S.aegyptiacus T.roseae*)
+                      Navigating first year a)             (*D.rerio X.laevis*)
+                      Navigating first year b)             (*C.elegans D.melanogaster*)
+                      Publishing primer a)                 (*O.bimaculoides P.polytes*)
+                      Publishing primer b)                 (*A.thaliana T.thermophila*)
+**8:15-8:50**         Life after PhD a)                    (*D.rerio X.laevis*)
+                      Life after PhD b)                    (*C.elegans D.melanogaster*)
+                      Navigating first year a)             (*O.bimaculoides P.polytes*)
+                      Navigating first year b)             (*A.thaliana T.thermophila*)
+                      Publishing primer a)                 (*M.mulatta M.musculus*)
+                      Publishing primer b)                 (*S.aegyptiacus T.roseae*)
+**8:55-9:30**         Life after PhD a)                    (*O.bimaculoides P.polytes*)
+                      Life after PhD b)                    (*A.thaliana T.thermophila*)
+                      Navigating first year a)             (*M.mulatta M.musculus*)
+                      Navigating first year b)             (*S.aegyptiacus T.roseae*)
+                      Publishing primer a)                 (*D.rerio X.laevis*)
+                      Publishing primer b)                 (*C.elegans D.melanogaster*)
 ------------------    ------------------------------------
 
 ### Tuesday, September 12 

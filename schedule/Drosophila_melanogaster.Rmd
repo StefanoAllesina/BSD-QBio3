@@ -23,101 +23,104 @@ output:
 
 ### Sunday, September 10 
 
-------------------    --------------------------------------------------------
-**2:45-5:00**         Check-in (Swope)                                        
-**5:00-6:30**         Dinner (SWC)                                            
-**6:30-7:00**         Team building activities (XXX)                          
-**7:15-8:30**         Introduction – Allesina and Palmer (Lillie)             
-------------------    --------------------------------------------------------
+------------------    ------------------------------------------------
+**2:45-5:00**         Check-in (Swope)                                
+**5:00-6:30**         Dinner (SWC)                                    
+**6:30-7:00**         Team building activities                        
+**7:15-8:30**         Introduction – Allesina and Palmer (LAUD)       
+------------------    ------------------------------------------------
 
 ### Monday, September 11 
 
-------------------    --------------------------------------------------------
-**8:30-10:00**        Basic comp. I (LBG70) Advanced comp. I (LB263)          
-**10:00-10:30**       Coffee break (LB302)                                    
-**10:30-12:00**       Basic comp. I (LBG70) Advanced comp. I (LB263)          
-**12:00-12:45**       Lunch (SWC)                                             
-**1:00-2:30**         Basic comp. II (CH1) Advanced comp. II (LB263)          
-**2:30-2:45**         Coffee break (LB302)                                    
-**2:45-4:30**         Basic comp. II (CH1) Advanced comp. II (LB263)          
-**5:00-6:30**         Dinner (SWC)                                            
-**6:30-9:30**         Welcome – Nishi & Prince (LBG70); PD Open house (Loeb)  
-------------------    --------------------------------------------------------
+------------------    ------------------------------------------------
+**8:30-10:00**        Basic comp. I (LBG70) Advanced comp. I (LB263)  
+**10:00-10:30**       Coffee break (LB302)                            
+**10:30-12:00**       Basic comp. I (LBG70) Advanced comp. I (LB263)  
+**12:00-12:45**       Lunch (SWC)                                     
+**1:00-2:30**         Basic comp. II (CH1) Advanced comp. II (LB263)  
+**2:30-2:45**         Coffee break (LB302)                            
+**2:45-4:30**         Basic comp. II (CH1) Advanced comp. II (LB263)  
+**5:00-6:30**         Dinner (SWC)                                    
+**6:30-7:30**         Welcome – Nishi & Prince (LBG70)                
+**7:35-8:10**         Navigating first year b) (Loeb 3rd floor)       
+**8:15-8:50**         Life after PhD b) (Loeb 3rd floor)              
+**8:55-9:30**         Publishing primer b) (Loeb 3rd floor)           
+------------------    ------------------------------------------------
 
 ### Tuesday, September 12 
 
-------------------    --------------------------------------------------------
-**8:30-10:00**        Visit Marine Resources Center (MRC)                     
-**10:00-10:30**       Coffee break (LB302)                                    
-**10:30-12:00**       Trip on the Gemma (MRC dock – be 15 min early)          
-**12:00-1:00**        Lunch (SWC)                                             
-**1:00-2:30**         Defensive programming (XXX)                             
-**2:30-2:45**         Coffee break (LB302)                                    
-**2:45-4:30**         Defensive programming (XXX)                             
-**5:00-6:30**         Dinner (SWC)                                            
-**7:15-8:00**         MBL Talk – XXX1 (Rowe)                                  
-------------------    --------------------------------------------------------
+------------------    ------------------------------------------------
+**8:30-10:00**        Visit Marine Resources Center (MRC)             
+**10:00-10:30**       Coffee break (LB302)                            
+**10:30-12:00**       Trip on the Gemma (MRC dock – be 15 min early)  
+**12:00-1:00**        Lunch (SWC)                                     
+**1:00-2:30**         Defensive programming (Speck)                   
+**2:30-2:45**         Coffee break (LB302)                            
+**2:45-4:30**         Defensive programming (Speck)                   
+**5:00-6:30**         Dinner (SWC)                                    
+**7:15-8:00**         MBL Talk – XXX1 (Speck)                         
+------------------    ------------------------------------------------
 
 ### Wednesday, September 13 
 
-------------------    --------------------------------------------------------
-**8:30-10:00**        Imaging (LBG70)                                         
-**10:00-10:30**       Coffee break (LB302)                                    
-**10:30-12:00**       Imaging (LBG70)                                         
-**12:00-1:00**        Lunch (SWC)                                             
-**1:00-2:30**         Reproducibility of data analysis (LBG70)                
-**2:30-2:45**         Coffee break (LB302)                                    
-**2:45-4:30**         Reproducibility of data analysis (LBG70)                
-**5:00-6:30**         Dinner (SWC)                                            
-**7:15-8:00**         MBL Talk – XXX2 (Rowe)                                  
-------------------    --------------------------------------------------------
+------------------    ------------------------------------------------
+**8:30-10:00**        Imaging (LBG70)                                 
+**10:00-10:30**       Coffee break (LB302)                            
+**10:30-12:00**       Imaging (LBG70)                                 
+**12:00-1:00**        Lunch (SWC)                                     
+**1:00-2:30**         Reproducibility of data analysis (LBG70)        
+**2:30-2:45**         Coffee break (LB302)                            
+**2:45-4:30**         Reproducibility of data analysis (LBG70)        
+**5:00-6:30**         Dinner (SWC)                                    
+**7:15-8:00**         MBL Talk – XXX2 (Speck)                         
+------------------    ------------------------------------------------
 
 ### Thursday, September 14 
 
-------------------    --------------------------------------------------------
-**8:30-10:00**        Free time                                               
-**10:00-10:30**       Coffee break (LB302)                                    
-**10:30-12:00**       Free time                                               
-**12:00-1:00**        Lunch (SWC)                                             
-**1:00-2:30**         Data visualization (CH1)                                
-**2:30-2:45**         Coffee break (LB302)                                    
-**2:45-4:30**         Data visualization (CH1)                                
-**5:00-6:30**         Dinner (SWC)                                            
-**7:15-8:00**         MBL Talk – XXX3 (Rowe)                                  
-------------------    --------------------------------------------------------
+------------------    ------------------------------------------------
+**8:30-10:00**        Free time                                       
+**10:00-10:30**       Coffee break (LB302)                            
+**10:30-12:00**       Free time                                       
+**12:00-1:00**        Lunch (SWC)                                     
+**1:00-2:30**         Data visualization (CH1)                        
+**2:30-2:45**         Coffee break (LB302)                            
+**2:45-4:30**         Data visualization (CH1)                        
+**5:00-6:30**         Dinner (SWC)                                    
+**7:15-8:00**         MBL Talk – XXX3 (Speck)                         
+------------------    ------------------------------------------------
 
 ### Friday, September 15 
 
-------------------    --------------------------------------------------------
-**8:30-10:00**        Workshop Yang (LBG70)                                   
-**10:00-10:30**       Coffee break (LB302)                                    
-**10:30-12:00**       Workshop Yang (LBG70)                                   
-**12:00-1:00**        Lunch (SWC)                                             
-**1:00-2:30**         Workshop Cobey (LB263)                                  
-**2:30-2:45**         Coffee break (LB302)                                    
-**2:45-4:30**         Workshop Cobey (LB263)                                  
-**5:00-6:30**         Dinner (SWC)                                            
-**7:15-8:00**         Free time                                               
-------------------    --------------------------------------------------------
+------------------    ------------------------------------------------
+**8:30-10:00**        Workshop Yang (LBG70)                           
+**10:00-10:30**       Coffee break (LB302)                            
+**10:30-12:00**       Workshop Yang (LBG70)                           
+**12:00-1:00**        Lunch (SWC)                                     
+**1:00-2:30**         Workshop Cobey (LB263)                          
+**2:30-2:45**         Coffee break (LB302)                            
+**2:45-4:30**         Workshop Cobey (LB263)                          
+**5:00-6:30**         Dinner (SWC)                                    
+**7:15-8:00**         Free time                                       
+------------------    ------------------------------------------------
 
 ### Saturday, September 16 
 
-------------------    --------------------------------------------------------
-**8:30-10:00**        Statistics for a data rich world (LB374)                
-**10:00-10:30**       Coffee break (LB302)                                    
-**10:30-12:00**       Statistics for a data rich world (LB374)                
-**12:00-1:00**        Lunch (SWC)                                             
-**1:00-2:30**         Workshop Novembre (LB374)                               
-**2:30-2:45**         Coffee break (LB302)                                    
-**2:45-4:30**         Workshop Novembre (LB374)                               
-**5:15-8:15**         BBQ and Wrap up (Meigs)                                 
-------------------    --------------------------------------------------------
+------------------    ------------------------------------------------
+**8:30-10:00**        Statistics for a data rich world (LB374)        
+**10:00-10:30**       Coffee break (LB302)                            
+**10:30-12:00**       Statistics for a data rich world (LB374)        
+**12:00-1:00**        Lunch (SWC)                                     
+**1:00-2:30**         Workshop Novembre (LB374)                       
+**2:30-2:45**         Coffee break (LB302)                            
+**2:45-4:30**         Workshop Novembre (LB374)                       
+**5:15-8:15**         BBQ and Wrap up (Meigs)                         
+------------------    ------------------------------------------------
 
 ### Sunday, September 17 
 
-------------------    --------------------------------------------------------
-**10:00-10:30**       Departure for BOS                                       
-------------------    --------------------------------------------------------
+------------------    ------------------------------------------------
+**10:00-10:30**       Departure for BOS                               
+------------------    ------------------------------------------------
 
 
 
@@ -125,5 +128,5 @@ output:
 
 
 **Rooms** *CH1:* ground floor room in Candle House; *LAUD:* Lillie Auditorium; *LB263:* Loeb 263; *LB302:* Loeb 302; *LB374:* Loeb 374; 
-*LBG70:* Loeb lower level, room G70; *Meigs:* Meigs room, Swope Center; *MRC:* Marine Resources Center; *Rowe:* XXX; *SWC:* Swope cafeteria.
+*LBG70:* Loeb lower level, room G70; *Meigs:* Meigs room, Swope Center; *MRC:* Marine Resources Center; *Speck:* Speck Auditorium, Rowe Lab; *SWC:* Swope cafeteria.
   

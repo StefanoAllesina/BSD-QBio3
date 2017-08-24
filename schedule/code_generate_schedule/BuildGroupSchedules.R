@@ -6,7 +6,7 @@ library(knitr)
 activities <- read.csv("tables/common.csv", stringsAsFactors = FALSE)
 activities <- rbind(activities, read.csv("tables/tutorials.csv", stringsAsFactors = FALSE))
 activities <- rbind(activities, read.csv("tables/workshops.csv", stringsAsFactors = FALSE))
-# activities <- rbind(activities, read.csv("tables/pd.csv", stringsAsFactors = FALSE))
+activities <- rbind(activities, read.csv("tables/pd.csv", stringsAsFactors = FALSE))
 # Load activities names
 activities_names <- read.csv("tables/activities_name_room.csv", stringsAsFactors = FALSE)
 # Load group names
@@ -90,7 +90,7 @@ output:
   
   cat("
 **Rooms** *CH1:* ground floor room in Candle House; *LAUD:* Lillie Auditorium; *LB263:* Loeb 263; *LB302:* Loeb 302; *LB374:* Loeb 374; 
-*LBG70:* Loeb lower level, room G70; *Meigs:* Meigs room, Swope Center; *MRC:* Marine Resources Center; *Rowe:* XXX; *SWC:* Swope cafeteria.
+*LBG70:* Loeb lower level, room G70; *Meigs:* Meigs room, Swope Center; *MRC:* Marine Resources Center; *Speck:* Speck Auditorium, Rowe Lab; *SWC:* Swope cafeteria.
   \n")
   sink()
   #pandoc(input = paste0("../", group_name_long_nospace, ".Rmd"))
