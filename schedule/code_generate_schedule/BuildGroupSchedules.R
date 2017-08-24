@@ -6,8 +6,7 @@ library(knitr)
 activities <- read.csv("tables/common.csv", stringsAsFactors = FALSE)
 activities <- rbind(activities, read.csv("tables/tutorials.csv", stringsAsFactors = FALSE))
 activities <- rbind(activities, read.csv("tables/workshops.csv", stringsAsFactors = FALSE))
-activities <- rbind(activities, read.csv("tables/workshop5.csv", stringsAsFactors = FALSE))
-activities <- rbind(activities, read.csv("tables/pd.csv", stringsAsFactors = FALSE))
+# activities <- rbind(activities, read.csv("tables/pd.csv", stringsAsFactors = FALSE))
 # Load activities names
 activities_names <- read.csv("tables/activities_name_room.csv", stringsAsFactors = FALSE)
 # Load group names
@@ -22,7 +21,7 @@ activities <- inner_join(activities, group_names)
 # Create a column for starting time; arrange all events by group and start time
 activities <- activities %>% 
   rowwise() %>% 
-  mutate(StartTime = paste0("9/", Day, "/2016 ", strsplit(Time, "-")[[1]][1], " ", AMPM)) %>% 
+  mutate(StartTime = paste0("9/", Day, "/2017 ", strsplit(Time, "-")[[1]][1], " ", AMPM)) %>% 
   mutate(StartTime = parse_date_time(StartTime, "%m/%d/%Y %I:%M %p", tz = "America/New_York")) %>% 
   arrange(Group, StartTime)
 
@@ -52,7 +51,7 @@ output:
     latex_engine: xelatex
     keep_tex: true
 ---")
-  cat("\n# BSD qBio$^2$ @ MBL")
+  cat("\n# BSD qBio$^3$ @ MBL")
   cat("\n\n")
   cat(paste0("## Group Schedule: *", group_name_long, "*"))
   cat("\n")
@@ -91,7 +90,7 @@ output:
   
   cat("
 **Rooms** *CH1:* ground floor room in Candle House; *LAUD:* Lillie Auditorium; *LB263:* Loeb 263; *LB302:* Loeb 302; *LB374:* Loeb 374; 
-*LBG70:* Loeb lower level, room G70; *Meigs:* Meigs room, Swope Center; *MRC:* Marine Resources Center; *SWC:* Swope cafeteria; *Terrace:* Swope terrace.
+*LBG70:* Loeb lower level, room G70; *Meigs:* Meigs room, Swope Center; *MRC:* Marine Resources Center; *Rowe:* XXX; *SWC:* Swope cafeteria.
   \n")
   sink()
   #pandoc(input = paste0("../", group_name_long_nospace, ".Rmd"))
@@ -122,7 +121,7 @@ output:
     latex_engine: xelatex
     keep_tex: true
 ---")
-cat("\n# BSD qBio$^2$ @ MBL")
+cat("\n# BSD qBio$^3$ @ MBL")
 cat("\n\n")
 cat(paste0("## General Schedule"))
 cat("\n")
@@ -135,9 +134,9 @@ for (my_day in sort(unique(activities$Day))){
   daily <- activities %>% filter(Day == my_day)
   name_day <- wday(daily$StartTime[1], label = TRUE, abbr = FALSE)
   name_day <- paste0(name_day, ", September ", my_day)
-  if (name_day == "Sunday, September 11"){
-    cat(paste("\\ \n\\ \n\n"))
-  }
+  #if (name_day == "Sunday, September 11"){
+  #  cat(paste("\\ \n\\ \n\n"))
+  #}
   cat(paste("###", name_day, "\n\n"))
   cat(paste0(
     paste0(rep("-", ll), collapse = ""),
