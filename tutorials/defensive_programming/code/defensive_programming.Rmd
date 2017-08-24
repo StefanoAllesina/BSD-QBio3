@@ -18,7 +18,7 @@ output:
 
 Defensive programming is the practice of anticipating errors in your code and handling them efficiently.
 
-If you're new to programming, defensive programming might seem at first like a tedious waste of time. But if you've been programming long, you've probably experienced firsthand the pain from
+If you're new to programming, defensive programming might seem tedious at first. But if you've been programming long, you've probably experienced firsthand the stress from
 
 * inexplicable, strange behavior by the code
 * code that seems to work under some conditions but not others
@@ -75,11 +75,11 @@ Some examples:
 * If the birth and death rates are zero, `N` should not change
 * If the birth rate equals the death rate, on average, `N` should not change when it is large
 * The ratio of births to deaths should equal the ratio of the birth rate to the death rate, on average
-* The population should, on average, grow exponentially at rate `b-d`
+* The population should, on average, increase exponentially at rate `b-d` (or decrease exponentially if `d>b`)
 
-Some of these criteria arise from common sense or assumptions we want to build into the model (for instance, that the birth and death rates aren't negative), and others we know from the mathematics of the system. For instance, the population cannot change if there are no births and deaths, and it must increase on average if the birth rate exceeds the death rate. It helps that the Gillespie algorithm represents kinetics that can be written as simple differential equations. However, because the simulations are stochastic, we need to look at many realizations (randomizations, trajectories) to ensure there aren't consistent biases. We can use statistics to confirm, for instance, that the distribution of `N` in 10,000 simulations after 100 time units is not significantly different from what we would predict mathematically.
+Some of these criteria arise from common sense or assumptions we want to build into the model (for instance, that the birth and death rates aren't negative), and others we know from the mathematics of the system. For instance, the population cannot change if there are no births and deaths, and it must increase on average if the birth rate exceeds the death rate. It helps that the Gillespie algorithm represents kinetics that can be written as simple differential equations. However, because the simulations are stochastic, we need to look at many realizations (randomizations, trajectories) to ensure there aren't consistent biases. We must use statistics to confirm that the distribution of `N` in 10,000 simulations after 100 time units is not significantly different from what we would predict mathematically.
 
-The bottom line is that we have identified some tests for the (1) inputs, (2) intermediate variable states (like `N`), (3) final outputs to test that the program is running correctly. Note that one of our tests, the fraction of birth to death events, is not something we were originally tracking, and thus we might decide now to create a separate function and variables to handle these quantities. We will talk in more detail about how to implement these tests in [Principle 3](#pr3). Generally, tests of specific functions are known as **unit tests**, and tests of aggregate behavior (like the trajectories of 10,000 simulations) are known as **system tests**. As a general principle, we need to have both, and we need as much as possible to compare their outputs to analytic expectations. It is also very useful to identify what you want to see right away. For instance, you may want to write a function to plot the population size over time *before* you code anything else because the visual feedback can be extremely helpful.
+The bottom line is that we have identified some tests for the (1) inputs, (2) intermediate variable states (like `N`), (3) final outputs to test that the program is running correctly. Note that one of our tests, the fraction of birth to death events, is not something we were originally tracking, and thus we might decide now to create a separate function and variables to handle these quantities. We will talk in more detail about how to implement these tests in [Principle 3](#pr3). Generally, tests of specific functions are known as **unit tests**, and tests of aggregate behavior (like the trajectories of 10,000 simulations) are known as **system tests**. As a general principle, we need to have both, and we need as much as possible to compare their outputs to analytic expectations. It is also very useful to identify what you want to see right away. For instance, you may want to write a function to plot the population size over time *before* you code anything else because having immediate visual feedback can be extremely helpful.
 
 > "Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a *computer* what to do, let us concentrate rather on explaining to *human beings* what we want a computer to do." -Donald Knuth
 
@@ -98,7 +98,7 @@ This is also a good time to draft very high-level documentation for your code, f
 
 You're already on your way to writing clearly and cautiously if you outline your program before you start writing it. Here we'll discuss some practices to follow as you write.
 
-A general rule is that it is more important for scientific code to be readable than it is for it to be fast. Do not obsess too much about efficiency when writing.
+A general rule is that it is more important for scientific code to be readable and correct than it is for it to be fast. Do not obsess too much about the efficiency of the code when writing.
 
 > "Premature optimization is the root of all evil." -Donald Knuth
 
@@ -124,7 +124,7 @@ while ((age >= AgeStartSchool) && (inSchool == TRUE)) {
 }
 ```
 
-Most of the time, the only numbers that should be hard-coded are 0 and 1.
+Most of the time, the only numbers that should be hard-coded are 0, 1, and pi.
 
 **Use labels for column and row names, and load functions by argument.** 
 
@@ -157,13 +157,11 @@ The first part of this principle is easy for scientists to understand. When buil
 
 The second part of this principle underscores one of the most important rules in defensive programming: **do not believe anything works until you have tested it thoroughly, and then keep your guard up.** *Expect* your code to contain bugs, and leave yourself time to play with the code (e.g., by trying to "break" it) until you can convince yourself they are gone. This involves an extra layer of defensive programming beyond the straightforward good practices discussed in Principle 2. Testing the code as you build it makes it much faster to find problems.
 
-**Assertions**
-
-**Exceptions**
-
-**`Stopifnot`**
-
 **Unit tests**
+
+***Assertions***
+
+***Exceptions***
 
 **System tests**
 
@@ -171,16 +169,44 @@ The second part of this principle underscores one of the most important rules in
 
 ### Principle 4. Document often.
 
+It is helpful to keep a running list of known "[issues](https://guides.github.com/features/issues/)" with your code, which would include the functions left to implement, the tests left to run, any strange bugs/behavior, and features that might be nice to add later. Sites like GitHub and Bitbucket allow you to associate issues with your repositories and are thus very helpful for collaborative projects, but use whatever works for you. Having a formal list, however, is much safer than sprinkling to-do comments in your code (e.g., `# CHECK THIS!!!`). It's easy to miss comments.
 
+Research code will always need a `readme` describing the software's purpose and implementation. It's easiest to develop it early and update as you go.
 
 ### Principle 5. Refactor often.
 
-To refactor code is to revise it to make it clearer, safer, or more efficient. Because it involves no changes in the scientific outputs (results) of the program, it might feel pointless, but it's usually not. Refactor when you realize that your variable and function names no longer reflect their true content or purpose (rename things quickly with `Ctrl + Alt + Shift + M`), when certain functions are obselete or should be split into two, when another data structure would work dramatically better, etc. Any code that you'll be working with for more than a week, or that others might ever use, should probably be refactored a few times. Debugging will be easier, and the [code will smell better](https://en.wikipedia.org/wiki/Code_smell).
+To refactor code is to revise it to make it clearer, safer, or more efficient. Because it involves no changes in the scientific outputs (results) of the program, it might feel pointless, but it's usually not. Refactor when you realize that your variable and function names no longer reflect their true content or purpose (rename things quickly with `Ctrl + Alt + Shift + M`), when certain functions are obsolete or should be split into two, when another data structure would work dramatically better, etc. Any code that you'll be working with for more than a week, or that others might ever use, should probably be refactored a few times. Debugging will be easier, and the [code will smell better](https://en.wikipedia.org/wiki/Code_smell).
 
-Run unit and system tests after refactoring to make sure you haven't messed anything up.
+**Important tip:** Run unit and system tests after refactoring to make sure you haven't messed anything up. This happens more than you probably think.
 
 ### Principle 6. When you run your code, save each "experiment" in a separate directory with a complete copy of the code repository and all parameters.
 
+When you're done developing the code and are using it for research, keep results organized by creating a separate directory for each execution of the code that includes not only the results but also the precise code used to generate the results. This way, you won't accidentally associate one set of parameters with results that were in fact generated by another set of parameters. Here's a sample workflow, assuming your repository is located remotely on GitHub, and you're in a UNIX terminal:
+
+```
+$ mkdir 2017-09-15_rho=0.5
+$ cd 2017-09-15_rho=0.5
+$ git clone git@github.com:MyName/my-repo
+```
+If we want, we can edit and execute our code from within `R` or `RStudio`, but we can also keep going with the command line. Here we are using a built-in UNIX text editor known as [emacs](http://pages.cs.wisc.edu/~deppeler/tutorials/UNIX/emacs/). If you are a glutton for punishment, you could instead use [vi(m)](https://www.ccsf.edu/Pub/Fac/vi.html).
+
+```
+$ cd my-repo
+$ emacs parameters.json // (edit parameters, with rho=0.5)
+$ Rscript mycode.R
+```
+
+Keeping your experiments separate is going to save your sanity for larger projects when you repeatedly revise your analyses. It also makes isolating bugs easier.
+
 ### Principle 7. Don't be *too* defensive.
+
+This is not necessary:
+
+```{R,eval=TRUE}
+myNumbers <- seq(from=1,to=500,length.out=20)
+stopifnot(length(myNumbers)==20)
+```
+
+It's fine to check stuff like this when you're getting the hang of a function, but it doesn't need to be in the code. Code with too many defensive checks becomes a pain to read (and thus debug). Try to find a balance between excess caution and naive optimism. Good luck!
 
 # Part 2: Debugging in R
