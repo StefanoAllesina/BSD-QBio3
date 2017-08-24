@@ -215,9 +215,6 @@ S <- SimpsonIndex(badCounts)
 ```
 
 
-
-One of the features of the [`assert`](https://www.rforge.net/doc/packages/testit/assert.html)) package is that you can optionally
-
 ***Exceptions***
 
 **Test all scales**
