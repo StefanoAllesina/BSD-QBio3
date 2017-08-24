@@ -157,15 +157,70 @@ The first part of this principle is easy for scientists to understand. When buil
 
 The second part of this principle underscores one of the most important rules in defensive programming: **do not believe anything works until you have tested it thoroughly, and then keep your guard up.** *Expect* your code to contain bugs, and leave yourself time to play with the code (e.g., by trying to "break" it) until you can convince yourself they are gone. This involves an extra layer of defensive programming beyond the straightforward good practices discussed in Principle 2. Testing the code as you build it makes it much faster to find problems.
 
-**Unit tests**
+**Unit tests.**
+Unit tests are tests on small pieces of code, often functions. An intuitive and informal method of unit testing is to include `print()` statements in your code.
+
+Here's a function to calculate the Simpson Index, a useful diversity index. It gives the probability that two randomly drawn individuals belong to the same species or type: 
+
+```{r,eval=TRUE}
+SimpsonIndex <- function(C) {
+  print(paste(c("Passed species counts:", C),collapse=" "))
+  fractions <- C/sum(C)
+  print(paste(c("Fractions:", fractions), collapse=" "))
+  S <- sum(fractions^2)
+  print(paste("About to return S =",S))
+  return(S)
+}
+
+# Simulate some data
+numSpecies <- 10
+maxCount <- 10^3 
+fakeCounts <- floor(runif(numSpecies,min=1,max=maxCount))
+
+# Call function with simulated data
+S <- SimpsonIndex(fakeCounts)
+```
+
+It's very useful to print values to screen when you are writing a function for the first time and testing that one function. When you've drafted your function, I recommend walking through the function with `print()` and comparing the computed values to calculations you perform by hand or some other way. It can also be useful to do this at a very high level (more on that later). 
+
+The problem with relying on `print()` is that it rapidly provides too much information for you to process, and hence errors can slip through.
 
 ***Assertions***
 
+A more reliable way to catch errors is to use assertions. Assertions are automated tests embedded in the code. The built-in function for assertions in `R` is `stopifnot()`. It's very simple to use.
+
+Let's remove the `print` statements and add a check to our input data:
+
+```{r,eval=TRUE}
+SimpsonIndex <- function(C) {
+  stopifnot(C>0)
+  fractions <- C/sum(C)
+  S <- sum(fractions^2)
+  return(S)
+}
+```
+
+If each element of our abundances vector `C` is positive, `stopifnot()` will be `TRUE`, and the program will continue. If any element does not satisfy the criterion, then `FALSE` will be returned, and execution will terminate. Explore for yourself:
+
+```{r,eval=TRUE}
+# Simulate two sets data
+numSpecies <- 10
+maxCount <- 10^3 
+goodCounts <- floor(runif(numSpecies,min=1,max=maxCount))
+badCounts <- floor(runif(numSpecies,min=-maxCount,max=maxCount))
+
+# Call function with previous simulated data
+S <- SimpsonIndex(goodCounts)
+S <- SimpsonIndex(badCounts)
+```
+
+
+
+One of the features of the [`assert`](https://www.rforge.net/doc/packages/testit/assert.html)) package is that you can optionally
+
 ***Exceptions***
 
-**System tests**
-
-**Input tests**
+**Test all scales**
 
 ### Principle 4. Document often.
 

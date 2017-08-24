@@ -227,11 +227,32 @@ BirthdayGiftSuggestion(30,20)</code></pre>
 <h3>Principle 3. Develop one function at a time, and test it before writing another.</h3>
 <p>The first part of this principle is easy for scientists to understand. When building code, we want to change one thing at a time. It makes it easier to understand what’s going on. Thus, we start by writing just a single function. It might not do exactly what we want it to do in the final program (e.g., it might contain mostly placeholders for functions it calls that we haven’t written yet), but we want to be intimately familiar with how our code works in every stage of development.</p>
 <p>The second part of this principle underscores one of the most important rules in defensive programming: <strong>do not believe anything works until you have tested it thoroughly, and then keep your guard up.</strong> <em>Expect</em> your code to contain bugs, and leave yourself time to play with the code (e.g., by trying to “break” it) until you can convince yourself they are gone. This involves an extra layer of defensive programming beyond the straightforward good practices discussed in Principle 2. Testing the code as you build it makes it much faster to find problems.</p>
-<p><strong>Unit tests</strong></p>
+<p><strong>Unit tests</strong> Unit tests are tests on small pieces of code, often functions. An intuitive and informal method of unit testing is to include <code>print()</code> statements in your code.</p>
+<p>Here’s a function to calculate the Simpson Index, a useful diversity index. It gives the probability that two randomly drawn individuals belong to the same species or type:</p>
+<pre class="r"><code>SimpsonIndex &lt;- function(C) {
+  print(paste(c(&quot;Passed species counts:&quot;, C),collapse=&quot; &quot;))
+  fractions &lt;- C/sum(C)
+  print(paste(c(&quot;Fractions:&quot;, fractions), collapse=&quot; &quot;))
+  S &lt;- sum(fractions^2)
+  print(paste(&quot;About to return S =&quot;,S))
+  return(S)
+}
+
+# Simulate some data
+numSpecies &lt;- 10
+maxCount &lt;- 10^3 
+fakeCounts &lt;- floor(runif(numSpecies,min=1,max=maxCount))
+
+# Call function with simulated data
+S &lt;- SimpsonIndex(fakeCounts)</code></pre>
+<pre><code>## [1] &quot;Passed species counts: 994 316 538 558 34 396 774 562 407 912&quot;
+## [1] &quot;Fractions: 0.181023492988527 0.0575487160808596 0.0979785102895647 0.101620834092151 0.00619195046439629 0.0721180112912038 0.14095793116008 0.102349298852668 0.0741212893826261 0.166089965397924&quot;
+## [1] &quot;About to return S = 0.12467164941781&quot;</code></pre>
+<p>It’s very useful to print values to screen when you are writing a function for the first time and testing that one function. When you’ve drafted your function, I recommend walking through the function with <code>print()</code> and comparing the computed values to calculations you perform by hand or some other way. It can also be useful to do this at a very high level (more on that later).</p>
+<p>The problem with relying on <code>print()</code> is that it rapidly provides too much information for you to process, and hence errors can slip through.</p>
 <p><strong><em>Assertions</em></strong></p>
 <p><strong><em>Exceptions</em></strong></p>
-<p><strong>System tests</strong></p>
-<p><strong>Input tests</strong></p>
+<p><strong>Test all scales</strong></p>
 </div>
 <div id="principle-4.-document-often." class="section level3">
 <h3>Principle 4. Document often.</h3>
