@@ -203,13 +203,13 @@ SimpsonIndex <- function(C) {
 If each element of our abundances vector `C` is positive, `stopifnot()` will be `TRUE`, and the program will continue. If any element does not satisfy the criterion, then `FALSE` will be returned, and execution will terminate. Explore for yourself:
 
 ```{r,eval=TRUE}
-# Simulate two sets data
+# Simulate two sets of data
 numSpecies <- 10
 maxCount <- 10^3 
 goodCounts <- floor(runif(numSpecies,min=1,max=maxCount))
 badCounts <- floor(runif(numSpecies,min=-maxCount,max=maxCount))
 
-# Call function with previous simulated data
+# Call function with each data set
 S <- SimpsonIndex(goodCounts)
 S <- SimpsonIndex(badCounts)
 ```
