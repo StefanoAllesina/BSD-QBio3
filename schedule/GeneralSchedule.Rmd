@@ -41,7 +41,7 @@ output:
 **2:30-2:45**         Coffee break                        
 **2:45-4:30**         Basic comp. II                      
 **5:00-6:30**         Dinner                              
-**6:30-7:30**         Welcome – Nishi & Prince            
+**6:15-7:30**         Welcome – Nishi & Prince            
 **7:35-8:10**         Life after PhD a)                    (*M.mulatta M.musculus*)
                       Life after PhD b)                    (*S.aegyptiacus T.roseae*)
                       Navigating first year a)             (*D.rerio X.laevis*)

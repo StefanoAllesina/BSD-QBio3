@@ -27,7 +27,7 @@ output:
 **2:45-5:00**         Check-in (Swope)                                  
 **5:00-6:30**         Dinner (SWC)                                      
 **6:30-7:00**         Team building activities                          
-**7:15-8:30**         Introduction – Allesina and Palmer (LAUD)         
+**7:15-8:30**         Introduction – Allesina and Palmer (Speck)        
 ------------------    --------------------------------------------------
 
 ### Monday, September 11 
@@ -41,7 +41,7 @@ output:
 **2:30-2:45**         Coffee break (LB302)                              
 **2:45-4:30**         Basic comp. II (LBG70) Advanced comp. II (LB263)  
 **5:00-6:30**         Dinner (SWC)                                      
-**6:30-7:30**         Welcome – Nishi & Prince (LBG70)                  
+**6:15-7:30**         Welcome – Nishi & Prince (Speck)                  
 **7:35-8:10**         Navigating first year b) (Loeb 3rd floor)         
 **8:15-8:50**         Life after PhD b) (Loeb 3rd floor)                
 **8:55-9:30**         Publishing primer b) (Loeb 3rd floor)             
@@ -127,6 +127,6 @@ output:
 -------
 
 
-**Rooms** *CH1:* ground floor room in Candle House; *LAUD:* Lillie Auditorium; *LB263:* Loeb 263; *LB302:* Loeb 302; *LB374:* Loeb 374; 
+**Rooms** *CH1:* ground floor room in Candle House; *LB263:* Loeb 263; *LB302:* Loeb 302; *LB374:* Loeb 374; 
 *LBG70:* Loeb lower level, room G70; *Meigs:* Meigs room, Swope Center; *MRC:* Marine Resources Center; *Speck:* Speck Auditorium, Rowe Lab; *SWC:* Swope cafeteria.
   
