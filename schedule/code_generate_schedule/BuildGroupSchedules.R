@@ -89,7 +89,7 @@ output:
   cat("\n-------\n\n")
   
   cat("
-**Rooms** *CH1:* ground floor room in Candle House; *LAUD:* Lillie Auditorium; *LB263:* Loeb 263; *LB302:* Loeb 302; *LB374:* Loeb 374; 
+**Rooms** *CH1:* ground floor room in Candle House; *LB263:* Loeb 263; *LB302:* Loeb 302; *LB374:* Loeb 374; 
 *LBG70:* Loeb lower level, room G70; *Meigs:* Meigs room, Swope Center; *MRC:* Marine Resources Center; *Speck:* Speck Auditorium, Rowe Lab; *SWC:* Swope cafeteria.
   \n")
   sink()
