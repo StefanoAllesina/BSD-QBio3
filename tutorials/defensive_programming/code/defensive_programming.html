@@ -133,7 +133,7 @@ $(document).ready(function () {
 <div id="motivation" class="section level1">
 <h1>Motivation</h1>
 <p>Defensive programming is the practice of anticipating errors in your code and handling them efficiently.</p>
-<p>If you’re new to programming, defensive programming might seem at first like a tedious waste of time. But if you’ve been programming long, you’ve probably experienced firsthand the pain from</p>
+<p>If you’re new to programming, defensive programming might seem tedious at first. But if you’ve been programming long, you’ve probably experienced firsthand the stress from</p>
 <ul>
 <li>inexplicable, strange behavior by the code</li>
 <li>code that seems to work under some conditions but not others</li>
@@ -180,10 +180,10 @@ $(document).ready(function () {
 <li>If the birth and death rates are zero, <code>N</code> should not change</li>
 <li>If the birth rate equals the death rate, on average, <code>N</code> should not change when it is large</li>
 <li>The ratio of births to deaths should equal the ratio of the birth rate to the death rate, on average</li>
-<li>The population should, on average, grow exponentially at rate <code>b-d</code></li>
+<li>The population should, on average, increase exponentially at rate <code>b-d</code> (or decrease exponentially if <code>d&gt;b</code>)</li>
 </ul>
-<p>Some of these criteria arise from common sense or assumptions we want to build into the model (for instance, that the birth and death rates aren’t negative), and others we know from the mathematics of the system. For instance, the population cannot change if there are no births and deaths, and it must increase on average if the birth rate exceeds the death rate. It helps that the Gillespie algorithm represents kinetics that can be written as simple differential equations. However, because the simulations are stochastic, we need to look at many realizations (randomizations, trajectories) to ensure there aren’t consistent biases. We can use statistics to confirm, for instance, that the distribution of <code>N</code> in 10,000 simulations after 100 time units is not significantly different from what we would predict mathematically.</p>
-<p>The bottom line is that we have identified some tests for the (1) inputs, (2) intermediate variable states (like <code>N</code>), (3) final outputs to test that the program is running correctly. Note that one of our tests, the fraction of birth to death events, is not something we were originally tracking, and thus we might decide now to create a separate function and variables to handle these quantities. We will talk in more detail about how to implement these tests in <a href="#pr3">Principle 3</a>. Generally, tests of specific functions are known as <strong>unit tests</strong>, and tests of aggregate behavior (like the trajectories of 10,000 simulations) are known as <strong>system tests</strong>. As a general principle, we need to have both, and we need as much as possible to compare their outputs to analytic expectations. It is also very useful to identify what you want to see right away. For instance, you may want to write a function to plot the population size over time <em>before</em> you code anything else because the visual feedback can be extremely helpful.</p>
+<p>Some of these criteria arise from common sense or assumptions we want to build into the model (for instance, that the birth and death rates aren’t negative), and others we know from the mathematics of the system. For instance, the population cannot change if there are no births and deaths, and it must increase on average if the birth rate exceeds the death rate. It helps that the Gillespie algorithm represents kinetics that can be written as simple differential equations. However, because the simulations are stochastic, we need to look at many realizations (randomizations, trajectories) to ensure there aren’t consistent biases. We must use statistics to confirm that the distribution of <code>N</code> in 10,000 simulations after 100 time units is not significantly different from what we would predict mathematically.</p>
+<p>The bottom line is that we have identified some tests for the (1) inputs, (2) intermediate variable states (like <code>N</code>), (3) final outputs to test that the program is running correctly. Note that one of our tests, the fraction of birth to death events, is not something we were originally tracking, and thus we might decide now to create a separate function and variables to handle these quantities. We will talk in more detail about how to implement these tests in <a href="#pr3">Principle 3</a>. Generally, tests of specific functions are known as <strong>unit tests</strong>, and tests of aggregate behavior (like the trajectories of 10,000 simulations) are known as <strong>system tests</strong>. As a general principle, we need to have both, and we need as much as possible to compare their outputs to analytic expectations. It is also very useful to identify what you want to see right away. For instance, you may want to write a function to plot the population size over time <em>before</em> you code anything else because having immediate visual feedback can be extremely helpful.</p>
 <blockquote>
 <p>“Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a <em>computer</em> what to do, let us concentrate rather on explaining to <em>human beings</em> what we want a computer to do.” -Donald Knuth</p>
 </blockquote>
@@ -196,7 +196,7 @@ $(document).ready(function () {
 <div id="principle-2.-write-clearly-and-cautiously." class="section level3">
 <h3>Principle 2. Write clearly and cautiously.</h3>
 <p>You’re already on your way to writing clearly and cautiously if you outline your program before you start writing it. Here we’ll discuss some practices to follow as you write.</p>
-<p>A general rule is that it is more important for scientific code to be readable than it is for it to be fast. Do not obsess too much about efficiency when writing.</p>
+<p>A general rule is that it is more important for scientific code to be readable and correct than it is for it to be fast. Do not obsess too much about the efficiency of the code when writing.</p>
 <blockquote>
 <p>“Premature optimization is the root of all evil.” -Donald Knuth</p>
 </blockquote>
@@ -209,7 +209,7 @@ $(document).ready(function () {
 <pre class="r"><code>while ((age &gt;= AgeStartSchool) &amp;&amp; (inSchool == TRUE)) {
   yearsInSchool = yearsInSchool + 1
 }</code></pre>
-<p>Most of the time, the only numbers that should be hard-coded are 0 and 1.</p>
+<p>Most of the time, the only numbers that should be hard-coded are 0, 1, and pi.</p>
 <p><strong>Use labels for column and row names, and load functions by argument.</strong></p>
 <p>Don’t force (or trust) yourself to remember that the first column of your data frame contains the time, the second column contains the counts, and so on. When reviewing code later, it’s harder to interpret <code>cellCounts[,1]</code> than <code>cellCounts$time</code>.</p>
 <p>In the same vein, if you have a function taking multiple inputs, it is safest to pass them in with named arguments. For instance, the function</p>
@@ -227,26 +227,61 @@ BirthdayGiftSuggestion(30,20)</code></pre>
 <h3>Principle 3. Develop one function at a time, and test it before writing another.</h3>
 <p>The first part of this principle is easy for scientists to understand. When building code, we want to change one thing at a time. It makes it easier to understand what’s going on. Thus, we start by writing just a single function. It might not do exactly what we want it to do in the final program (e.g., it might contain mostly placeholders for functions it calls that we haven’t written yet), but we want to be intimately familiar with how our code works in every stage of development.</p>
 <p>The second part of this principle underscores one of the most important rules in defensive programming: <strong>do not believe anything works until you have tested it thoroughly, and then keep your guard up.</strong> <em>Expect</em> your code to contain bugs, and leave yourself time to play with the code (e.g., by trying to “break” it) until you can convince yourself they are gone. This involves an extra layer of defensive programming beyond the straightforward good practices discussed in Principle 2. Testing the code as you build it makes it much faster to find problems.</p>
-<p><strong>Assertions</strong></p>
-<p><strong>Exceptions</strong></p>
-<p><strong><code>Stopifnot</code></strong></p>
-<p><strong>Unit tests</strong></p>
-<p><strong>System tests</strong></p>
-<p><strong>Input tests</strong></p>
+<p><strong>Unit tests</strong> Unit tests are tests on small pieces of code, often functions. An intuitive and informal method of unit testing is to include <code>print()</code> statements in your code.</p>
+<p>Here’s a function to calculate the Simpson Index, a useful diversity index. It gives the probability that two randomly drawn individuals belong to the same species or type:</p>
+<pre class="r"><code>SimpsonIndex &lt;- function(C) {
+  print(paste(c(&quot;Passed species counts:&quot;, C),collapse=&quot; &quot;))
+  fractions &lt;- C/sum(C)
+  print(paste(c(&quot;Fractions:&quot;, fractions), collapse=&quot; &quot;))
+  S &lt;- sum(fractions^2)
+  print(paste(&quot;About to return S =&quot;,S))
+  return(S)
+}
+
+# Simulate some data
+numSpecies &lt;- 10
+maxCount &lt;- 10^3 
+fakeCounts &lt;- floor(runif(numSpecies,min=1,max=maxCount))
+
+# Call function with simulated data
+S &lt;- SimpsonIndex(fakeCounts)</code></pre>
+<pre><code>## [1] &quot;Passed species counts: 994 316 538 558 34 396 774 562 407 912&quot;
+## [1] &quot;Fractions: 0.181023492988527 0.0575487160808596 0.0979785102895647 0.101620834092151 0.00619195046439629 0.0721180112912038 0.14095793116008 0.102349298852668 0.0741212893826261 0.166089965397924&quot;
+## [1] &quot;About to return S = 0.12467164941781&quot;</code></pre>
+<p>It’s very useful to print values to screen when you are writing a function for the first time and testing that one function. When you’ve drafted your function, I recommend walking through the function with <code>print()</code> and comparing the computed values to calculations you perform by hand or some other way. It can also be useful to do this at a very high level (more on that later).</p>
+<p>The problem with relying on <code>print()</code> is that it rapidly provides too much information for you to process, and hence errors can slip through.</p>
+<p><strong><em>Assertions</em></strong></p>
+<p><strong><em>Exceptions</em></strong></p>
+<p><strong>Test all scales</strong></p>
 </div>
 <div id="principle-4.-document-often." class="section level3">
 <h3>Principle 4. Document often.</h3>
+<p>It is helpful to keep a running list of known “<a href="https://guides.github.com/features/issues/">issues</a>” with your code, which would include the functions left to implement, the tests left to run, any strange bugs/behavior, and features that might be nice to add later. Sites like GitHub and Bitbucket allow you to associate issues with your repositories and are thus very helpful for collaborative projects, but use whatever works for you. Having a formal list, however, is much safer than sprinkling to-do comments in your code (e.g., <code># CHECK THIS!!!</code>). It’s easy to miss comments.</p>
+<p>Research code will always need a <code>readme</code> describing the software’s purpose and implementation. It’s easiest to develop it early and update as you go.</p>
 </div>
 <div id="principle-5.-refactor-often." class="section level3">
 <h3>Principle 5. Refactor often.</h3>
-<p>To refactor code is to revise it to make it clearer, safer, or more efficient. Because it involves no changes in the scientific outputs (results) of the program, it might feel pointless, but it’s usually not. Refactor when you realize that your variable and function names no longer reflect their true content or purpose (rename things quickly with <code>Ctrl + Alt + Shift + M</code>), when certain functions are obselete or should be split into two, when another data structure would work dramatically better, etc. Any code that you’ll be working with for more than a week, or that others might ever use, should probably be refactored a few times. Debugging will be easier, and the <a href="https://en.wikipedia.org/wiki/Code_smell">code will smell better</a>.</p>
-<p>Run unit and system tests after refactoring to make sure you haven’t messed anything up.</p>
+<p>To refactor code is to revise it to make it clearer, safer, or more efficient. Because it involves no changes in the scientific outputs (results) of the program, it might feel pointless, but it’s usually not. Refactor when you realize that your variable and function names no longer reflect their true content or purpose (rename things quickly with <code>Ctrl + Alt + Shift + M</code>), when certain functions are obsolete or should be split into two, when another data structure would work dramatically better, etc. Any code that you’ll be working with for more than a week, or that others might ever use, should probably be refactored a few times. Debugging will be easier, and the <a href="https://en.wikipedia.org/wiki/Code_smell">code will smell better</a>.</p>
+<p>**Important <a href="tip:**" class="uri">tip:**</a> Run unit and system tests after refactoring to make sure you haven’t messed anything up. This happens more than you probably think.</p>
 </div>
 <div id="principle-6.-when-you-run-your-code-save-each-experiment-in-a-separate-directory-with-a-complete-copy-of-the-code-repository-and-all-parameters." class="section level3">
 <h3>Principle 6. When you run your code, save each “experiment” in a separate directory with a complete copy of the code repository and all parameters.</h3>
+<p>When you’re done developing the code and are using it for research, keep results organized by creating a separate directory for each execution of the code that includes not only the results but also the precise code used to generate the results. This way, you won’t accidentally associate one set of parameters with results that were in fact generated by another set of parameters. Here’s a sample workflow, assuming your repository is located remotely on GitHub, and you’re in a UNIX terminal:</p>
+<pre><code>$ mkdir 2017-09-15_rho=0.5
+$ cd 2017-09-15_rho=0.5
+$ git clone git@github.com:MyName/my-repo</code></pre>
+<p>If we want, we can edit and execute our code from within <code>R</code> or <code>RStudio</code>, but we can also keep going with the command line. Here we are using a built-in UNIX text editor known as <a href="http://pages.cs.wisc.edu/~deppeler/tutorials/UNIX/emacs/">emacs</a>. If you are a glutton for punishment, you could instead use <a href="https://www.ccsf.edu/Pub/Fac/vi.html">vi(m)</a>.</p>
+<pre><code>$ cd my-repo
+$ emacs parameters.json // (edit parameters, with rho=0.5)
+$ Rscript mycode.R</code></pre>
+<p>Keeping your experiments separate is going to save your sanity for larger projects when you repeatedly revise your analyses. It also makes isolating bugs easier.</p>
 </div>
 <div id="principle-7.-dont-be-too-defensive." class="section level3">
 <h3>Principle 7. Don’t be <em>too</em> defensive.</h3>
+<p>This is not necessary:</p>
+<pre class="r"><code>myNumbers &lt;- seq(from=1,to=500,length.out=20)
+stopifnot(length(myNumbers)==20)</code></pre>
+<p>It’s fine to check stuff like this when you’re getting the hang of a function, but it doesn’t need to be in the code. Code with too many defensive checks becomes a pain to read (and thus debug). Try to find a balance between excess caution and naive optimism. Good luck!</p>
 </div>
 </div>
 <div id="part-2-debugging-in-r" class="section level1">
