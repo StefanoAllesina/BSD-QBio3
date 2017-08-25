@@ -133,7 +133,7 @@ Each data type supports a certain number of operators and functions. For example
 5 %% 3
 ```
 
-meaning that `5 %/% 3` (5 integer divided by three) is 1 with a remainder of 2. The modulo operator is useful to determine whether a number is divisible for another: if $y$ is divisible by $x$, then `y %% x` is 0.
+meaning that `5 %/% 3` (5 integer divided by 3) is 1 with a remainder of 2. The modulo operator is useful to determine whether a number is divisible for another: if $y$ is divisible by $x$, then `y %% x` is 0.
 
 Numeric types also support many built-in functions, such as:
 
@@ -269,7 +269,6 @@ rep(c(1,2,3), 3)
 > - What is the sum of all the elements of `z`?
 > - Is it equal to $51 \cdot 50$?
 > - What is the product of elements 5, 10 and 15 of `z`?
->  - Create a vector `y` that contains all numbers between 0 and 30 that are divisible by 3. Find the five elements of `y` that are also elements of `z`.
 > - Does `seq(2, 100, by = 2)` produce the same vector as `(1:50) * 2`?
 > - What happens if you type `z ^ 2`?
 
@@ -664,14 +663,19 @@ while (my_amount > 0){
 print("I told you this was not a good idea...")
 ```
 
-# Exercises in groups
+# Programming Challenge
+
+## Instructions
+
+You will work with your own group to solve the following exercise. When you have found the solution, go to `https://stefanoallesina.github.io/BSD-QBio3/` and follow the link `Submit solution to challenge 1` to submit your answer (alternatively, you can go directly to [goo.gl/forms/dDJKvF0dOi7KUDqp1](https://goo.gl/forms/dDJKvF0dOi7KUDqp1). At the end of the boot camp, the group with the highest number of correct solutions will be declared the winner. If you need extra time, you can work with your group during free time or in the breaks in the schedule.
+
 ## Nobel nominations
 The file `../data/nobel_nominations.csv` contains the nominations to the Nobel prize from 1901 to 1964. There are three columns (the file has no header): a) the field (e.g. `Phy` for physics), b) the year of the nomination, c) the id and name of the nominee.
 
-- Take your favorite field. Who received most nominations? 
-- Who received nominations in more than one field?
-- Take the field of physics. Which year had the largest number of nominees?
-- What is the average number of nominees for each field? Calculate the average number of nominee for each field across years.
+1. Take Chemistry (`Che`). Who received most nominations? 
+2. Find all the researchers who received nominations in more than one field.
+3. Take Physics (`Phy`). Which year had the largest number of nominees?
+4. What is the average number of nominees for each field? Calculate the average number of nominee for each field across years.
 
 **Hints** 
 
