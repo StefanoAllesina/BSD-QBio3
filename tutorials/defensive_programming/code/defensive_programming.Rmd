@@ -214,7 +214,7 @@ S <- SimpsonIndex(goodCounts)
 S <- SimpsonIndex(badCounts)
 ```
 
-This gives a very literal error message, which is often enough when we are still developing the code. But what if the error might arise in the future, such as mistakes (like `badCounts`) related to input? We can use the built-in function `stop()` to include a more informative message:
+This gives a very literal error message, which is often enough when we are still developing the code. But what if the error might arise in the future, e.g., with future inputs? We can use the built-in function `stop()` to include a more informative message:
 
 ```{r,eval=TRUE}
 SimpsonIndex <- function(C) {
@@ -240,9 +240,9 @@ SimpsonIndex <- function(C) {
 smallCounts <- runif(10)
 S <- SimpsonIndex(smallCounts)
 ```
-The main advantage of `warning()` over `print()` is that the message is red and will not be confused with expected results. 
+The main advantage of `warning()` over `print()` is that the message is red and will not be confused with expected results, and warnings can be controlled (see `?warning`). 
 
-You could make a case that `warning()` should've been a `stop()`. In general, with defensive programming, you want to halt execution quickly to identify bugs and to limit general misuse of the code.
+You could make a case that `warning()` should be `stop()`. In general, with defensive programming, you want to halt execution quickly to identify bugs and to limit misuse of the code.
 
 > **Exercise**
 > 
@@ -267,7 +267,7 @@ results <- UsefulFunction(data)
 print(results)
 ```
 
-Now `results` is just a disaster: it could've at least returned a random number for you, right? You could instead try
+Now `results` is quite a disappointment: it could've at least returned a random number for you, right? You could instead try
 
 ```{r,eval=TRUE}
 UsefulFunction <- function(x){
@@ -279,21 +279,20 @@ UsefulFunction <- function(x){
 results <- UsefulFunction(data)
 print(results)
 ```
-Even though the function still can't exponentiate a string (`exp("2")` still fails), execution doesn't terminate. If we want to suppress the error message, we can use `try(..., silent=TRUE)`.
+Even though the function still can't exponentiate a string (`exp("2")` still fails), execution doesn't terminate. If we want to suppress the error message, we can use `try(..., silent=TRUE)`. This obviously carries some risk!
 
 We could make this function even more useful by handling the error responsibly with `tryCatch()`:
 
-```{r,eval=TRUE}
+```{r,eval=FALSE}
 UsefulFunction <- function(x){
   value <- NA
   tryCatch ({
-      message("First attempt at exp()...");
+      message("First attempt at exp()...")
       value <- exp(x)},
     error = function(err){
-          message("Second attempt, converting to numeric...");
-          value <<- exp(as.numeric(x));
-          return(value)
-    }
+      message(paste("Darn:",err," Will convert to numeric."))
+      value <<- exp(as.numeric(x))
+      }
     )
   otherStuff <- rnorm(1)
   return(list(value,otherStuff))
@@ -301,12 +300,25 @@ UsefulFunction <- function(x){
 results <- UsefulFunction(data)
 print(results)
 ```
-It is also possible to assign additional blocks for warnings (not just errors) that may appear. The `<<-` is a way to assign to the value in the environment one level up (outside the `error=` block).
+It is also possible to assign additional blocks for warnings (not just errors). The `<<-` is a way to assign to the value in the environment one level up (outside the `error=` block). 
 
-**Test all scales**
-It's important to consider multiple scales on which to test as you develop. We've focused on unit tests (testing small functions and steps) and testing inputs, but it is easy to have correct subroutines and incorrect results. For instance, we can go out and buy an excellent present for our partner and wrap it perfectly, and we can write in our calendars the date of his or her birthdy, but it is no good if we forget to give the gift. It is similarly no good if we get the same present many years in a row or fail to update our gift-giving schedule if we get a new partner. You get the picture. 
+> **Exercise**
+> 
+> The new package [`ggjoy`](https://cran.r-project.org/web/packages/ggjoy/vignettes/introduction.html) works with package `ggplot2` to show multiple distributions in a superimposed but interpretable way. Let's say we want to run the following code:
+```{r,eval=FALSE}
+library(ggplot2)
+library(ggjoy)
+ggplot(iris, aes(x = Sepal.Length, y = Species)) + geom_joy()
+```
+> You probably don't have `ggjoy` installed yet, so you'll get an error. Use `tryCatch()` so that the package is installed if you do not have it and then loaded. 
 
-With scientific programming, it is critical to simplify code to the point where results can be compared to analytic expectations. You saw this in Principle 1. It is sensible to add functions to check not only inputs and intermediate results but also larger results. When we set the birth rate equal to the death rate in our Gillespie example, does the code reliably produce a stable population? We can write functions to test for precisely these requirements. These are system tests. When you change something in your code, always rerun your system tests to make sure you've not messed something up. 
+***Test all the scales!***
+
+It's important to consider multiple scales on which to test as you develop. We've focused on unit tests (testing small functions and steps) and testing inputs, but it is easy to have correct subroutines and incorrect results. For instance, we can be excellent at the distinct activities of toasting bread, buttering bread, and eating bread, but we will fail to enjoy buttered toast for breakfast if we don't pay attention to the order.
+
+With scientific programming, it is critical to simplify code to the point where results can be compared to analytic expectations. You saw this in Principle 1. It is important to add functions to check not only inputs and intermediate results but also larger results. For instance, when we set the birth rate equal to the death rate, does the code reliably produce a stable population? We can write functions to test for precisely such requirements. These are **system tests**. When you change something in your code, always rerun your system tests to make sure you've not messed something up. 
+
+It's hard to overstate the importance of taking a step back from the nitty-gritty of programming and asking, Are these results reasonable? Does the output make sense with different sets of extreme values? Schedule time to do this, and update your system tests when necessary.
 
 ### Principle 4. Document often.
 
@@ -318,7 +330,7 @@ Research code will always need a `readme` describing the software's purpose and 
 
 To refactor code is to revise it to make it clearer, safer, or more efficient. Because it involves no changes in the scientific outputs (results) of the program, it might feel pointless, but it's usually not. Refactor when you realize that your variable and function names no longer reflect their true content or purpose (rename things quickly with `Ctrl + Alt + Shift + M`), when certain functions are obsolete or should be split into two, when another data structure would work dramatically better, etc. Any code that you'll be working with for more than a week, or that others might ever use, should probably be refactored a few times. Debugging will be easier, and the [code will smell better](https://en.wikipedia.org/wiki/Code_smell).
 
-**Important tip**: Run unit and system tests after refactoring to make sure you haven't messed anything up. This happens more than you probably think.
+**Important tip, repeated**: Run unit and system tests after refactoring to make sure you haven't messed anything up. This happens more than you might think.
 
 ### Principle 6. When you run your code, save each "experiment" in a separate directory with a complete copy of the code repository and all parameters.
 
@@ -352,8 +364,68 @@ It's fine to check stuff like this when you're getting the hang of a function, b
 
 # Part 2: Debugging in R
 
-Test one thing at a time
-Make it repeatable
-Use assertions to narrow down
+Part 1 introduced principles that should minimize the need for aggressive debugging. You're in fact already debugging if you're regularly using input, unit, and system tests to make sure things are running properly. But what happens when despite your best efforts, you're not getting the right result?
+
+We'll focus on more advanced debugging tools in this part. First, some general guidelines for fixing a bug:
+* *Isolate the error and make it reproducible.* Try to strip the error down to its essential parts so you can reliably reproduce the bug. If a function doesn't work, copy the code, and keep removing pieces that are non-essential for reproducing the error. When you post for help on the website [stackoverflow](https://stackoverflow.com), for instance, people will ask for a MRE or MWE---a [minimum reproducible (working) example](https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example). You need to have not only the pared code but also the inputs (parameter values and the seeds of any random number generators) that cause the problem. 
+* *Use assertions and debugging tools to hone in on the problem.* We've already seen how to use `stop()` and `stopifnot()` to identify logic errors in unit tests. We'll cover more advanced debugging here.
+* *Change/Test one thing at a time.* This is why we develop only one function at a time.
+
+### Tracing calls ###
+
+If an error appears, a useful technique is to see the [call stack](https://en.wikipedia.org/wiki/Call_stack), the sequence of functions immediately preceding the error. We can do this in R using `trackback()` or in RStudio.
+
+The following example comes from a nice [tutorial](http://adv-r.had.co.nz/Exceptions-Debugging.html) by Hadley Wickham:
+
+```{r,eval=FALSE}
+f <- function(a) g(a)
+g <- function(b) h(b)
+h <- function(c) i(c)
+i <- function(d) "a" + d
+f(10)
+```
+
+You can see right away that running this code will create an error. Try it anyway in RStudio. Click on the "Show Traceback" to the right of the error message. What you're seeing is the stack, and it's helpfully numbered. At the bottom we have the most recent (proximate) call that produced the error, the preceding call above it, and so on. (If you're working from a separate R file that you sourced for this project, you'll also see the corresponding line numbers next to each item in the stack.) If you're in R, you can run `traceback()` immediately after the error.
+
+Seeing the stack is useful for checking that the correct functions were indeed called, but it can suggest how to trace the error back in a logical sequence. But we can often debug faster with more information from RStudio's debugger.
+
+### Examining the environment ###
+
+Let's pretend we have a group of people who need to be assigned random partners. These partnerships are directed (so person A may consider his partner person B, but B's partner is person F), and we'll allow the possibility of people partnering with themselves. Some code for this is in the file `BugFun.R`. (It's not terribly efficient code, but it is useful for this exercise.)
+
+```{r,eval=FALSE}
+source("BugFun.R")
+peopleIDs <- seq(1:10)
+pairings <- AssignRandomPartners(peopleIDs)
+```
+Try running this a few times. We have an inconsistent bug.
+
+We can use breakpoints to quickly examine what's happening at different points in the function. With breakpoints, execution stops on that line, and environmental states can be inspected. In RStudio, you can create breakpoints by clicking to the left of the line number in the `.R` file. A red dot appears. You can then examine the contents of different variables in debug mode. To do this, you have to make sure you have the right setting defined: Debug > On Error > Break in Code.
+
+> **Exercise**
+>
+> Use breakpoints to identify the error(s) in the AssignRandomPartners() function. Go to `BugFun.R` and attempt to run the last line. Decide on a place to start examining the code. If you have adjusted your settings, the debug mode should start automatically once you define a breakpoint and try to run the code again. (If a message to source the file appears, follow it.) Your console should now have `Browse[1]>` where it previously had only `>`. 
+>
+> The IDE is now giving you lots of information. The green arrow shows you where you are in the code. The line that is about to be executed is in yellow. Anything you execute in the console shows states from your current environment. Test this for yourself by typing a few variables in the console. You can see these values in the Environment pane in the upper right, and you can also see the stack in the middle right.
+>
+> If you hit enter at the console, it will advance you to the next step of the code. But it is good to explore the Console buttons (especially 'Next') to work through the code and watch the Environment (data and values) and Traceback as they change. By calling the function several times, you should be able to convince yourself of the cause of the error. 
+> 
+> Much more detail about browsing in debugging mode is available at [here](https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio#using-the-debugger).
+>
+> When you are done, exit the debug mode by hitting the Stop button in the Console. 
+
+In R, you can insert the function `browser()` on some line of the code to enter debugging mode. This is also what you have to use if you want to debug directly in R Markdown.
 
 # Challenge
+
+Avian influenza cases in humans generally arise from two viral subtypes, H5N1 and H7N9. An interesting observation is that the age distributions for H5N1 and H7N9 cases differ: older people are more likely to die from H7N9, and younger people from H5N1. There's no evidence for age-related differences in exposure. A [recent paper](http://science.sciencemag.org/content/354/6313/722/tab-figures-data) showed that the risk of severe infection with avian influenza from 1997-2015 could be well explained by a simple model that correlated infection risk with the subtype of seasonal (non-avian) influenza a person was first exposed to in childhood. Different subtypes (H1N1, H2N2, and H3N2) have circulated in different years. H1N1 and H2N2 were the only strains before 1968, and H3N2 has circulated since 1968. In 1977, H1N1 reappeared and circulated with H3N2. Perhaps because H3N2 is closely related to H7N9, people with primary H3N2 infections seem protected from severe infections with H7N9. The complement is true for people first infected to H1N1 and H2N2 and later exposed to H5N1.   
+
+Of course, we do not know the infection history of any person who died from avian influenza. We only know the person's age and year of death. To perform their analysis, the authors needed to calculate the probability that each case had a primary infection with each subtype, i.e., the probability that a person born in a given year was first infected with each subtype. Your challenge is to calculate these probabilities.
+
+The authors had to make some assumptions. First, they assumed that the risk of influenza infection is 20% in each year of life. Second, they assumed that the frequency of each circulating subtype could be inferred from the numbers of isolates sampled (primarily in hospitals) each year. These counts are given in `subtype_counts.csv`. [1]
+
+**The challenge: For every year between 1960 and 1996, calculate the probability that a person born in that year had primary infection with H1N1, H2N2, and H3N2. You must program defensively to pull this off.**
+
+[1] The counts are actually given for each influenza season in the U.S., which is slightly different from a calendar year, but you can ignore this. You'll notice that "1" and "0" are used where we know (or will assume) that only one subtype was circulating. The authors made several other assumptions, but this is good enough for now.
+
+

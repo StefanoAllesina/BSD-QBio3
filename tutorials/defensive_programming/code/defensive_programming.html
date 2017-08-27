@@ -245,9 +245,9 @@ fakeCounts &lt;- floor(runif(numSpecies,min=1,max=maxCount))
 
 # Call function with simulated data
 S &lt;- SimpsonIndex(fakeCounts)</code></pre>
-<pre><code>## [1] &quot;Passed species counts: 756 611 307 43 788 200 531 825 860 802&quot;
-## [1] &quot;Fractions: 0.13209854971169 0.106762187663813 0.0536431941289533 0.00751354184868076 0.137690022715359 0.0349467062729338 0.0927835051546392 0.144155163375852 0.150270836973615 0.140136292154464&quot;
-## [1] &quot;About to return S = 0.123571046553098&quot;</code></pre>
+<pre><code>## [1] &quot;Passed species counts: 167 678 138 729 931 216 634 343 60 969&quot;
+## [1] &quot;Fractions: 0.0343268242548818 0.139362795477903 0.028365878725591 0.149845837615622 0.19136690647482 0.044398766700925 0.130318602261048 0.0705035971223022 0.0123329907502569 0.19917780061665&quot;
+## [1] &quot;About to return S = 0.144228855353538&quot;</code></pre>
 <p>It’s very useful to print values to screen when you are writing a function for the first time and testing that one function. When you’ve drafted your function, I recommend walking through the function with <code>print()</code> and comparing the computed values to calculations you perform by hand or some other way. It can also be useful to do this at a very high level (more on that later).</p>
 <p>The problem with relying on <code>print()</code> is that it rapidly provides too much information for you to process, and hence errors can slip through.</p>
 <p><strong><em>Assertions</em></strong></p>
@@ -269,7 +269,7 @@ badCounts &lt;- floor(runif(numSpecies,min=-maxCount,max=maxCount))
 # Call function with each data set
 S &lt;- SimpsonIndex(goodCounts)
 S &lt;- SimpsonIndex(badCounts)</code></pre>
-<p>This gives a very literal error message, which is often enough when we are still developing the code. But what if the error might arise in the future, such as mistakes (like <code>badCounts</code>) related to input? We can use the built-in function <code>stop()</code> to include a more informative message:</p>
+<p>This gives a very literal error message, which is often enough when we are still developing the code. But what if the error might arise in the future, e.g., with future inputs? We can use the built-in function <code>stop()</code> to include a more informative message:</p>
 <pre class="r"><code>SimpsonIndex &lt;- function(C) {
   if(any(C&lt;0)) stop(&quot;Species fractions should be positive.&quot;)
   fractions &lt;- C/sum(C)
@@ -290,15 +290,15 @@ smallCounts &lt;- runif(10)
 S &lt;- SimpsonIndex(smallCounts)</code></pre>
 <pre><code>## Warning in SimpsonIndex(smallCounts): Small sample size. Result will be
 ## biased. Consider corrected index.</code></pre>
-<p>The main advantage of <code>warning()</code> over <code>print()</code> is that the message is red and will not be confused with expected results.</p>
-<p>You could make a case that <code>warning()</code> should’ve been a <code>stop()</code>. In general, with defensive programming, you want to halt execution quickly to identify bugs and to limit general misuse of the code.</p>
+<p>The main advantage of <code>warning()</code> over <code>print()</code> is that the message is red and will not be confused with expected results, and warnings can be controlled (see <code>?warning</code>).</p>
+<p>You could make a case that <code>warning()</code> should be <code>stop()</code>. In general, with defensive programming, you want to halt execution quickly to identify bugs and to limit misuse of the code.</p>
 <blockquote>
 <p><strong>Exercise</strong></p>
 <p>What other input checks would make sense with <code>SimpsonIndex()</code>? You can see how the code would be more readable and organized if most of that function were dedicated to actually calculating the Simpson Index. Draft a separate function, <code>CheckInputs()</code>, and include all tests you think are reasonable. When you and a neighbor are done, propose a bad or dubious input for their function and see if it’s caught.</p>
 </blockquote>
 <p>There are many packages that produce more useful assertions and error messages than what is built into <code>R</code>. See, e.g., <a href="https://cran.r-project.org/web/packages/assertthat/index.html"><code>assertthat</code></a> and <a href="https://cran.r-project.org/web/packages/testit/testit.pdf"><code>testit</code></a>.</p>
 <p><strong><em>Exception handling</em></strong></p>
-<p>Warnings and errors are considered “exceptions.” Sometimes it is useful to have an automated method to handle them. <code>R</code> has two main functions for this: <code>try()</code> allows you to continue executing a function after an error, and <code>trycatch()</code> allows you to decide how to handle the exception.</p>
+<p>Warnings and errors are considered “exceptions.” Sometimes it is useful to have an automated method to handle them. <code>R</code> has two main functions for this: <code>try()</code> allows you to continue executing a function after an error, and <code>tryCatch()</code> allows you to decide how to handle the exception.</p>
 <p>Here’s an example:</p>
 <pre class="r"><code>UsefulFunction &lt;- function(x) {
   value &lt;- exp(x)
@@ -309,7 +309,7 @@ S &lt;- SimpsonIndex(smallCounts)</code></pre>
 data &lt;- &quot;2&quot;
 results &lt;- UsefulFunction(data)
 print(results)</code></pre>
-<p>Now <code>results</code> is just a disaster: it could’ve at least returned a random number for you, right? You could instead try</p>
+<p>Now <code>results</code> is quite a disappointment: it could’ve at least returned a random number for you, right? You could instead try</p>
 <pre class="r"><code>UsefulFunction &lt;- function(x){
   value &lt;- NA
   try(value &lt;- exp(x))
@@ -322,23 +322,39 @@ print(results)</code></pre>
 ## [1] NA
 ## 
 ## [[2]]
-## [1] 0.09053843</code></pre>
-<p>Even though the function still can’t exponentiate a string (<code>exp(&quot;2&quot;)</code> still fails), execution doesn’t terminate. If we want to suppress the error message, we can use <code>try(..., silent=TRUE)</code>.</p>
-<p>We could make this function even more useful by handling the error responsibly:</p>
+## [1] -0.5463838</code></pre>
+<p>Even though the function still can’t exponentiate a string (<code>exp(&quot;2&quot;)</code> still fails), execution doesn’t terminate. If we want to suppress the error message, we can use <code>try(..., silent=TRUE)</code>. This obviously carries some risk!</p>
+<p>We could make this function even more useful by handling the error responsibly with <code>tryCatch()</code>:</p>
 <pre class="r"><code>UsefulFunction &lt;- function(x){
   value &lt;- NA
-  try(value &lt;- exp(x))
+  tryCatch ({
+      message(&quot;First attempt at exp()...&quot;)
+      value &lt;- exp(x)},
+    error = function(err){
+      message(paste(&quot;Darn:&quot;,err,&quot; Will convert to numeric.&quot;))
+      value &lt;&lt;- exp(as.numeric(x))
+      }
+    )
   otherStuff &lt;- rnorm(1)
   return(list(value,otherStuff))
 }
 results &lt;- UsefulFunction(data)
 print(results)</code></pre>
-<pre><code>## [[1]]
-## [1] NA
-## 
-## [[2]]
-## [1] -1.494117</code></pre>
-<p><strong>Test all scales</strong></p>
+<p>It is also possible to assign additional blocks for warnings (not just errors). The <code>&lt;&lt;-</code> is a way to assign to the value in the environment one level up (outside the <code>error=</code> block).</p>
+<blockquote>
+<p><strong>Exercise</strong></p>
+<p>The new package <a href="https://cran.r-project.org/web/packages/ggjoy/vignettes/introduction.html"><code>ggjoy</code></a> works with package <code>ggplot2</code> to show multiple distributions in a superimposed but interpretable way. Let’s say we want to run the following code:</p>
+</blockquote>
+<pre class="r"><code>library(ggplot2)
+library(ggjoy)
+ggplot(iris, aes(x = Sepal.Length, y = Species)) + geom_joy()</code></pre>
+<blockquote>
+<p>You probably don’t have <code>ggjoy</code> installed yet, so you’ll get an error. Use <code>tryCatch()</code> so that the package is installed if you do not have it and then loaded.</p>
+</blockquote>
+<p><strong><em>Test all the scales!</em></strong></p>
+<p>It’s important to consider multiple scales on which to test as you develop. We’ve focused on unit tests (testing small functions and steps) and testing inputs, but it is easy to have correct subroutines and incorrect results. For instance, we can be excellent at the distinct activities of toasting bread, buttering bread, and eating bread, but we will fail to enjoy buttered toast for breakfast if we don’t pay attention to the order.</p>
+<p>With scientific programming, it is critical to simplify code to the point where results can be compared to analytic expectations. You saw this in Principle 1. It is important to add functions to check not only inputs and intermediate results but also larger results. For instance, when we set the birth rate equal to the death rate, does the code reliably produce a stable population? We can write functions to test for precisely such requirements. These are <strong>system tests</strong>. When you change something in your code, always rerun your system tests to make sure you’ve not messed something up.</p>
+<p>It’s hard to overstate the importance of taking a step back from the nitty-gritty of programming and asking, Are these results reasonable? Does the output make sense with different sets of extreme values? Schedule time to do this, and update your system tests when necessary.</p>
 </div>
 <div id="principle-4.-document-often." class="section level3">
 <h3>Principle 4. Document often.</h3>
@@ -348,7 +364,7 @@ print(results)</code></pre>
 <div id="principle-5.-refactor-often." class="section level3">
 <h3>Principle 5. Refactor often.</h3>
 <p>To refactor code is to revise it to make it clearer, safer, or more efficient. Because it involves no changes in the scientific outputs (results) of the program, it might feel pointless, but it’s usually not. Refactor when you realize that your variable and function names no longer reflect their true content or purpose (rename things quickly with <code>Ctrl + Alt + Shift + M</code>), when certain functions are obsolete or should be split into two, when another data structure would work dramatically better, etc. Any code that you’ll be working with for more than a week, or that others might ever use, should probably be refactored a few times. Debugging will be easier, and the <a href="https://en.wikipedia.org/wiki/Code_smell">code will smell better</a>.</p>
-<p><strong>Important tip</strong>: Run unit and system tests after refactoring to make sure you haven’t messed anything up. This happens more than you probably think.</p>
+<p><strong>Important tip, repeated</strong>: Run unit and system tests after refactoring to make sure you haven’t messed anything up. This happens more than you might think.</p>
 </div>
 <div id="principle-6.-when-you-run-your-code-save-each-experiment-in-a-separate-directory-with-a-complete-copy-of-the-code-repository-and-all-parameters." class="section level3">
 <h3>Principle 6. When you run your code, save each “experiment” in a separate directory with a complete copy of the code repository and all parameters.</h3>
@@ -372,10 +388,46 @@ stopifnot(length(myNumbers)==20)</code></pre>
 </div>
 <div id="part-2-debugging-in-r" class="section level1">
 <h1>Part 2: Debugging in R</h1>
-<p>Test one thing at a time Make it repeatable Use assertions to narrow down</p>
+<p>Part 1 introduced principles that should minimize the need for aggressive debugging. You’re in fact already debugging if you’re regularly using input, unit, and system tests to make sure things are running properly. But what happens when despite your best efforts, you’re not getting the right result?</p>
+<p>We’ll focus on more advanced debugging tools in this part. First, some general guidelines for fixing a bug: * <em>Isolate the error and make it reproducible.</em> Try to strip the error down to its essential parts so you can reliably reproduce the bug. If a function doesn’t work, copy the code, and keep removing pieces that are non-essential for reproducing the error. When you post for help on the website <a href="https://stackoverflow.com">stackoverflow</a>, for instance, people will ask for a MRE or MWE—a <a href="https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example">minimum reproducible (working) example</a>. You need to have not only the pared code but also the inputs (parameter values and the seeds of any random number generators) that cause the problem. * <em>Use assertions and debugging tools to hone in on the problem.</em> We’ve already seen how to use <code>stop()</code> and <code>stopifnot()</code> to identify logic errors in unit tests. We’ll cover more advanced debugging here. * <em>Change/Test one thing at a time.</em> This is why we develop only one function at a time.</p>
+<div id="tracing-calls" class="section level3">
+<h3>Tracing calls</h3>
+<p>If an error appears, a useful technique is to see the <a href="https://en.wikipedia.org/wiki/Call_stack">call stack</a>, the sequence of functions immediately preceding the error. We can do this in R using <code>trackback()</code> or in RStudio.</p>
+<p>The following example comes from a nice <a href="http://adv-r.had.co.nz/Exceptions-Debugging.html">tutorial</a> by Hadley Wickham:</p>
+<pre class="r"><code>f &lt;- function(a) g(a)
+g &lt;- function(b) h(b)
+h &lt;- function(c) i(c)
+i &lt;- function(d) &quot;a&quot; + d
+f(10)</code></pre>
+<p>You can see right away that running this code will create an error. Try it anyway in RStudio. Click on the “Show Traceback” to the right of the error message. What you’re seeing is the stack, and it’s helpfully numbered. At the bottom we have the most recent (proximate) call that produced the error, the preceding call above it, and so on. (If you’re working from a separate R file that you sourced for this project, you’ll also see the corresponding line numbers next to each item in the stack.) If you’re in R, you can run <code>traceback()</code> immediately after the error.</p>
+<p>Seeing the stack is useful for checking that the correct functions were indeed called, but it can suggest how to trace the error back in a logical sequence. But we can often debug faster with more information from RStudio’s debugger.</p>
+</div>
+<div id="examining-the-environment" class="section level3">
+<h3>Examining the environment</h3>
+<p>Let’s pretend we have a group of people who need to be assigned random partners. These partnerships are directed (so person A may consider his partner person B, but B’s partner is person F), and we’ll allow the possibility of people partnering with themselves. Some code for this is in the file <code>BugFun.R</code>. (It’s not terribly efficient code, but it is useful for this exercise.)</p>
+<pre class="r"><code>source(&quot;BugFun.R&quot;)
+peopleIDs &lt;- seq(1:10)
+pairings &lt;- AssignRandomPartners(peopleIDs)</code></pre>
+<p>Try running this a few times. We have an inconsistent bug.</p>
+<p>We can use breakpoints to quickly examine what’s happening at different points in the function. With breakpoints, execution stops on that line, and environmental states can be inspected. In RStudio, you can create breakpoints by clicking to the left of the line number in the <code>.R</code> file. A red dot appears. You can then examine the contents of different variables in debug mode. To do this, you have to make sure you have the right setting defined: Debug &gt; On Error &gt; Break in Code.</p>
+<blockquote>
+<p><strong>Exercise</strong></p>
+<p>Use breakpoints to identify the error(s) in the AssignRandomPartners() function. Go to <code>BugFun.R</code> and attempt to run the last line. Decide on a place to start examining the code. If you have adjusted your settings, the debug mode should start automatically once you define a breakpoint and try to run the code again. (If a message to source the file appears, follow it.) Your console should now have <code>Browse[1]&gt;</code> where it previously had only <code>&gt;</code>.</p>
+<p>The IDE is now giving you lots of information. The green arrow shows you where you are in the code. The line that is about to be executed is in yellow. Anything you execute in the console shows states from your current environment. Test this for yourself by typing a few variables in the console. You can see these values in the Environment pane in the upper right, and you can also see the stack in the middle right.</p>
+<p>If you hit enter at the console, it will advance you to the next step of the code. But it is good to explore the Console buttons (especially ‘Next’) to work through the code and watch the Environment (data and values) and Traceback as they change. By calling the function several times, you should be able to convince yourself of the cause of the error.</p>
+<p>Much more detail about browsing in debugging mode is available at <a href="https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio#using-the-debugger">here</a>.</p>
+<p>When you are done, exit the debug mode by hitting the Stop button in the Console.</p>
+</blockquote>
+<p>In R, you can insert the function <code>browser()</code> on some line of the code to enter debugging mode. This is also what you have to use if you want to debug directly in R Markdown.</p>
+</div>
 </div>
 <div id="challenge" class="section level1">
 <h1>Challenge</h1>
+<p>Avian influenza cases in humans generally arise from two viral subtypes, H5N1 and H7N9. An interesting observation is that the age distributions for H5N1 and H7N9 cases differ: older people are more likely to die from H7N9, and younger people from H5N1. There’s no evidence for age-related differences in exposure. A <a href="http://science.sciencemag.org/content/354/6313/722/tab-figures-data">recent paper</a> showed that the risk of severe infection with avian influenza from 1997-2015 could be well explained by a simple model that correlated infection risk with the subtype of seasonal (non-avian) influenza a person was first exposed to in childhood. Different subtypes (H1N1, H2N2, and H3N2) have circulated in different years. H1N1 and H2N2 were the only strains before 1968, and H3N2 has circulated since 1968. In 1977, H1N1 reappeared and circulated with H3N2. Perhaps because H3N2 is closely related to H7N9, people with primary H3N2 infections seem protected from severe infections with H7N9. The complement is true for people first infected to H1N1 and H2N2 and later exposed to H5N1.</p>
+<p>Of course, we do not know the infection history of any person who died from avian influenza. We only know the person’s age and year of death. To perform their analysis, the authors needed to calculate the probability that each case had a primary infection with each subtype, i.e., the probability that a person born in a given year was first infected with each subtype. Your challenge is to calculate these probabilities.</p>
+<p>The authors had to make some assumptions. First, they assumed that the risk of influenza infection is 20% in each year of life. Second, they assumed that the frequency of each circulating subtype could be inferred from the fraction of isolates sampled (primarily in hospitals) each year. These data are given in <code>subtype_fractions.csv</code> for each year [1].</p>
+<p>For every year between 1960 and 1996, calculate the probability that a person born in that year had primary infection with H1N1, H2N2, and H3N2.</p>
+<p>[1] They are actually given for each influenza season in the U.S., which is slightly different, and the authors made several other assumptions, but this is good enough for now.</p>
 </div>
 
 
