@@ -227,7 +227,7 @@ BirthdayGiftSuggestion(30,20)</code></pre>
 <h3>Principle 3. Develop one function at a time, and test it before writing another.</h3>
 <p>The first part of this principle is easy for scientists to understand. When building code, we want to change one thing at a time. It makes it easier to understand what’s going on. Thus, we start by writing just a single function. It might not do exactly what we want it to do in the final program (e.g., it might contain mostly placeholders for functions it calls that we haven’t written yet), but we want to be intimately familiar with how our code works in every stage of development.</p>
 <p>The second part of this principle underscores one of the most important rules in defensive programming: <strong>do not believe anything works until you have tested it thoroughly, and then keep your guard up.</strong> <em>Expect</em> your code to contain bugs, and leave yourself time to play with the code (e.g., by trying to “break” it) until you can convince yourself they are gone. This involves an extra layer of defensive programming beyond the straightforward good practices discussed in Principle 2. Testing the code as you build it makes it much faster to find problems.</p>
-<p><strong>Unit tests</strong> Unit tests are tests on small pieces of code, often functions. An intuitive and informal method of unit testing is to include <code>print()</code> statements in your code.</p>
+<p><strong>Unit tests.</strong> Unit tests are tests on small pieces of code, often functions. An intuitive and informal method of unit testing is to include <code>print()</code> statements in your code.</p>
 <p>Here’s a function to calculate the Simpson Index, a useful diversity index. It gives the probability that two randomly drawn individuals belong to the same species or type:</p>
 <pre class="r"><code>SimpsonIndex &lt;- function(C) {
   print(paste(c(&quot;Passed species counts:&quot;, C),collapse=&quot; &quot;))
@@ -245,13 +245,99 @@ fakeCounts &lt;- floor(runif(numSpecies,min=1,max=maxCount))
 
 # Call function with simulated data
 S &lt;- SimpsonIndex(fakeCounts)</code></pre>
-<pre><code>## [1] &quot;Passed species counts: 994 316 538 558 34 396 774 562 407 912&quot;
-## [1] &quot;Fractions: 0.181023492988527 0.0575487160808596 0.0979785102895647 0.101620834092151 0.00619195046439629 0.0721180112912038 0.14095793116008 0.102349298852668 0.0741212893826261 0.166089965397924&quot;
-## [1] &quot;About to return S = 0.12467164941781&quot;</code></pre>
+<pre><code>## [1] &quot;Passed species counts: 756 611 307 43 788 200 531 825 860 802&quot;
+## [1] &quot;Fractions: 0.13209854971169 0.106762187663813 0.0536431941289533 0.00751354184868076 0.137690022715359 0.0349467062729338 0.0927835051546392 0.144155163375852 0.150270836973615 0.140136292154464&quot;
+## [1] &quot;About to return S = 0.123571046553098&quot;</code></pre>
 <p>It’s very useful to print values to screen when you are writing a function for the first time and testing that one function. When you’ve drafted your function, I recommend walking through the function with <code>print()</code> and comparing the computed values to calculations you perform by hand or some other way. It can also be useful to do this at a very high level (more on that later).</p>
 <p>The problem with relying on <code>print()</code> is that it rapidly provides too much information for you to process, and hence errors can slip through.</p>
 <p><strong><em>Assertions</em></strong></p>
-<p><strong><em>Exceptions</em></strong></p>
+<p>A more reliable way to catch errors is to use assertions. Assertions are automated tests embedded in the code. The built-in function for assertions in <code>R</code> is <code>stopifnot()</code>. It’s very simple to use.</p>
+<p>Let’s remove the <code>print</code> statements and add a check to our input data:</p>
+<pre class="r"><code>SimpsonIndex &lt;- function(C) {
+  stopifnot(C&gt;0)
+  fractions &lt;- C/sum(C)
+  S &lt;- sum(fractions^2)
+  return(S)
+}</code></pre>
+<p>If each element of our abundances vector <code>C</code> is positive, <code>stopifnot()</code> will be <code>TRUE</code>, and the program will continue. If any element does not satisfy the criterion, then <code>FALSE</code> will be returned, and execution will terminate. Explore for yourself:</p>
+<pre class="r"><code># Simulate two sets of data
+numSpecies &lt;- 10
+maxCount &lt;- 10^3 
+goodCounts &lt;- floor(runif(numSpecies,min=1,max=maxCount))
+badCounts &lt;- floor(runif(numSpecies,min=-maxCount,max=maxCount))
+
+# Call function with each data set
+S &lt;- SimpsonIndex(goodCounts)
+S &lt;- SimpsonIndex(badCounts)</code></pre>
+<p>This gives a very literal error message, which is often enough when we are still developing the code. But what if the error might arise in the future, such as mistakes (like <code>badCounts</code>) related to input? We can use the built-in function <code>stop()</code> to include a more informative message:</p>
+<pre class="r"><code>SimpsonIndex &lt;- function(C) {
+  if(any(C&lt;0)) stop(&quot;Species fractions should be positive.&quot;)
+  fractions &lt;- C/sum(C)
+  S &lt;- sum(fractions^2)
+  return(S)
+}</code></pre>
+<p>Now try it with <code>badCounts</code> again.</p>
+<p>What about warnings? For instance, our calculation of the Simpson Index is an approximation: the index formally assumes we draw without replacement, but we compute <span class="math inline">\(S=\sum p^2\)</span>, where <span class="math inline">\(p\)</span> is the fraction of each species. It should be <span class="math inline">\(S=\sum \frac{n(n-1)}{N(N-1)}\)</span>, where <span class="math inline">\(n\)</span> is the abundance of each species <span class="math inline">\(n\)</span> and <span class="math inline">\(N\)</span> the total abundance. This simplification becomes important at small sample sizes. We could add a warning to alert users to this issue:</p>
+<pre class="r"><code>SimpsonIndex &lt;- function(C) {
+  if(any(C&lt;0)) stop(&quot;Species fractions should be positive.&quot;)
+  if((mean(C)&lt;20) || (min(C)&lt;5)) warning(&quot;Small sample size. Result will be biased. Consider corrected index.&quot;)
+  fractions &lt;- C/sum(C)
+  S &lt;- sum(fractions^2)
+  return(S)
+}
+
+smallCounts &lt;- runif(10)
+S &lt;- SimpsonIndex(smallCounts)</code></pre>
+<pre><code>## Warning in SimpsonIndex(smallCounts): Small sample size. Result will be
+## biased. Consider corrected index.</code></pre>
+<p>The main advantage of <code>warning()</code> over <code>print()</code> is that the message is red and will not be confused with expected results.</p>
+<p>You could make a case that <code>warning()</code> should’ve been a <code>stop()</code>. In general, with defensive programming, you want to halt execution quickly to identify bugs and to limit general misuse of the code.</p>
+<blockquote>
+<p><strong>Exercise</strong></p>
+<p>What other input checks would make sense with <code>SimpsonIndex()</code>? You can see how the code would be more readable and organized if most of that function were dedicated to actually calculating the Simpson Index. Draft a separate function, <code>CheckInputs()</code>, and include all tests you think are reasonable. When you and a neighbor are done, propose a bad or dubious input for their function and see if it’s caught.</p>
+</blockquote>
+<p>There are many packages that produce more useful assertions and error messages than what is built into <code>R</code>. See, e.g., <a href="https://cran.r-project.org/web/packages/assertthat/index.html"><code>assertthat</code></a> and <a href="https://cran.r-project.org/web/packages/testit/testit.pdf"><code>testit</code></a>.</p>
+<p><strong><em>Exception handling</em></strong></p>
+<p>Warnings and errors are considered “exceptions.” Sometimes it is useful to have an automated method to handle them. <code>R</code> has two main functions for this: <code>try()</code> allows you to continue executing a function after an error, and <code>trycatch()</code> allows you to decide how to handle the exception.</p>
+<p>Here’s an example:</p>
+<pre class="r"><code>UsefulFunction &lt;- function(x) {
+  value &lt;- exp(x)
+  otherStuff &lt;- rnorm(1)
+  return(list(value,otherStuff))
+}
+
+data &lt;- &quot;2&quot;
+results &lt;- UsefulFunction(data)
+print(results)</code></pre>
+<p>Now <code>results</code> is just a disaster: it could’ve at least returned a random number for you, right? You could instead try</p>
+<pre class="r"><code>UsefulFunction &lt;- function(x){
+  value &lt;- NA
+  try(value &lt;- exp(x))
+  otherStuff &lt;- rnorm(1)
+  return(list(value,otherStuff))
+}
+results &lt;- UsefulFunction(data)
+print(results)</code></pre>
+<pre><code>## [[1]]
+## [1] NA
+## 
+## [[2]]
+## [1] 0.09053843</code></pre>
+<p>Even though the function still can’t exponentiate a string (<code>exp(&quot;2&quot;)</code> still fails), execution doesn’t terminate. If we want to suppress the error message, we can use <code>try(..., silent=TRUE)</code>.</p>
+<p>We could make this function even more useful by handling the error responsibly:</p>
+<pre class="r"><code>UsefulFunction &lt;- function(x){
+  value &lt;- NA
+  try(value &lt;- exp(x))
+  otherStuff &lt;- rnorm(1)
+  return(list(value,otherStuff))
+}
+results &lt;- UsefulFunction(data)
+print(results)</code></pre>
+<pre><code>## [[1]]
+## [1] NA
+## 
+## [[2]]
+## [1] -1.494117</code></pre>
 <p><strong>Test all scales</strong></p>
 </div>
 <div id="principle-4.-document-often." class="section level3">
@@ -262,7 +348,7 @@ S &lt;- SimpsonIndex(fakeCounts)</code></pre>
 <div id="principle-5.-refactor-often." class="section level3">
 <h3>Principle 5. Refactor often.</h3>
 <p>To refactor code is to revise it to make it clearer, safer, or more efficient. Because it involves no changes in the scientific outputs (results) of the program, it might feel pointless, but it’s usually not. Refactor when you realize that your variable and function names no longer reflect their true content or purpose (rename things quickly with <code>Ctrl + Alt + Shift + M</code>), when certain functions are obsolete or should be split into two, when another data structure would work dramatically better, etc. Any code that you’ll be working with for more than a week, or that others might ever use, should probably be refactored a few times. Debugging will be easier, and the <a href="https://en.wikipedia.org/wiki/Code_smell">code will smell better</a>.</p>
-<p>**Important <a href="tip:**" class="uri">tip:**</a> Run unit and system tests after refactoring to make sure you haven’t messed anything up. This happens more than you probably think.</p>
+<p><strong>Important tip</strong>: Run unit and system tests after refactoring to make sure you haven’t messed anything up. This happens more than you probably think.</p>
 </div>
 <div id="principle-6.-when-you-run-your-code-save-each-experiment-in-a-separate-directory-with-a-complete-copy-of-the-code-repository-and-all-parameters." class="section level3">
 <h3>Principle 6. When you run your code, save each “experiment” in a separate directory with a complete copy of the code repository and all parameters.</h3>
@@ -286,6 +372,10 @@ stopifnot(length(myNumbers)==20)</code></pre>
 </div>
 <div id="part-2-debugging-in-r" class="section level1">
 <h1>Part 2: Debugging in R</h1>
+<p>Test one thing at a time Make it repeatable Use assertions to narrow down</p>
+</div>
+<div id="challenge" class="section level1">
+<h1>Challenge</h1>
 </div>
 
 

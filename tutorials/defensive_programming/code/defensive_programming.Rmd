@@ -202,7 +202,7 @@ SimpsonIndex <- function(C) {
 
 If each element of our abundances vector `C` is positive, `stopifnot()` will be `TRUE`, and the program will continue. If any element does not satisfy the criterion, then `FALSE` will be returned, and execution will terminate. Explore for yourself:
 
-```{r,eval=TRUE}
+```{r,eval=FALSE}
 # Simulate two sets of data
 numSpecies <- 10
 maxCount <- 10^3 
@@ -214,10 +214,99 @@ S <- SimpsonIndex(goodCounts)
 S <- SimpsonIndex(badCounts)
 ```
 
+This gives a very literal error message, which is often enough when we are still developing the code. But what if the error might arise in the future, such as mistakes (like `badCounts`) related to input? We can use the built-in function `stop()` to include a more informative message:
 
-***Exceptions***
+```{r,eval=TRUE}
+SimpsonIndex <- function(C) {
+  if(any(C<0)) stop("Species fractions should be positive.")
+  fractions <- C/sum(C)
+  S <- sum(fractions^2)
+  return(S)
+}
+```
+Now try it with `badCounts` again.
+
+What about warnings? For instance, our calculation of the Simpson Index is an approximation: the index formally assumes we draw without replacement, but we compute $S=\sum p^2$, where $p$ is the fraction of each species. It should be $S=\sum \frac{n(n-1)}{N(N-1)}$, where $n$ is the abundance of each species $n$ and $N$ the total abundance. This simplification becomes important at small sample sizes. We could add a warning to alert users to this issue:
+
+```{r,eval=TRUE}
+SimpsonIndex <- function(C) {
+  if(any(C<0)) stop("Species fractions should be positive.")
+  if((mean(C)<20) || (min(C)<5)) warning("Small sample size. Result will be biased. Consider corrected index.")
+  fractions <- C/sum(C)
+  S <- sum(fractions^2)
+  return(S)
+}
+
+smallCounts <- runif(10)
+S <- SimpsonIndex(smallCounts)
+```
+The main advantage of `warning()` over `print()` is that the message is red and will not be confused with expected results. 
+
+You could make a case that `warning()` should've been a `stop()`. In general, with defensive programming, you want to halt execution quickly to identify bugs and to limit general misuse of the code.
+
+> **Exercise**
+> 
+> What other input checks would make sense with `SimpsonIndex()`? You can see how the code would be more readable and organized if most of that function were dedicated to actually calculating the Simpson Index. Draft a separate function, `CheckInputs()`, and include all tests you think are reasonable. When you and a neighbor are done, propose a bad or dubious input for their function and see if it's caught.
+
+There are many packages that produce more useful assertions and error messages than what is built into `R`. See, e.g., [`assertthat`](https://cran.r-project.org/web/packages/assertthat/index.html) and  [`testit`](https://cran.r-project.org/web/packages/testit/testit.pdf).
+
+***Exception handling***
+
+Warnings and errors are considered "exceptions." Sometimes it is useful to have an automated method to handle them. `R` has two main functions for this: `try()` allows you to continue executing a function after an error, and `tryCatch()` allows you to decide how to handle the exception.
+
+Here's an example:
+```{r,eval=FALSE}
+UsefulFunction <- function(x) {
+  value <- exp(x)
+  otherStuff <- rnorm(1)
+  return(list(value,otherStuff))
+}
+
+data <- "2"
+results <- UsefulFunction(data)
+print(results)
+```
+
+Now `results` is just a disaster: it could've at least returned a random number for you, right? You could instead try
+
+```{r,eval=TRUE}
+UsefulFunction <- function(x){
+  value <- NA
+  try(value <- exp(x))
+  otherStuff <- rnorm(1)
+  return(list(value,otherStuff))
+}
+results <- UsefulFunction(data)
+print(results)
+```
+Even though the function still can't exponentiate a string (`exp("2")` still fails), execution doesn't terminate. If we want to suppress the error message, we can use `try(..., silent=TRUE)`.
+
+We could make this function even more useful by handling the error responsibly with `tryCatch()`:
+
+```{r,eval=TRUE}
+UsefulFunction <- function(x){
+  value <- NA
+  tryCatch ({
+      message("First attempt at exp()...");
+      value <- exp(x)},
+    error = function(err){
+          message("Second attempt, converting to numeric...");
+          value <<- exp(as.numeric(x));
+          return(value)
+    }
+    )
+  otherStuff <- rnorm(1)
+  return(list(value,otherStuff))
+}
+results <- UsefulFunction(data)
+print(results)
+```
+It is also possible to assign additional blocks for warnings (not just errors) that may appear. The `<<-` is a way to assign to the value in the environment one level up (outside the `error=` block).
 
 **Test all scales**
+It's important to consider multiple scales on which to test as you develop. We've focused on unit tests (testing small functions and steps) and testing inputs, but it is easy to have correct subroutines and incorrect results. For instance, we can go out and buy an excellent present for our partner and wrap it perfectly, and we can write in our calendars the date of his or her birthdy, but it is no good if we forget to give the gift. It is similarly no good if we get the same present many years in a row or fail to update our gift-giving schedule if we get a new partner. You get the picture. 
+
+With scientific programming, it is critical to simplify code to the point where results can be compared to analytic expectations. You saw this in Principle 1. It is sensible to add functions to check not only inputs and intermediate results but also larger results. When we set the birth rate equal to the death rate in our Gillespie example, does the code reliably produce a stable population? We can write functions to test for precisely these requirements. These are system tests. When you change something in your code, always rerun your system tests to make sure you've not messed something up. 
 
 ### Principle 4. Document often.
 
@@ -229,7 +318,7 @@ Research code will always need a `readme` describing the software's purpose and 
 
 To refactor code is to revise it to make it clearer, safer, or more efficient. Because it involves no changes in the scientific outputs (results) of the program, it might feel pointless, but it's usually not. Refactor when you realize that your variable and function names no longer reflect their true content or purpose (rename things quickly with `Ctrl + Alt + Shift + M`), when certain functions are obsolete or should be split into two, when another data structure would work dramatically better, etc. Any code that you'll be working with for more than a week, or that others might ever use, should probably be refactored a few times. Debugging will be easier, and the [code will smell better](https://en.wikipedia.org/wiki/Code_smell).
 
-**Important tip:** Run unit and system tests after refactoring to make sure you haven't messed anything up. This happens more than you probably think.
+**Important tip**: Run unit and system tests after refactoring to make sure you haven't messed anything up. This happens more than you probably think.
 
 ### Principle 6. When you run your code, save each "experiment" in a separate directory with a complete copy of the code repository and all parameters.
 
@@ -262,3 +351,9 @@ stopifnot(length(myNumbers)==20)
 It's fine to check stuff like this when you're getting the hang of a function, but it doesn't need to be in the code. Code with too many defensive checks becomes a pain to read (and thus debug). Try to find a balance between excess caution and naive optimism. Good luck!
 
 # Part 2: Debugging in R
+
+Test one thing at a time
+Make it repeatable
+Use assertions to narrow down
+
+# Challenge
