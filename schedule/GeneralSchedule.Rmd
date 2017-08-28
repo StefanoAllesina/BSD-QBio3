@@ -83,7 +83,7 @@ output:
                       Defensive programming                (*D.melanogaster M.musculus O.bimaculoides S.aegyptiacus*)
                       Reproducibility of data analysis     (*A.thaliana C.elegans T.roseae X.laevis*)
 **5:00-6:30**         Dinner                              
-**7:15-8:00**         MBL Talk – XXX1                     
+**7:15-8:00**         MBL Lighting talks + Remsen         
 ------------------    ------------------------------------
 
 ### Wednesday, September 13 
@@ -107,7 +107,7 @@ output:
                       Defensive programming                (*C.elegans M.mulatta P.polytes T.roseae*)
                       Reproducibility of data analysis     (*D.melanogaster D.rerio S.aegyptiacus T.thermophila*)
 **5:00-6:30**         Dinner                              
-**7:15-8:00**         MBL Talk – XXX2                     
+**7:15-8:00**         Free time                           
 ------------------    ------------------------------------
 
 ### Thursday, September 14 
@@ -131,7 +131,7 @@ output:
                       Defensive programming                (*A.thaliana D.rerio T.thermophila X.laevis*)
                       Reproducibility of data analysis     (*M.mulatta M.musculus O.bimaculoides P.polytes*)
 **5:00-6:30**         Dinner                              
-**7:15-8:00**         MBL Talk – XXX3                     
+**7:15-8:00**         MBL Talk – Mark Welch + Morgan      
 ------------------    ------------------------------------
 
 ### Friday, September 15 
@@ -157,7 +157,7 @@ output:
                       Workshop Novembre                    (*C.elegans M.mulatta X.laevis*)
                       Workshop Yang                        (*A.thaliana P.polytes T.roseae*)
 **5:00-6:30**         Dinner                              
-**7:15-8:00**         Free time                           
+**7:15-8:00**         MBL Talk – Hanlon + Q & A           
 ------------------    ------------------------------------
 
 ### Saturday, September 16 

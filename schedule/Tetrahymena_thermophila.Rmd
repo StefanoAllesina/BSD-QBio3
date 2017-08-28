@@ -58,7 +58,7 @@ output:
 **2:30-2:45**         Coffee break (LB302)                              
 **2:45-4:30**         Data visualization (CH1)                          
 **5:00-6:30**         Dinner (SWC)                                      
-**7:15-8:00**         MBL Talk – XXX1 (Speck)                           
+**7:15-8:00**         MBL Lighting talks + Remsen (Speck)               
 ------------------    --------------------------------------------------
 
 ### Wednesday, September 13 
@@ -72,7 +72,7 @@ output:
 **2:30-2:45**         Coffee break (LB302)                              
 **2:45-4:30**         Reproducibility of data analysis (LBG70)          
 **5:00-6:30**         Dinner (SWC)                                      
-**7:15-8:00**         MBL Talk – XXX2 (Speck)                           
+**7:15-8:00**         Free time                                         
 ------------------    --------------------------------------------------
 
 ### Thursday, September 14 
@@ -86,7 +86,7 @@ output:
 **2:30-2:45**         Coffee break (LB302)                              
 **2:45-4:30**         Defensive programming (Speck)                     
 **5:00-6:30**         Dinner (SWC)                                      
-**7:15-8:00**         MBL Talk – XXX3 (Speck)                           
+**7:15-8:00**         MBL Talk – Mark Welch + Morgan (Speck)            
 ------------------    --------------------------------------------------
 
 ### Friday, September 15 
@@ -100,7 +100,7 @@ output:
 **2:30-2:45**         Coffee break (LB302)                              
 **2:45-4:30**         Workshop Cobey (LB263)                            
 **5:00-6:30**         Dinner (SWC)                                      
-**7:15-8:00**         Free time                                         
+**7:15-8:00**         MBL Talk – Hanlon + Q & A                         
 ------------------    --------------------------------------------------
 
 ### Saturday, September 16 
