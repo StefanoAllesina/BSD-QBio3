@@ -8,7 +8,7 @@ output:
 
 # Defensive Programming
 
-- **Goal:** Convince new and existing programmers of the importance of defensive programming practices, introduce general programming principles, and provide specific tips for programming and debugging in R.
+- **Goal:** Convince new and existing programmers of the importance of defensive programming practices, introduce general programming principles, and provide specific tips for programming and debugging in `R`.
 
 - **Audience:** Scientific researchers who use `R` and believe the accuracy of their code and/or efficiency of their programming could be improved.
 
@@ -88,8 +88,9 @@ This is also a good time to draft very high-level documentation for your code, f
 > **Exercise**
 > 
 > Assume there are two discrete populations. Each has nonoverlapping generations and the same generation time. Their per capita birth rates are `b1` and `b2`. Some of the newborns migrate between populations.
+>
 > * Write pseudocode to calculate the distribution of population frequencies after 100 generations.
-> * Is your code is optimally modular?
+> * Is your code optimally modular?
 > * What are the inputs and outputs of the program? Of each function?
 > * How could you test the inputs, functions, and overall program?
 > * Discuss your approach with your neighbor.
@@ -103,6 +104,7 @@ A general rule is that it is more important for scientific code to be readable a
 > "Premature optimization is the root of all evil." -Donald Knuth
 
 **Develop useful conventions for your variable and function names.** There are many conventions, some followed more religiously than others. It's most important to be consistent within your own code. 
+
 * Don't make yourself and others guess at meaning by making names too short. It's generally better to write out `maxSubstitutionRatePerSitePerYear` or `max.sub.rate.per.site.yr` than `maxSR`.
 * However, very common variables should have short names.
 * When helpful, incorporate identifiers like `df` (data frame), `ctr` (counter), or `idx` (index) into variable names to remind you of their purpose or structure.
@@ -367,6 +369,7 @@ It's fine to check stuff like this when you're getting the hang of a function, b
 Part 1 introduced principles that should minimize the need for aggressive debugging. You're in fact already debugging if you're regularly using input, unit, and system tests to make sure things are running properly. But what happens when despite your best efforts, you're not getting the right result?
 
 We'll focus on more advanced debugging tools in this part. First, some general guidelines for fixing a bug:
+
 * *Isolate the error and make it reproducible.* Try to strip the error down to its essential parts so you can reliably reproduce the bug. If a function doesn't work, copy the code, and keep removing pieces that are non-essential for reproducing the error. When you post for help on the website [stackoverflow](https://stackoverflow.com), for instance, people will ask for a MRE or MWE---a [minimum reproducible (working) example](https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example). You need to have not only the pared code but also the inputs (parameter values and the seeds of any random number generators) that cause the problem. 
 * *Use assertions and debugging tools to hone in on the problem.* We've already seen how to use `stop()` and `stopifnot()` to identify logic errors in unit tests. We'll cover more advanced debugging here.
 * *Change/Test one thing at a time.* This is why we develop only one function at a time.
@@ -416,7 +419,7 @@ We can use breakpoints to quickly examine what's happening at different points i
 
 In R, you can insert the function `browser()` on some line of the code to enter debugging mode. This is also what you have to use if you want to debug directly in R Markdown.
 
-# Challenge
+# Programming Challenge
 
 Avian influenza cases in humans generally arise from two viral subtypes, H5N1 and H7N9. An interesting observation is that the age distributions for H5N1 and H7N9 cases differ: older people are more likely to die from H7N9, and younger people from H5N1. There's no evidence for age-related differences in exposure. A [recent paper](http://science.sciencemag.org/content/354/6313/722/tab-figures-data) showed that the risk of severe infection with avian influenza from 1997-2015 could be well explained by a simple model that correlated infection risk with the subtype of seasonal (non-avian) influenza a person was first exposed to in childhood. Different subtypes (H1N1, H2N2, and H3N2) have circulated in different years. H1N1 and H2N2 were the only strains before 1968, and H3N2 has circulated since 1968. In 1977, H1N1 reappeared and circulated with H3N2. Perhaps because H3N2 is closely related to H7N9, people with primary H3N2 infections seem protected from severe infections with H7N9. The complement is true for people first infected to H1N1 and H2N2 and later exposed to H5N1.   
 
@@ -425,6 +428,8 @@ Of course, we do not know the infection history of any person who died from avia
 The authors had to make some assumptions. First, they assumed that the risk of influenza infection is 20% in each year of life. Second, they assumed that the frequency of each circulating subtype could be inferred from the numbers of isolates sampled (primarily in hospitals) each year. These counts are given in `subtype_counts.csv`. [1]
 
 **The challenge: For every year between 1960 and 1996, calculate the probability that a person born in that year had primary infection with H1N1, H2N2, and H3N2. You must program defensively to pull this off.**
+
+When you have found the solution, go to [stefanoallesina.github.io/BSD-QBio3](https://stefanoallesina.github.io/BSD-QBio3/) and follow the link `Submit solution to defensive programming challenge` to submit your answer (alternatively, you can go directly to [goo.gl/forms/NjdZUyAjs9HBWMqL2](https://goo.gl/forms/NjdZUyAjs9HBWMqL2)).
 
 [1] The counts are actually given for each influenza season in the U.S., which is slightly different from a calendar year, but you can ignore this. You'll notice that "1" and "0" are used where we know (or will assume) that only one subtype was circulating. The authors made several other assumptions, but this is good enough for now.
 

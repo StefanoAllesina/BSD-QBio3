@@ -125,7 +125,7 @@ $(document).ready(function () {
 <div id="defensive-programming" class="section level1">
 <h1>Defensive Programming</h1>
 <ul>
-<li><p><strong>Goal:</strong> Convince new and existing programmers of the importance of defensive programming practices, introduce general programming principles, and provide specific tips for programming and debugging in R.</p></li>
+<li><p><strong>Goal:</strong> Convince new and existing programmers of the importance of defensive programming practices, introduce general programming principles, and provide specific tips for programming and debugging in <code>R</code>.</p></li>
 <li><p><strong>Audience:</strong> Scientific researchers who use <code>R</code> and believe the accuracy of their code and/or efficiency of their programming could be improved.</p></li>
 <li><p><strong>Installation:</strong> For people who have completed the other modules, there is nothing new to install. For others starting fresh, install <code>R</code> and <code>RStudio</code>. To install <code>R</code>, follow instructions at <a href="https://cran.rstudio.com/"><code>cran.rstudio.com</code></a>. Then install <code>Rstudio</code> following the instructions at <a href="https://www.rstudio.com/products/rstudio/download2/"><code>goo.gl/a42jYE</code></a>. Download the <code>knitr</code> package.</p></li>
 </ul>
@@ -190,7 +190,14 @@ $(document).ready(function () {
 <p>This is also a good time to draft very high-level documentation for your code, for instance in a <code>readme.MD</code> file. What are the inputs, what does the code do, and what does it return?</p>
 <blockquote>
 <p><strong>Exercise</strong></p>
-<p>Assume there are two discrete populations. Each has nonoverlapping generations and the same generation time. Their per capita birth rates are <code>b1</code> and <code>b2</code>. Some of the newborns migrate between populations. * Write pseudocode to calculate the distribution of population frequencies after 100 generations. * Is your code is optimally modular? * What are the inputs and outputs of the program? Of each function? * How could you test the inputs, functions, and overall program? * Discuss your approach with your neighbor.</p>
+<p>Assume there are two discrete populations. Each has nonoverlapping generations and the same generation time. Their per capita birth rates are <code>b1</code> and <code>b2</code>. Some of the newborns migrate between populations.</p>
+<ul>
+<li>Write pseudocode to calculate the distribution of population frequencies after 100 generations.</li>
+<li>Is your code optimally modular?</li>
+<li>What are the inputs and outputs of the program? Of each function?</li>
+<li>How could you test the inputs, functions, and overall program?</li>
+<li>Discuss your approach with your neighbor.</li>
+</ul>
 </blockquote>
 </div>
 <div id="principle-2.-write-clearly-and-cautiously." class="section level3">
@@ -200,7 +207,13 @@ $(document).ready(function () {
 <blockquote>
 <p>“Premature optimization is the root of all evil.” -Donald Knuth</p>
 </blockquote>
-<p><strong>Develop useful conventions for your variable and function names.</strong> There are many conventions, some followed more religiously than others. It’s most important to be consistent within your own code. * Don’t make yourself and others guess at meaning by making names too short. It’s generally better to write out <code>maxSubstitutionRatePerSitePerYear</code> or <code>max.sub.rate.per.site.yr</code> than <code>maxSR</code>. * However, very common variables should have short names. * When helpful, incorporate identifiers like <code>df</code> (data frame), <code>ctr</code> (counter), or <code>idx</code> (index) into variable names to remind you of their purpose or structure. * Customarily, variables that start with capital letters indicate global scope in <code>R</code>, and function names also start with capital letters. People argue about conventions, and they vary from language to language. Here’s <a href="https://google.github.io/styleguide/Rguide.xml">Google’s style guide</a>.</p>
+<p><strong>Develop useful conventions for your variable and function names.</strong> There are many conventions, some followed more religiously than others. It’s most important to be consistent within your own code.</p>
+<ul>
+<li>Don’t make yourself and others guess at meaning by making names too short. It’s generally better to write out <code>maxSubstitutionRatePerSitePerYear</code> or <code>max.sub.rate.per.site.yr</code> than <code>maxSR</code>.</li>
+<li>However, very common variables should have short names.</li>
+<li>When helpful, incorporate identifiers like <code>df</code> (data frame), <code>ctr</code> (counter), or <code>idx</code> (index) into variable names to remind you of their purpose or structure.</li>
+<li>Customarily, variables that start with capital letters indicate global scope in <code>R</code>, and function names also start with capital letters. People argue about conventions, and they vary from language to language. Here’s <a href="https://google.github.io/styleguide/Rguide.xml">Google’s style guide</a>.</li>
+</ul>
 <p><strong>Do not use magic numbers.</strong> “Magic numbers” refer to numbers hard-coded in your functions and main program. Any number that could possibly vary should be in a separate section for parameters. The following code is not robust:</p>
 <pre class="r"><code>while ((age &gt;= 5) &amp;&amp; (inSchool == TRUE)) {
   yearsInSchool = yearsInSchool + 1
@@ -245,9 +258,9 @@ fakeCounts &lt;- floor(runif(numSpecies,min=1,max=maxCount))
 
 # Call function with simulated data
 S &lt;- SimpsonIndex(fakeCounts)</code></pre>
-<pre><code>## [1] &quot;Passed species counts: 167 678 138 729 931 216 634 343 60 969&quot;
-## [1] &quot;Fractions: 0.0343268242548818 0.139362795477903 0.028365878725591 0.149845837615622 0.19136690647482 0.044398766700925 0.130318602261048 0.0705035971223022 0.0123329907502569 0.19917780061665&quot;
-## [1] &quot;About to return S = 0.144228855353538&quot;</code></pre>
+<pre><code>## [1] &quot;Passed species counts: 657 925 773 274 41 969 811 133 418 651&quot;
+## [1] &quot;Fractions: 0.116242038216561 0.163658881811748 0.136765746638358 0.0484784147204529 0.00725406935598018 0.171443736730361 0.143489030431706 0.0235314932767162 0.0739561217268224 0.115180467091295&quot;
+## [1] &quot;About to return S = 0.130675924548563&quot;</code></pre>
 <p>It’s very useful to print values to screen when you are writing a function for the first time and testing that one function. When you’ve drafted your function, I recommend walking through the function with <code>print()</code> and comparing the computed values to calculations you perform by hand or some other way. It can also be useful to do this at a very high level (more on that later).</p>
 <p>The problem with relying on <code>print()</code> is that it rapidly provides too much information for you to process, and hence errors can slip through.</p>
 <p><strong><em>Assertions</em></strong></p>
@@ -322,7 +335,7 @@ print(results)</code></pre>
 ## [1] NA
 ## 
 ## [[2]]
-## [1] -0.5463838</code></pre>
+## [1] -0.1560909</code></pre>
 <p>Even though the function still can’t exponentiate a string (<code>exp(&quot;2&quot;)</code> still fails), execution doesn’t terminate. If we want to suppress the error message, we can use <code>try(..., silent=TRUE)</code>. This obviously carries some risk!</p>
 <p>We could make this function even more useful by handling the error responsibly with <code>tryCatch()</code>:</p>
 <pre class="r"><code>UsefulFunction &lt;- function(x){
@@ -389,7 +402,12 @@ stopifnot(length(myNumbers)==20)</code></pre>
 <div id="part-2-debugging-in-r" class="section level1">
 <h1>Part 2: Debugging in R</h1>
 <p>Part 1 introduced principles that should minimize the need for aggressive debugging. You’re in fact already debugging if you’re regularly using input, unit, and system tests to make sure things are running properly. But what happens when despite your best efforts, you’re not getting the right result?</p>
-<p>We’ll focus on more advanced debugging tools in this part. First, some general guidelines for fixing a bug: * <em>Isolate the error and make it reproducible.</em> Try to strip the error down to its essential parts so you can reliably reproduce the bug. If a function doesn’t work, copy the code, and keep removing pieces that are non-essential for reproducing the error. When you post for help on the website <a href="https://stackoverflow.com">stackoverflow</a>, for instance, people will ask for a MRE or MWE—a <a href="https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example">minimum reproducible (working) example</a>. You need to have not only the pared code but also the inputs (parameter values and the seeds of any random number generators) that cause the problem. * <em>Use assertions and debugging tools to hone in on the problem.</em> We’ve already seen how to use <code>stop()</code> and <code>stopifnot()</code> to identify logic errors in unit tests. We’ll cover more advanced debugging here. * <em>Change/Test one thing at a time.</em> This is why we develop only one function at a time.</p>
+<p>We’ll focus on more advanced debugging tools in this part. First, some general guidelines for fixing a bug:</p>
+<ul>
+<li><em>Isolate the error and make it reproducible.</em> Try to strip the error down to its essential parts so you can reliably reproduce the bug. If a function doesn’t work, copy the code, and keep removing pieces that are non-essential for reproducing the error. When you post for help on the website <a href="https://stackoverflow.com">stackoverflow</a>, for instance, people will ask for a MRE or MWE—a <a href="https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example">minimum reproducible (working) example</a>. You need to have not only the pared code but also the inputs (parameter values and the seeds of any random number generators) that cause the problem.</li>
+<li><em>Use assertions and debugging tools to hone in on the problem.</em> We’ve already seen how to use <code>stop()</code> and <code>stopifnot()</code> to identify logic errors in unit tests. We’ll cover more advanced debugging here.</li>
+<li><em>Change/Test one thing at a time.</em> This is why we develop only one function at a time.</li>
+</ul>
 <div id="tracing-calls" class="section level3">
 <h3>Tracing calls</h3>
 <p>If an error appears, a useful technique is to see the <a href="https://en.wikipedia.org/wiki/Call_stack">call stack</a>, the sequence of functions immediately preceding the error. We can do this in R using <code>trackback()</code> or in RStudio.</p>
@@ -421,13 +439,14 @@ pairings &lt;- AssignRandomPartners(peopleIDs)</code></pre>
 <p>In R, you can insert the function <code>browser()</code> on some line of the code to enter debugging mode. This is also what you have to use if you want to debug directly in R Markdown.</p>
 </div>
 </div>
-<div id="challenge" class="section level1">
-<h1>Challenge</h1>
+<div id="programming-challenge" class="section level1">
+<h1>Programming Challenge</h1>
 <p>Avian influenza cases in humans generally arise from two viral subtypes, H5N1 and H7N9. An interesting observation is that the age distributions for H5N1 and H7N9 cases differ: older people are more likely to die from H7N9, and younger people from H5N1. There’s no evidence for age-related differences in exposure. A <a href="http://science.sciencemag.org/content/354/6313/722/tab-figures-data">recent paper</a> showed that the risk of severe infection with avian influenza from 1997-2015 could be well explained by a simple model that correlated infection risk with the subtype of seasonal (non-avian) influenza a person was first exposed to in childhood. Different subtypes (H1N1, H2N2, and H3N2) have circulated in different years. H1N1 and H2N2 were the only strains before 1968, and H3N2 has circulated since 1968. In 1977, H1N1 reappeared and circulated with H3N2. Perhaps because H3N2 is closely related to H7N9, people with primary H3N2 infections seem protected from severe infections with H7N9. The complement is true for people first infected to H1N1 and H2N2 and later exposed to H5N1.</p>
 <p>Of course, we do not know the infection history of any person who died from avian influenza. We only know the person’s age and year of death. To perform their analysis, the authors needed to calculate the probability that each case had a primary infection with each subtype, i.e., the probability that a person born in a given year was first infected with each subtype. Your challenge is to calculate these probabilities.</p>
-<p>The authors had to make some assumptions. First, they assumed that the risk of influenza infection is 20% in each year of life. Second, they assumed that the frequency of each circulating subtype could be inferred from the fraction of isolates sampled (primarily in hospitals) each year. These data are given in <code>subtype_fractions.csv</code> for each year [1].</p>
-<p>For every year between 1960 and 1996, calculate the probability that a person born in that year had primary infection with H1N1, H2N2, and H3N2.</p>
-<p>[1] They are actually given for each influenza season in the U.S., which is slightly different, and the authors made several other assumptions, but this is good enough for now.</p>
+<p>The authors had to make some assumptions. First, they assumed that the risk of influenza infection is 20% in each year of life. Second, they assumed that the frequency of each circulating subtype could be inferred from the numbers of isolates sampled (primarily in hospitals) each year. These counts are given in <code>subtype_counts.csv</code>. [1]</p>
+<p><strong>The challenge: For every year between 1960 and 1996, calculate the probability that a person born in that year had primary infection with H1N1, H2N2, and H3N2. You must program defensively to pull this off.</strong></p>
+<p>When you have found the solution, go to <code>https://stefanoallesina.github.io/BSD-QBio3/</code> and follow the link <code>Submit solution to defensive programming challenge</code> to submit your answer (alternatively, you can go directly to <a href="https://goo.gl/forms/NjdZUyAjs9HBWMqL2">goo.gl/forms/NjdZUyAjs9HBWMqL2</a>.</p>
+<p>[1] The counts are actually given for each influenza season in the U.S., which is slightly different from a calendar year, but you can ignore this. You’ll notice that “1” and “0” are used where we know (or will assume) that only one subtype was circulating. The authors made several other assumptions, but this is good enough for now.</p>
 </div>
 
 
