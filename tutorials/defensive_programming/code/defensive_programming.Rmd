@@ -250,7 +250,7 @@ You could make a case that `warning()` should be `stop()`. In general, with defe
 > 
 > * What other input checks would make sense with `SimpsonIndex()`? 
 > * You can see how the code would be more readable and organized if most of that function were dedicated to actually calculating the Simpson Index. Draft a separate function, `CheckInputs()`, and include all tests you think are reasonable. 
-> *When you and a neighbor are done, propose a bad or dubious input for their function and see if it's caught.
+> * When you and a neighbor are done, propose a bad or dubious input for their function and see if it's caught.
 
 There are many packages that produce more useful assertions and error messages than what is built into `R`. See, e.g., [`assertthat`](https://cran.r-project.org/web/packages/assertthat/index.html) and  [`testit`](https://cran.r-project.org/web/packages/testit/testit.pdf).
 
