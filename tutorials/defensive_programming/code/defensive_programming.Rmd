@@ -220,7 +220,7 @@ This gives a very literal error message, which is often enough when we are still
 
 ```{r,eval=TRUE}
 SimpsonIndex <- function(C) {
-  if(any(C<0)) stop("Species fractions should be positive.")
+  if(any(C<0)) stop("Species counts should be positive.")
   fractions <- C/sum(C)
   S <- sum(fractions^2)
   return(S)
@@ -232,7 +232,7 @@ What about warnings? For instance, our calculation of the Simpson Index is an ap
 
 ```{r,eval=TRUE}
 SimpsonIndex <- function(C) {
-  if(any(C<0)) stop("Species fractions should be positive.")
+  if(any(C<0)) stop("Species counts should be positive.")
   if((mean(C)<20) || (min(C)<5)) warning("Small sample size. Result will be biased. Consider corrected index.")
   fractions <- C/sum(C)
   S <- sum(fractions^2)
@@ -248,7 +248,9 @@ You could make a case that `warning()` should be `stop()`. In general, with defe
 
 > **Exercise**
 > 
-> What other input checks would make sense with `SimpsonIndex()`? You can see how the code would be more readable and organized if most of that function were dedicated to actually calculating the Simpson Index. Draft a separate function, `CheckInputs()`, and include all tests you think are reasonable. When you and a neighbor are done, propose a bad or dubious input for their function and see if it's caught.
+> * What other input checks would make sense with `SimpsonIndex()`? 
+> * You can see how the code would be more readable and organized if most of that function were dedicated to actually calculating the Simpson Index. Draft a separate function, `CheckInputs()`, and include all tests you think are reasonable. 
+> *When you and a neighbor are done, propose a bad or dubious input for their function and see if it's caught.
 
 There are many packages that produce more useful assertions and error messages than what is built into `R`. See, e.g., [`assertthat`](https://cran.r-project.org/web/packages/assertthat/index.html) and  [`testit`](https://cran.r-project.org/web/packages/testit/testit.pdf).
 
@@ -318,7 +320,7 @@ ggplot(iris, aes(x = Sepal.Length, y = Species)) + geom_joy()
 
 It's important to consider multiple scales on which to test as you develop. We've focused on unit tests (testing small functions and steps) and testing inputs, but it is easy to have correct subroutines and incorrect results. For instance, we can be excellent at the distinct activities of toasting bread, buttering bread, and eating bread, but we will fail to enjoy buttered toast for breakfast if we don't pay attention to the order.
 
-With scientific programming, it is critical to simplify code to the point where results can be compared to analytic expectations. You saw this in Principle 1. It is important to add functions to check not only inputs and intermediate results but also larger results. For instance, when we set the birth rate equal to the death rate, does the code reliably produce a stable population? We can write functions to test for precisely such requirements. These are **system tests**. When you change something in your code, always rerun your system tests to make sure you've not messed something up. 
+With scientific programming, it is critical to simplify code to the point where results can be compared to analytic expectations. You saw this in Principle 1. It is important to add functions to check not only inputs and intermediate results but also larger results. For instance, when we set the birth rate equal to the death rate, does the code reliably produce a stable population? We can write functions to test for precisely such requirements. These are **system tests**. When you change something in your code, always rerun your system tests to make sure you've not messed something up. Often it's helpful to save multiple parameter sets or data files precisely for these tests.
 
 It's hard to overstate the importance of taking a step back from the nitty-gritty of programming and asking, Are these results reasonable? Does the output make sense with different sets of extreme values? Schedule time to do this, and update your system tests when necessary.
 
