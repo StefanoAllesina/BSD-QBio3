@@ -1,6 +1,6 @@
-# Data exploration and visualization
+# Data Wrangling and Visualization
 
-John Novembre
+Peter Carbonetto & John Novembre
 
 - loading large data sets using readr of tidyverse
 - dealing with missing data
