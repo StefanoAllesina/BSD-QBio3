@@ -895,7 +895,10 @@ An important take-away message from this section is that it often
 requires experimentation with different plotting strategies to come
 up with a good visualization.
 
-## Challenges/exercises
+## Programming challenges
+
+When you have found a solution to one of the challenges, go to
+[https://goo.gl/forms/4UyqkBlvaulKosSZ2](https://goo.gl/forms/4UyqkBlvaulKosSZ2) to submit your solution.
 
 *Note:* These challenges are ordered in increasing level of
 complexity. Do not be discouraged if you have difficulty completing
