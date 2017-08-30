@@ -10,6 +10,8 @@ Run the following commands in R from the [code](code) directory:
 library(rmarkdown)
 render("dataviz.Rmd",output_format = "pdf_document",
        output_file = "dataviz.pdf")
+render("dataviz.Rmd",output_format = "html_document",
+       output_file = "dataviz.html")
 ```
 
 ## Instructor notes

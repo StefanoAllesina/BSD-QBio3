@@ -3,6 +3,13 @@ title: "Data Wrangling and Visualization"
 author: "Peter Carbonetto & John Novembre"
 date: August 30, 2017
 urlcolor: blue
+output:
+  html_document:
+    theme: readable
+    toc: true
+    toc_float: true
+    include:
+      before_body: include/header.html
 ---
 
 ```{r knitr, echo=FALSE}
@@ -897,8 +904,8 @@ up with a good visualization.
 
 ## Programming challenges
 
-When you have found a solution to one of the challenges, go to
-[https://goo.gl/forms/4UyqkBlvaulKosSZ2](https://goo.gl/forms/4UyqkBlvaulKosSZ2) to submit your solution.
+Please go to
+[https://goo.gl/forms/4UyqkBlvaulKosSZ2](https://goo.gl/forms/4UyqkBlvaulKosSZ2) to submit your solutions to the programming challenges.
 
 *Note:* These challenges are ordered in increasing level of
 complexity. Do not be discouraged if you have difficulty completing
