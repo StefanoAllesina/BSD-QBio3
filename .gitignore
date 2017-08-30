@@ -32,6 +32,9 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 
+# Annoying MacOSX-specific files that are automatically created.
+.DS_Store
+
 toignore/
 
 *~
