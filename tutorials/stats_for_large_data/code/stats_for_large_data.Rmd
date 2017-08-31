@@ -1,11 +1,11 @@
 ---
-author: "Stefano Allesina"
 title: "Statistics for a data rich world---some explorations"
-fig_width: 4
-
-output: 
-  pdf_document: 
+author: "Stefano Allesina"
+output:
+  html_document: default
+  pdf_document:
     highlight: tango
+fig_width: 4
 ---
 
 # Statistics for large data sets
@@ -580,6 +580,7 @@ narco <- crimes %>% filter(PrimaryType == "NARCOTICS")
 pl <- ggplot(narco) + aes(x = log(trump + 1), y = log(n + 1)) + 
   theme_bw() + geom_point() + geom_smooth(method = "lm") + 
   xlab("log(# Trump tweets + 1)") + ylab("log(# Narcotics violations + 1)")
+show(pl)
 # print correlation
 print(cor.test(log(narco$trump + 1),log(narco$n + 1)))
 ```
