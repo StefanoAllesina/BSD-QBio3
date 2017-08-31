@@ -11,7 +11,7 @@ knitr::opts_chunk$set(fig.width=6, fig.height=4, fig.path='Figs/',
 # Population genetics workshop
 
 Instructor: **John Novembre**  
-Course Assistant: **Evan Koch**  
+Course Assistant: **Arjun Biddanda**  
 
 ### Welcome 
 

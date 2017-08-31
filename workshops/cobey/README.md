@@ -2,9 +2,9 @@
 output: pdf_document
 ---
 # Unraveling dynamics from time series
-Instructors: [Sarah Cobey](http://cobeylab.uchicago.edu/people/cobey) and [Sylvia Ranjeva](http://cobeylab.uchicago.edu/people/ranjeva)
+Instructors: [Sarah Cobey](http://cobeylab.uchicago.edu/people/cobey) and [Marcos Costa Vieira](https://cobeylab.uchicago.edu/people/marcos)
 
-[BSD Bootcamp on Quantitative Biology @ MBL](https://bsdgrad.uchicago.edu/page/mbl-quantitative-approaches-bootcamp)
+BSD Bootcamp on Quantitative Biology @ MBL
 
 ## Goal
 The aim of this workshop is to show how mathematical models can be used to investigate dynamical systems. We will begin by constructing and analyzing simple models of the spread of an infectious disease. We'll work with pencil and paper (or the whiteboard versions) before simulating the dynamics in R. We'll see that small nonlinearities can generate complex dynamics, which we can summarize with bifurcation diagrams. Finally, we'll discuss the use of likelihood in model fitting and review the criteria by which to judge a model. 
