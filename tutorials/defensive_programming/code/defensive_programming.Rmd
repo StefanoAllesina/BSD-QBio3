@@ -52,10 +52,11 @@ Many of us have had the experience of writing a long paper only to realize, seve
 For complex programs, your draft may start as a diagram or flowchart showing how major functions and variables relate to one another or brief notes about each of step of the algorithm. These outlines are known as pseudocode, and there are myriad customs for pseudocode and programmers loyal to particular styles. For simple scripts, it is often sufficient to write pseudocode as placeholder comments. For instance, if we are simulating a population in which individuals can be born or die (and nothing else happens), we could write:
 
 ```{r, eval=FALSE}
-# initialize population size (N), birth rate (b), death rate (d), total simulation time (t_max), and time (t=0)
-# while N > 0 and t < t_max
-# ...generate random numbers to determine whether next event is birth or death, and time to event (dt)
-# ...update N (increment if birth, decrement if death) and update time t to t+dt
+# initialize population size (N), birth rate (b), death rate (d), 
+# total simulation time (t_max), and time (t=0) while N > 0 and t < t_max
+# ...generate random numbers to determine whether next event is
+# birth or death, and time to event (dt) ...update N 
+# (increment if birth, decrement if death) and update time t to t+dt
 ```
 
 Here, `b` and `d` are per capita rates. This is an example of the [Gillespie algorithm](https://en.wikipedia.org/wiki/Gillespie_algorithm). It was initially developed as an exact stochastic approach for simulating chemical reaction kinetics, and it is widely used in biology, chemistry, and physics. 
@@ -168,7 +169,7 @@ Here's a function to calculate the Simpson Index, a useful diversity index. It g
 SimpsonIndex <- function(C) {
   print(paste(c("Passed species counts:", C),collapse=" "))
   fractions <- C/sum(C)
-  print(paste(c("Fractions:", fractions), collapse=" "))
+  print(paste(c("Fractions:", round(fractions, 3)), collapse=" "))
   S <- sum(fractions^2)
   print(paste("About to return S =",S))
   return(S)
@@ -233,7 +234,9 @@ What about warnings? For instance, our calculation of the Simpson Index is an ap
 ```{r,eval=TRUE}
 SimpsonIndex <- function(C) {
   if(any(C<0)) stop("Species counts should be positive.")
-  if((mean(C)<20) || (min(C)<5)) warning("Small sample size. Result will be biased. Consider corrected index.")
+  if((mean(C)<20) || (min(C)<5)) {
+    warning("Small sample size. Result will be biased. Consider corrected index.")
+  }
   fractions <- C/sum(C)
   S <- sum(fractions^2)
   return(S)
