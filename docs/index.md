@@ -48,13 +48,11 @@ To decide which track you want to choose, please consult the lecture materials, 
 
 ## Preparing your laptop
 
-We are going to start working right away. Therefore, it is very important you **prepare your laptop** for the boot camp before you leave for MBL.
+We are going to start working right away. Therefore, it is very important you **prepare your laptop** for the boot camp before you leave for MBL. This will take you about one hour, so schedule accordingly.
 
 You will work on your laptop all day long. **If you don't have a laptop, please contact Stefano or Stephanie immediately**.
 
-### All platforms
-
-We're going to have students using Windows, OSX, and Linux. Whatever your platform, make sure to:
+### Installation of `R` and `R` packages
 
 *   **Install R**: go to [this page](https://cran.rstudio.com/), download the file corresponding to your platform, and install it. (Here's a [video](https://www.youtube.com/watch?v=5ZbjUEg4a1g) explaining how to install R and RStudio in Windows; [here](https://www.youtube.com/watch?v=5rp9bkc68y0) for Mac OSX)
 
@@ -62,29 +60,31 @@ We're going to have students using Windows, OSX, and Linux. Whatever your platfo
 
 *   Once installed R and RStudio, open RStudio and **install the following packages**: TODO
 
-    *   ggplot2
+    *   tidyverse
     *   ggthemes
-    *   dplyr
-    *   tidyr
     *   stringr
     *   deSolve
     *   lubridate
-    *   reshape2
+    *   devtools
     *   phaseR
+    *   cowplot
+    *   plotly
+    *   htmlwidgets
+    *   ggcorrplot
 
-    You can find instructions on how to install R packages in RStudio [here](https://www.youtube.com/watch?v=3RWb5U3X-T8).
+    You can find instructions on how to install `R` packages in RStudio [here](https://www.youtube.com/watch?v=3RWb5U3X-T8).
 
-*   **Install ImageJ**: go to [this page](http://imagej.net/Fiji/Downloads) and follow the instructions for your platform.
+* **Other packages** Two of the packages need to be installed from within `R`. Open Rstudio and in the Console type `library(devtools)`, hit Return (or Enter) and then `install_github("pcarbo/cfwlab")`. This will install the library `cfwlab` that is needed for one of the tutorials. Once that is installed,  type `install_github("jdstorey/qvalue")`.
 
-### Windows users
+* **Install ImageJ**: go to [this page](http://imagej.net/Fiji/Downloads) and follow the instructions for your platform.
 
-If you are using Windows, you need to install a UNIX emulator. We suggest downloading the version control software `Git` (which we are not going to use, but that you might want to master!), because it ships with a small emulator (`Git Bash`). Simply go to [this page](https://git-scm.com/download/win) and follow the instructions.
+* **Software for NGS**: This will take a while, so start early. [Here are](https://github.com/StefanoAllesina/BSD-QBio3/blob/master/workshops/yang/NGS_workshop_software_installation.pdf) very detalied instructions. Follow them closely and contact Lixing Yang in case of problems.  
 
-## TODO NGS WORKSHOP
+* **UNIX Emulator**: If you are using Windows, you need to install a UNIX emulator. We suggest downloading the version control software `Git` (which we are not going to use, but that you might want to master!), because it ships with a small emulator (`Git Bash`). Simply go to [this page](https://git-scm.com/download/win) and follow the instructions.
 
 ## Downloading the data
 
-It is very important to **download the data** before you leave for MBL, as the files are quite large (~450Mb if you download the repository, ~250Mb if you choose the zip file). There are two options:
+It is very important to **download the data** before you leave for MBL, as the files are quite large. First, you need to download the repository containing all the boot camp lectures and data. There are two options
 
 *   If you're familiar with `Git`, clone the repository
 
@@ -93,3 +93,7 @@ It is very important to **download the data** before you leave for MBL, as the f
 making sure that the directory is created within your home (Linux: `home/yourname`, Mac OSX: `Users/yourname`, Windows `Users/yourname`).
 
 *   If you're not familiar with `Git`, download the [zip file](https://github.com/StefanoAllesina/BSD-QBio3/archive/master.zip), and extract it to your home directory. Make sure to rename the folder to `BSD-QBio3` (it will be extracted as `BSD-QBio3-master`).
+
+Second, you need to download and unzip a large file containing all the data for the NGS tutorial. You can download the file [here](https://www.dropbox.com/s/kq7duts6i2heiup/ngs_workshop.zip?dl=0).
+
+
