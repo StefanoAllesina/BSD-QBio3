@@ -58,7 +58,7 @@ You will work on your laptop all day long. **If you don't have a laptop, please 
 
 *   **Install RStudio**: once installed R, go to [this page](https://www.rstudio.com/products/rstudio/download2/), download the installer for your operating system (section **Installers for Supported Platforms**), and install the software.
 
-*   Once installed R and RStudio, open RStudio and **install the following packages**: TODO
+*   Once installed R and RStudio, open RStudio and **install the following packages**:
 
     *   tidyverse
     *   ggthemes
