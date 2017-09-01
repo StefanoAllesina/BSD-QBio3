@@ -162,10 +162,11 @@ $(document).ready(function () {
 <h3>Principle 1. Before writing code, draft your program as a series of modular functions with high-level documentation, and develop tests for it.</h3>
 <p>Many of us have had the experience of writing a long paper only to realize, several pages in, that we in fact need to say something slightly different. Restructuring a paper at this stage can be a real chore. Outlining your code as you would outline a paper avoids this problem. In fact, outlining your code can be even more helpful because it helps you think not just generally about how your algorithm will flow and where you want to end up, but also about what building blocks (functions and containers) you’ll use to get there. Thinking about the “big picture” design will prevent you from coding yourself into a tight spot—when you realize hundreds of lines in that you should’ve been tracking past states of a variable, for instance, but your current containers are only storing the current state. Drafting also makes the actual writing much more easy and fun.</p>
 <p>For complex programs, your draft may start as a diagram or flowchart showing how major functions and variables relate to one another or brief notes about each of step of the algorithm. These outlines are known as pseudocode, and there are myriad customs for pseudocode and programmers loyal to particular styles. For simple scripts, it is often sufficient to write pseudocode as placeholder comments. For instance, if we are simulating a population in which individuals can be born or die (and nothing else happens), we could write:</p>
-<pre class="r"><code># initialize population size (N), birth rate (b), death rate (d), total simulation time (t_max), and time (t=0)
-# while N &gt; 0 and t &lt; t_max
-# ...generate random numbers to determine whether next event is birth or death, and time to event (dt)
-# ...update N (increment if birth, decrement if death) and update time t to t+dt</code></pre>
+<pre class="r"><code># initialize population size (N), birth rate (b), death rate (d), 
+# total simulation time (t_max), and time (t=0) while N &gt; 0 and t &lt; t_max
+# ...generate random numbers to determine whether next event is
+# birth or death, and time to event (dt) ...update N 
+# (increment if birth, decrement if death) and update time t to t+dt</code></pre>
 <p>Here, <code>b</code> and <code>d</code> are per capita rates. This is an example of the <a href="https://en.wikipedia.org/wiki/Gillespie_algorithm">Gillespie algorithm</a>. It was initially developed as an exact stochastic approach for simulating chemical reaction kinetics, and it is widely used in biology, chemistry, and physics.</p>
 <p>Can you see some limitations of the pseudocode so far? First, it lacks obvious modularity, though this is partly due to its vagueness. The first step under the <code>while</code> loop could become its own function that is defined separately. Second, it is missing a critical feature, in that it’s not obvious what is being output: do we want the population size at the end of the simulation, or the population size at each event? If the latter, we may need to initialize a container, such as a dataframe, in which we store the value of <code>N</code> and <code>t</code> at every event. After further thought, we might decide such a container would be too big—perhaps we only need to know the value of <code>N</code> at 1/1000th the typical rate of births, and so we might introduce an additional loop to store <code>N</code> only when the new time <code>(t+dt)</code> exceeds the most recent prescribed observation/sampling time. This sampling time would need to be stored in an extra variable, and we could also make the sampling procedure into its own function. And maybe we want a function to plot <code>N</code> over time at the end.</p>
 <p>The next stage of drafting is to consider how the code might go wrong, and what it would take to convince ourselves that it is accurate. We’ll spend more time on this later, but now is the time to think of every possible sanity check for the code. Sometimes this can lead to changes in code design.</p>
@@ -245,7 +246,7 @@ BirthdayGiftSuggestion(30,20)</code></pre>
 <pre class="r"><code>SimpsonIndex &lt;- function(C) {
   print(paste(c(&quot;Passed species counts:&quot;, C),collapse=&quot; &quot;))
   fractions &lt;- C/sum(C)
-  print(paste(c(&quot;Fractions:&quot;, fractions), collapse=&quot; &quot;))
+  print(paste(c(&quot;Fractions:&quot;, round(fractions, 3)), collapse=&quot; &quot;))
   S &lt;- sum(fractions^2)
   print(paste(&quot;About to return S =&quot;,S))
   return(S)
@@ -258,9 +259,9 @@ fakeCounts &lt;- floor(runif(numSpecies,min=1,max=maxCount))
 
 # Call function with simulated data
 S &lt;- SimpsonIndex(fakeCounts)</code></pre>
-<pre><code>## [1] &quot;Passed species counts: 145 951 943 273 466 277 930 241 223 856&quot;
-## [1] &quot;Fractions: 0.0273327049952875 0.179264844486334 0.177756833176249 0.0514608859566447 0.0878416588124411 0.0522148916116871 0.175306314797361 0.0454288407163054 0.0420358152686145 0.161357210179076&quot;
-## [1] &quot;About to return S = 0.138170470303032&quot;</code></pre>
+<pre><code>## [1] &quot;Passed species counts: 86 599 451 91 384 395 987 70 629 211&quot;
+## [1] &quot;Fractions: 0.022 0.153 0.116 0.023 0.098 0.101 0.253 0.018 0.161 0.054&quot;
+## [1] &quot;About to return S = 0.151022729055591&quot;</code></pre>
 <p>It’s very useful to print values to screen when you are writing a function for the first time and testing that one function. When you’ve drafted your function, I recommend walking through the function with <code>print()</code> and comparing the computed values to calculations you perform by hand or some other way. It can also be useful to do this at a very high level (more on that later).</p>
 <p>The problem with relying on <code>print()</code> is that it rapidly provides too much information for you to process, and hence errors can slip through.</p>
 <p><strong><em>Assertions</em></strong></p>
@@ -284,7 +285,7 @@ S &lt;- SimpsonIndex(goodCounts)
 S &lt;- SimpsonIndex(badCounts)</code></pre>
 <p>This gives a very literal error message, which is often enough when we are still developing the code. But what if the error might arise in the future, e.g., with future inputs? We can use the built-in function <code>stop()</code> to include a more informative message:</p>
 <pre class="r"><code>SimpsonIndex &lt;- function(C) {
-  if(any(C&lt;0)) stop(&quot;Species fractions should be positive.&quot;)
+  if(any(C&lt;0)) stop(&quot;Species counts should be positive.&quot;)
   fractions &lt;- C/sum(C)
   S &lt;- sum(fractions^2)
   return(S)
@@ -292,8 +293,10 @@ S &lt;- SimpsonIndex(badCounts)</code></pre>
 <p>Now try it with <code>badCounts</code> again.</p>
 <p>What about warnings? For instance, our calculation of the Simpson Index is an approximation: the index formally assumes we draw without replacement, but we compute <span class="math inline">\(S=\sum p^2\)</span>, where <span class="math inline">\(p\)</span> is the fraction of each species. It should be <span class="math inline">\(S=\sum \frac{n(n-1)}{N(N-1)}\)</span>, where <span class="math inline">\(n\)</span> is the abundance of each species <span class="math inline">\(n\)</span> and <span class="math inline">\(N\)</span> the total abundance. This simplification becomes important at small sample sizes. We could add a warning to alert users to this issue:</p>
 <pre class="r"><code>SimpsonIndex &lt;- function(C) {
-  if(any(C&lt;0)) stop(&quot;Species fractions should be positive.&quot;)
-  if((mean(C)&lt;20) || (min(C)&lt;5)) warning(&quot;Small sample size. Result will be biased. Consider corrected index.&quot;)
+  if(any(C&lt;0)) stop(&quot;Species counts should be positive.&quot;)
+  if((mean(C)&lt;20) || (min(C)&lt;5)) {
+    warning(&quot;Small sample size. Result will be biased. Consider corrected index.&quot;)
+  }
   fractions &lt;- C/sum(C)
   S &lt;- sum(fractions^2)
   return(S)
@@ -307,7 +310,11 @@ S &lt;- SimpsonIndex(smallCounts)</code></pre>
 <p>You could make a case that <code>warning()</code> should be <code>stop()</code>. In general, with defensive programming, you want to halt execution quickly to identify bugs and to limit misuse of the code.</p>
 <blockquote>
 <p><strong>Exercise</strong></p>
-<p>What other input checks would make sense with <code>SimpsonIndex()</code>? You can see how the code would be more readable and organized if most of that function were dedicated to actually calculating the Simpson Index. Draft a separate function, <code>CheckInputs()</code>, and include all tests you think are reasonable. When you and a neighbor are done, propose a bad or dubious input for their function and see if it’s caught.</p>
+<ul>
+<li>What other input checks would make sense with <code>SimpsonIndex()</code>?</li>
+<li>You can see how the code would be more readable and organized if most of that function were dedicated to actually calculating the Simpson Index. Draft a separate function, <code>CheckInputs()</code>, and include all tests you think are reasonable.</li>
+<li>When you and a neighbor are done, propose a bad or dubious input for their function and see if it’s caught.</li>
+</ul>
 </blockquote>
 <p>There are many packages that produce more useful assertions and error messages than what is built into <code>R</code>. See, e.g., <a href="https://cran.r-project.org/web/packages/assertthat/index.html"><code>assertthat</code></a> and <a href="https://cran.r-project.org/web/packages/testit/testit.pdf"><code>testit</code></a>.</p>
 <p><strong><em>Exception handling</em></strong></p>
@@ -335,7 +342,7 @@ print(results)</code></pre>
 ## [1] NA
 ## 
 ## [[2]]
-## [1] -1.112534</code></pre>
+## [1] -1.015334</code></pre>
 <p>Even though the function still can’t exponentiate a string (<code>exp(&quot;2&quot;)</code> still fails), execution doesn’t terminate. If we want to suppress the error message, we can use <code>try(..., silent=TRUE)</code>. This obviously carries some risk!</p>
 <p>We could make this function even more useful by handling the error responsibly with <code>tryCatch()</code>:</p>
 <pre class="r"><code>UsefulFunction &lt;- function(x){
@@ -366,7 +373,7 @@ ggplot(iris, aes(x = Sepal.Length, y = Species)) + geom_joy()</code></pre>
 </blockquote>
 <p><strong><em>Test all the scales!</em></strong></p>
 <p>It’s important to consider multiple scales on which to test as you develop. We’ve focused on unit tests (testing small functions and steps) and testing inputs, but it is easy to have correct subroutines and incorrect results. For instance, we can be excellent at the distinct activities of toasting bread, buttering bread, and eating bread, but we will fail to enjoy buttered toast for breakfast if we don’t pay attention to the order.</p>
-<p>With scientific programming, it is critical to simplify code to the point where results can be compared to analytic expectations. You saw this in Principle 1. It is important to add functions to check not only inputs and intermediate results but also larger results. For instance, when we set the birth rate equal to the death rate, does the code reliably produce a stable population? We can write functions to test for precisely such requirements. These are <strong>system tests</strong>. When you change something in your code, always rerun your system tests to make sure you’ve not messed something up.</p>
+<p>With scientific programming, it is critical to simplify code to the point where results can be compared to analytic expectations. You saw this in Principle 1. It is important to add functions to check not only inputs and intermediate results but also larger results. For instance, when we set the birth rate equal to the death rate, does the code reliably produce a stable population? We can write functions to test for precisely such requirements. These are <strong>system tests</strong>. When you change something in your code, always rerun your system tests to make sure you’ve not messed something up. Often it’s helpful to save multiple parameter sets or data files precisely for these tests.</p>
 <p>It’s hard to overstate the importance of taking a step back from the nitty-gritty of programming and asking, Are these results reasonable? Does the output make sense with different sets of extreme values? Schedule time to do this, and update your system tests when necessary.</p>
 </div>
 <div id="principle-4.-document-often." class="section level3">
