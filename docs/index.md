@@ -96,4 +96,16 @@ making sure that the directory is created within your home (Linux: `home/yournam
 
 Second, you need to download and unzip a large file containing all the data for the NGS tutorial. You can download the file [here](https://www.dropbox.com/s/kq7duts6i2heiup/ngs_workshop.zip?dl=0).
 
+## Programming Challenges
+
+During the boot camp, the 12 groups of students will compete through 6 programming challenges. Here are the links to the webpages where the groups should post their solutions (one answer per group, please):
+
+* Submit your answer to [Programming Challenge 1 (Basic Programming I)](https://docs.google.com/forms/d/e/1FAIpQLSfrBRpsQc7XefhrUxHmm8W43SHfIxK-AtRUhEYjgaA_JD8TyQ/viewform?usp=sf_link)
+* Submit your answer to [Programming Challenge 2 (Basic Programming II)](https://docs.google.com/forms/d/e/1FAIpQLSf7aPH54rKd3Jn17sdSvtc_iB__0TEf2nioQb4iQiysCv18NQ/viewform?usp=sf_link)
+* Submit your answer for the tutorial on [Defensive Programming](https://docs.google.com/forms/d/e/1FAIpQLSd1MdL5enuJjKLmhNN4KJCNKglzt8QSuHjQEjjhzpVbRUBeQg/viewform?usp=sf_link)
+* Submit your answer for the tutorial on [Reproducibility]()
+* Submit your answer for the tutorial on [Data Visualization](https://docs.google.com/forms/d/e/1FAIpQLSdY54V7vUjOVbd76I1E3pRMLznfiI1kXW7obmdrl7gQxPyEcA/viewform?usp=sf_link)
+* Submit your answer for the tutorial on [Stats for large data](https://docs.google.com/forms/d/e/1FAIpQLSf_fXbqPfhNZYUwcSTu_ZBNGJkBBoxoepr280KPjy7Kn_wjXw/viewform?usp=sf_link)
+
+
 
