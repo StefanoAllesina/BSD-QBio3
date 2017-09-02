@@ -4,7 +4,7 @@ pdftk ../other_docs/cover.pdf ../other_docs/blank.pdf cat output tmp.pdf
 ## Map # Revised
 pdftk tmp.pdf ../other_docs/map.pdf cat output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
-## Contact Info # TODO
+## Contact Info
 pandoc ../other_docs/contact_info.md -o ../other_docs/contact.pdf
 gs -o ../other_docs/contact2.pdf -dNoOutputFonts -sDEVICE=pdfwrite ../other_docs/contact.pdf
 pdftk tmp.pdf ../other_docs/contact2.pdf cat output tmp2.pdf; mv tmp2.pdf tmp.pdf
@@ -12,10 +12,14 @@ pdftk tmp.pdf ../other_docs/contact2.pdf cat output tmp2.pdf; mv tmp2.pdf tmp.pd
 ## General schedule # Revised
 pdftk tmp.pdf ../../schedule/GeneralSchedule.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
+## MBL Talks
+pandoc ../other_docs/talk_list.md -o ../other_docs/talk_list.pdf
+pdftk tmp.pdf ../other_docs/talk_list.pdf cat output tmp2.pdf; mv tmp2.pdf tmp.pdf
+
 ## Tutorials cover # Revised
 pdftk tmp.pdf ../other_docs/cover_tutorials.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
-## Imaging # TODO Contacted Vicky and Christine
+## Imaging 
 pdftk tmp.pdf ../../tutorials/imaging/data/ImageProcessingExercises.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
 ## Basic I # Revised

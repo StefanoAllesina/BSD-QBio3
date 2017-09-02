@@ -1,7 +1,3 @@
-# BSD-qBio3
-
-Third BSD qBio Boot Camp
-
 ## Welcome
 
 This page contains important information about the [Third BSD-qBio Boot Camp @ MBL](https://biosciences.uchicago.edu/content/mbl-bootcamp-2017), which will be held at the [Marine Biological Laboratory](http://www.mbl.edu/) in Woods Hole, MA, on Sept 10-17, 2017.
