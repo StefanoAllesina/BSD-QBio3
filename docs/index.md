@@ -71,6 +71,7 @@ You will work on your laptop all day long. **If you don't have a laptop, please 
     *   plotly
     *   htmlwidgets
     *   ggcorrplot
+    *   knitr
 
     You can find instructions on how to install `R` packages in RStudio [here](https://www.youtube.com/watch?v=3RWb5U3X-T8).
 
