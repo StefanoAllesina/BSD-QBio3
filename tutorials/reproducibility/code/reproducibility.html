@@ -227,7 +227,7 @@ div.tocify {
 </div>
 <div id="installation-notes" class="section level2">
 <h2>Installation notes</h2>
-<p>For this tutorial, relatively up-to-date versions of <code>R</code> and <code>RStudio</code> are needed. To install <code>R</code>, follow instructions at <a href="https://cran.rstudio.com/"><code>cran.rstudio.com</code></a>. Then install <code>Rstudio</code> following the instructions at <a href="https://www.rstudio.com/products/rstudio/download2/"><code>goo.gl/a42jYE</code></a>. Download the <code>ggplot2</code>, <code>cowplot</code>, <code>stats</code>, <code>RMKdiscrete</code> packages.</p>
+<p>For this tutorial, relatively up-to-date versions of <code>R</code> and <code>RStudio</code> are needed. To install <code>R</code>, follow instructions at <a href="https://cran.rstudio.com/"><code>cran.rstudio.com</code></a>. Then install <code>Rstudio</code> following the instructions at <a href="https://www.rstudio.com/products/rstudio/download2/"><code>goo.gl/a42jYE</code></a>. Download the <code>ggplot2</code>, <code>cowplot</code>, <code>stats</code>, and <code>RMKdiscrete</code> packages. You should also install the UNIX utility <code>git</code>.</p>
 <p>For the bonus data challenge, you will also need to install the Unix utility <code>libcurl</code>. If you haven’t done so already, you can find installation instruction links here for OSX and Windows.</p>
 </div>
 <div id="commenting-your-code" class="section level2">
@@ -257,7 +257,7 @@ coinflip &lt;- if (random_val &lt; p_heads) 1 else 0
 <p>You can use the function <code>rbinom</code> to generate draws from a Bernoulli distribution. In our lottery, this would amount to flipping the coin <span class="math inline">\(n_\textrm{flips}\)</span> times.</p>
 <pre class="r"><code>n_flips &lt;- 3
 rbinom(n_flips,1,p_heads)</code></pre>
-<pre><code># [1] 0 0 0</code></pre>
+<pre><code># [1] 0 0 1</code></pre>
 <blockquote>
 <p><strong>Exercise</strong></p>
 <p>If you could only buy one ticket for this lottery, which one would you buy? Modify your code (perhaps use <code>rbinom</code>) and run it several times (maybe 100 or even 1000) to sample from lots of possible lottery outcomes. Did you pick a good number? How many times did your number come up?</p>
@@ -387,7 +387,7 @@ lambda2_sowbugs = 0.53214
 lambda1_sowbugs = mean_sowbugs*(1-lambda2_sowbugs)</code></pre>
 <p>We can now use these parameters to show how well this model fits the sowbug data. First let’s load a package that contains a function for the LGP equation, that returns a count distribution over a range of <span class="math inline">\(k\)</span> values, given input parameters <span class="math inline">\(\lambda_1\)</span> and <span class="math inline">\(\lambda_2\)</span>.</p>
 <pre class="r"><code>library(RMKdiscrete)
-P_k_LGP &lt;- dLGP(0:17,lambda1_sowbugs,lambda2_sowbugs)</code></pre>
+LGP_k_sowbugs &lt;- data.frame(k=k, probability=dLGP(k,lambda1_sowbugs,lambda2_sowbugs))</code></pre>
 <blockquote>
 <p><strong>Exercise</strong></p>
 <p>Add a line to your sowbug plot, showing the output of the LGP function with our defined parameters. How well does this model fit the data?</p>
@@ -410,7 +410,7 @@ g_weevils</code></pre>
 <p><span class="math inline">\(\lambda_2 = 1 - (\frac{\textrm{variance}}{\textrm{mean}})^{-1/2}\)</span>, and <span class="math inline">\(\lambda_1 = \textrm{mean} (1 - \lambda_2)\)</span>.</p>
 <blockquote>
 <p><strong>Exercise</strong></p>
-<p>Compute these two parameters. Is <span class="math inline">\(\lambda_2\)</span> positive or negative? Use <code>dLPG</code> and add a line to your weevil plot for these results. Does this distribution fit the data well?</p>
+<p>Compute these two parameters. Use <code>dLPG</code> and add a line to your weevil plot for these results. Does this distribution fit the data well?</p>
 </blockquote>
 </div>
 </div>
@@ -419,13 +419,16 @@ g_weevils</code></pre>
 <h2>Introduction to version control</h2>
 <p>Version control is a way to record and organize changes to a set of files and directories (e.g., the directory containing one of your projects). Over time, a version control system (VCS) builds a database storing all the changes you perform (a <em>repository</em>), making the whole history of the project available.</p>
 <p>When you start working on a new project, you tell your VCS to keep track of all the changes, additions, and deletions. At any point, you can <em>commit</em> the changes, effectively building a snapshot of the project in the repository. This snapshot of the project is then accessible—you can recover previously committed versions of files, including metadata such as who changed what, when and why. Also, you can easily start tracking files for an existing project.</p>
-<p>Version control is especially important for collaborative projects: everybody can simultaneously work on the project—and even on the same file. Conflicting changes are reported, and can be managed using side-by-side comparisons. The possibility of <em>branching</em> allows you to experiment with changes (e.g., shall we rewrite the introduction of this paper?), and then decide whether to <em>merge</em> them into the project.</p>
+<p>Version control is especially important for collaborative projects: everybody can simultaneously work on the project, even on the same file. Conflicting changes are reported, and can be managed using side-by-side comparisons. The possibility of <em>branching</em> allows you to experiment with changes (e.g., shall we rewrite the introduction of this paper?), and then decide whether to <em>merge</em> them into the project.</p>
 <div id="why-use-version-control" class="section level3">
 <h3>Why use Version Control?</h3>
 <p>Version control is fundamental to keeping a project tidily organized and a central piece to making scientific computing as automated, reproducible, and easy to read and share as possible.</p>
 <p>Many scientists keep backup versions of the same project over time or append a date/initials to different versions of the same file (e.g., various drafts of the same manuscript). This manual approach quickly becomes unmanageable, with simply too many files and versions to keep track of in a timely and organized manner. Version control allows you to access all previously committed versions of the files and directories of your project. This means that it is quite easy to undo short-term changes: Bad day? Just go back to yesterday’s version! You can also access previous stages of the project: “I need to access the manuscript’s version and all the analysis files in exactly the state that they where in when I sent the draft for review three months ago.” Checking out an entire project at a certain point in time is easy with a version control system but much more difficult with <code>Dropbox</code> or <code>Google Drive</code>.</p>
 <p>Version control is useful for small, and essential for large collaborative projects. It vastly improves the workflow, efficiency and reproducibility. Without it, it is quite easy to lose track of the status of a manuscript (who has the most recent version?), or lose time (I cannot proceed with my changes, because I have to wait for the edits of my collaborators).</p>
-<p>Version control might look like overkill at first. However, with a little bit of practice you will automatically run a few commands before you start working on a project, and again once you are done working on it. A small price to pay, considering the advantages. Simply put, using version control makes you a more organized and efficient scientist. Our laboratory adopted version control for all the projects in 2010, and sometimes we wonder how did we manage without.</p>
+<p>Version control might look like overkill at first. However, with a little bit of practice you will automatically run a few commands before you start working on a project, and again once you are done working on it. A small price to pay, considering the advantages. Simply put, using version control makes you a more organized and efficient scientist.</p>
+<blockquote>
+<p>Stefano’s testimonial: “Our laboratory adopted version control for all our projects in 2010, and sometimes we wonder how we managed without it.”</p>
+</blockquote>
 <p>Throughout this introduction, we illustrate the advantages of using version control for conducting scientific research, and assume that each repository is a scientific project. At first, we work with <em>local</em> repositories, meaning that all the files are stored exclusively on your computer. Then, we introduce <em>remote</em> repositories, which are also hosted on a web server, making it easy for you to share your projects with others (or work on the same project from different computers).</p>
 </div>
 </div>
@@ -435,9 +438,6 @@ g_weevils</code></pre>
 <p>Other options you might want to consider are <code>Mercurial</code> (very similar to <code>git</code>) and Subversion Version Control (<code>svn</code>), which is an older system, but still widespread.</p>
 <p>There are two main paradigms for VCSs allowing multiple users to collaborate: in a <em>centralized</em> VCS (e.g., <code>svn</code>), the whole history of a project is stored exclusively on a server, and users download the most current snapshot of the project, modify it, and send the changes to the server; in a <em>distributed</em> VCS (e.g., <code>git</code>), the complete history of the repository is stored on each user’s computer.</p>
 <p><code>git</code> was initially developed by Linus Torvalds (the “Linu” in Linux), exactly for the development of the Linux kernel. It was first released in 2005 and has since become the most widely adopted version control system.</p>
-<div id="installing-git" class="section level3">
-<h3>Installing Git</h3>
-</div>
 <div id="configuring-git" class="section level3">
 <h3>Configuring git</h3>
 <p>First, open a terminal window.</p>
@@ -627,6 +627,10 @@ $ git commit -m &quot;my message&quot;</code></pre>
 </div>
 <div id="references-and-readings" class="section level2">
 <h2>References and readings</h2>
+<div id="journal-articles" class="section level3">
+<h3>Journal articles</h3>
+<p>All of the data used in this tutorial come from original research papers that are in the <code>readings</code> folder. Also in the <code>readings</code> folder, you will find an article by Roger Peng arguing for setting standards for reproducible research in computational science. It’s a short article that we hope you will read and adopt as best practices for your own work.</p>
+</div>
 <div id="books-and-tutorials" class="section level3">
 <h3>Books and tutorials</h3>
 <p>There are very many good books and tutorials on <code>git</code>. We are particularly fond of <em>Pro Git</em>, by Scott Chacon and Ben Straub. You can either buy a physical copy of the book, or read it online for free.</p>
@@ -641,6 +645,22 @@ $ git commit -m &quot;my message&quot;</code></pre>
 </div>
 <div id="data-challenge" class="section level2">
 <h2>Data Challenge</h2>
+<p>This tutorial has been focused on making your code reproducible and sharable with the wider world. Many journal now <em>require</em> that you submit your code and data when you publish your paper. One such article was recently written on the False Discovery Rate in medical research (Jaeger and Leek (2014) can be found in the <code>readings</code> folder). While an earlier article claimed that over 80% of medical results were probably false discoveries, this work uses a slightly more sophisticated analysis of the p-values reported in the medical literature, to determine whether the observed distribution of p-values is significantly different from those drawn from a uniform distribution. Reassuringly, the authors find that the false discovery rate is lower (~20%), but still troubling, across many medical journals.</p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>Use the published code in: Jager, Leah R., and Jeffrey T. Leek. “An estimate of the science-wise false discovery rate and application to the top medical literature.” Biostatistics 15.1 (2013): 1-12. …to reproduce the results of the paper. In particular, report the mean and standard deviaiont of the FDR of the journal The Lancet to 4 significant digits.</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Use the scraped abstract data provided in <code>data</code> and use the authors’ code to compute the FDR for the journal PNAS. Find the mean and s.d. of the FDR for this journal.</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li>Bonus question: use the authors’ code to first scrape PubMed for abstracts, and next compute the FDR for the Journal of Psychiatric Neuroscience. You will find a bug in the code that you will need to hunt down and fix.</li>
+</ol></li>
+<li><ol start="4" style="list-style-type: decimal">
+<li>Bonus question: Find the part of the code where the authors’ initialize their random number generator.</li>
+</ol></li>
+</ul>
+<p>Go to URL to submit your team’s answers.</p>
 </div>
 
 

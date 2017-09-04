@@ -3,12 +3,12 @@ title: "Reproducibility of data analysis"
 author: "Stephanie Palmer & Stefano Allesina & Graham Smith"
 date: "September 12-14, 2017"
 output:
-  pdf_document:
-    toc: yes
   html_document:
     theme: cosmo
     toc: yes
     toc_float: yes
+  pdf_document:
+    toc: yes
 urlcolor: blue
 ---
 
@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 This tutorial will cover methods for making your code reproducible, both by you and by others. In particular, we will discuss methods to ensure that you can: reproduce your calculations precisely, make your code readable, track changes to your code, and make your code freely accessible to the wider world via [github](http://github.com/). Along the way, you will get an introduction to stochastic processes and how they are used to model biological variability. By the end of this tutorial, you should know why it is important to save your seeds and merge your branches.
 
 ## Installation notes
-For this tutorial, relatively up-to-date versions of `R` and `RStudio` are needed. To install `R`, follow instructions at [`cran.rstudio.com`](https://cran.rstudio.com/). Then install `Rstudio` following the instructions at [`goo.gl/a42jYE`](https://www.rstudio.com/products/rstudio/download2/). Download the `ggplot2`, `cowplot`, `stats`, `RMKdiscrete` packages.
+For this tutorial, relatively up-to-date versions of `R` and `RStudio` are needed. To install `R`, follow instructions at [`cran.rstudio.com`](https://cran.rstudio.com/). Then install `Rstudio` following the instructions at [`goo.gl/a42jYE`](https://www.rstudio.com/products/rstudio/download2/). Download the `ggplot2`, `cowplot`, `stats`, and `RMKdiscrete` packages. You should also install the UNIX utility `git`.
 
 For the bonus data challenge, you will also need to install the Unix utility `libcurl`. If you haven't done so already, you can find installation instruction links here for OSX and Windows.
 
@@ -46,15 +46,14 @@ Let's make sure to load the `stats` package.
 ```{r,eval=TRUE}
 library(stats)
 ```
-Next, let's explore how we simulate flipping this bent coin once. Here's one way to do it:
 
+Next, let's explore how we simulate flipping this bent coin once. Here's one way to do it:
 ```{r,eval=TRUE}
 p_heads <- 0.1
 random_val <- runif(1)
 coinflip <- if (random_val < p_heads) 1 else 0
 # 1 is for heads, 0 is for tails
 ```
-
 
 > **Exercise**
 >
@@ -253,7 +252,7 @@ We can now use these parameters to show how well this model fits the sowbug data
 
 ```{r,eval=FALSE}
 library(RMKdiscrete)
-P_k_LGP <- dLGP(0:17,lambda1_sowbugs,lambda2_sowbugs)
+LGP_k_sowbugs <- data.frame(k=k, probability=dLGP(k,lambda1_sowbugs,lambda2_sowbugs))
 ```
 
 > **Exercise**
@@ -262,7 +261,6 @@ P_k_LGP <- dLGP(0:17,lambda1_sowbugs,lambda2_sowbugs)
 
 #### Weevils are antisocial
 In 1975, Rodger Mitchell reported on data from an experiment on weevil egg-laying behavior. Weevils lay their eggs in mung beans, then the larva hatches within the bean and eats the bean as it matures. A larger bean with fewer other hatching eggs to compete with will increase the larva's chance of survival. Mitchell measured how many eggs were laid per bean in an experiment were eggs were plentiful and competition was low. Load the bean weevil data 
-
 ```{r,eval=FALSE}
 weevil_data <- read.delim("../data/mitchell_weevil_egg_data_1975.csv", sep=',')
 N_eggs <- sum(weevil_data$C_count_of_beans_with_k_eggs)
@@ -286,14 +284,14 @@ $\lambda_1 = \textrm{mean} (1 - \lambda_2)$.
 
 > **Exercise**
 >
-> Compute these two parameters. Is $\lambda_2$ positive or negative? Use `dLPG` and add a line to your weevil plot for these results. Does this distribution fit the data well? 
+> Compute these two parameters. Use `dLPG` and add a line to your weevil plot for these results. Does this distribution fit the data well? 
 
 ## Introduction to version control
 Version control is a way to record and organize changes to a set of files and directories (e.g., the directory containing one of your projects). Over time, a version control system (VCS) builds a database storing all the changes you perform (a *repository*), making the whole history of the project available.
 
 When you start working on a new project, you tell your VCS to keep track of all the changes, additions, and deletions. At any point, you can *commit* the changes, effectively building a snapshot of the project in the repository. This snapshot of the project is then accessible---you can recover previously committed versions of files, including metadata such as who changed what, when and why. Also, you can easily start tracking files for an existing project.
 
-Version control is especially important for collaborative projects: everybody can simultaneously work on the project---and even on the same file. Conflicting changes are reported, and can be managed using side-by-side comparisons. The possibility of *branching* allows you to experiment with changes (e.g., shall we rewrite the introduction of this paper?), and then decide whether to *merge* them into the project.
+Version control is especially important for collaborative projects: everybody can simultaneously work on the project, even on the same file. Conflicting changes are reported, and can be managed using side-by-side comparisons. The possibility of *branching* allows you to experiment with changes (e.g., shall we rewrite the introduction of this paper?), and then decide whether to *merge* them into the project.
 
 ### Why use Version Control?
 Version control is fundamental to keeping a project tidily organized and a central piece to making scientific computing as automated, reproducible, and easy to read and share as possible.
@@ -302,7 +300,9 @@ Many scientists keep backup versions of the same project over time or append a d
 
 Version control is useful for small, and essential for large collaborative projects. It vastly improves the workflow, efficiency and reproducibility. Without it, it is quite easy to lose track of the status of a manuscript (who has the most recent version?), or lose time (I cannot proceed with my changes, because I have to wait for the edits of my collaborators).
 
-Version control might look like overkill at first. However, with a little bit of practice you will automatically run a few commands before you start working on a project, and again once you are done working on it. A small price to pay, considering the advantages. Simply put, using version control makes you a more organized and efficient scientist. Our laboratory adopted version control for all the projects in 2010, and sometimes we wonder how did we manage without.
+Version control might look like overkill at first. However, with a little bit of practice you will automatically run a few commands before you start working on a project, and again once you are done working on it. A small price to pay, considering the advantages. Simply put, using version control makes you a more organized and efficient scientist. 
+
+> Stefano's testimonial: "Our laboratory adopted version control for all our projects in 2010, and sometimes we wonder how we managed without it."
 
 Throughout this introduction, we illustrate the advantages of using version control for conducting scientific research, and assume that each repository is a scientific project. At first, we work with *local* repositories, meaning that all the files are stored exclusively on your computer. Then, we introduce *remote* repositories, which are also hosted on a web server, making it easy for you to share your projects with others (or work on the same project from different computers).
 
@@ -314,9 +314,6 @@ Other options you might want to consider are `Mercurial` (very similar to `git`)
 There are two main paradigms for VCSs allowing multiple users to collaborate: in a *centralized* VCS (e.g., `svn`), the whole history of a project is stored exclusively on a server, and users download the most current snapshot of the project, modify it, and send the changes to the server; in a *distributed* VCS (e.g., `git`), the complete history of the repository is stored on each user's computer.
 
 `git` was initially developed by Linus Torvalds (the "Linu" in Linux), exactly for the development of the Linux kernel. It was first released in 2005 and has since become the most widely adopted version control system.
-
-### Installing Git
-
 
 ### Configuring git
 First, open a terminal window. 
@@ -630,6 +627,9 @@ $ git -d mybranch
 ```
 
 ## References and readings
+### Journal articles
+All of the data used in this tutorial come from original research papers that are in the `readings` folder. Also in the `readings` folder, you will find an article by Roger Peng arguing for setting standards for reproducible research in computational science. It's a short article that we hope you will read and adopt as best practices for your own work.
+
 ### Books and tutorials
 There are very many good books and tutorials on `git`. We are
 particularly fond of *Pro Git*, by Scott Chacon and Ben Straub. You
@@ -646,3 +646,17 @@ A great way to try out Git in 15 minutes is [here](http://try.github.io).
 There are several Graphical User Interfaces for [git](http://git-scm.com/downloads/guis). 
 
 ## Data Challenge
+This tutorial has been focused on making your code reproducible and sharable with the wider world. Many journal now *require* that you submit your code and data when you publish your paper. One such article was recently written on the False Discovery Rate in medical research (Jaeger and Leek (2014) can be found in the `readings` folder). While an earlier article claimed that over 80% of medical results were probably false discoveries, this work uses a slightly more sophisticated analysis of the p-values reported in the medical literature, to determine whether the observed distribution of p-values is significantly different from those drawn from a uniform distribution. Reassuringly, the authors find that the false discovery rate is lower (~20%), but still troubling, across many medical journals. 
+
+* 1) Use the published code in:
+Jager, Leah R., and Jeffrey T. Leek. "An estimate of the science-wise false discovery rate and application to the top medical literature." Biostatistics 15.1 (2013): 1-12.
+...to reproduce the results of the paper. In particular, report the mean and standard deviaiont of the FDR of the journal The Lancet to 4 significant digits.
+
+* 2) Use the scraped abstract data provided in `data` and use the authors' code to compute the FDR for the journal PNAS. Find the mean and s.d. of the FDR for this journal.
+
+* 3) Bonus question: use the authors' code to first scrape PubMed for abstracts, and next compute the FDR for the Journal of Psychiatric Neuroscience. You will find a bug in the code that you will need to hunt down and fix.
+
+* 4) Bonus question: Find the part of the code where the authors' initialize their random number generator. 
+
+
+Go to URL to submit your team's answers.
