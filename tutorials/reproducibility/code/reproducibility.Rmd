@@ -36,11 +36,21 @@ Include a comment block at the top of your program, function, script, etc. that 
 
 Code comments should describe what you _intend_ the code to do, not what it does in detail. Comments that do the latter are simply restating in words, and probably in many more characters and more clumsily, what the actual code is saying. This is redundant; don't do it.
 
-Avoid the need to write lots of explanatory commments by writing Really Obvious Code (ROC). Tips for writing ROC:
-* use function and variable names that are self-explanatory. For example `random_locations_of_N_spiders_in_a_box.R` is a much better function name than `eek.R`, and `eek2017.R` is still better than `eek.R`. Old coders had to limit variable name and code lengths because of the limitations of memory size. You're no longer constrained in this way! 
+When possible, write Really Obvious Code (ROC) to avoid needing explanatory comments. Tips for writing ROC:
+
+  * Use function and variable names that are self-explanatory. For example \hfill\break `random_locations_of_N_spiders_in_a_box.R` is a much better function name than `eek.R`, and `eek2017.R` is still better than `eek.R`. Old coders had to limit variable name and code lengths because of the limitations of memory size. You're no longer constrained in this way! Now you can even type `random[TAB]` to see a list of all functions you've defined whose name starts with `random`, so the extra characters don't waste time.
+  * Do one thing at a time. This
+    ```{r,eval=FALSE}
+    foo <- make_a_foo()
+    king <- crown_a_foo(foo)
+    dethrone_a_foo(king)
+    ```
+    is much more readable than `dethrone_a_foo(crown_a_foo(make_a_foo()))` or even \hfill\break
+    `make_and_crown_and_dethrone_a_foo()`.
+  * Don't use magic numbers. When programmers talk about magic numbers, they don't mean 7 (necessarily). They mean any number that's just sitting in your code, unnamed. This is similar to "use self-explanatory variable names." `area <- 5 * 3` is not as clear as `area <- width * height`.
 
 ## DIY lottery
-To practice commenting code, let's write a short program to generate a draw from a lottery. The lottery is a somewhat peculiar one: The winning lottery number is drawn by flipping a coin 30 times and reporting a "$1$" for heads and a "$0$" for tails. The same bent coin is always used, and it has a probability of $0.1$ of turning up heads and a probability of $0.9$ of turning up tails. Each ticket for the lottery is a buyer-determined string of $30$ $1$'s and $0$'s, and costs $\$1$. The prize money for the lottery is $\$10,000,000$. 
+To practice commenting code, let's write a short program to generate a draw from a lottery. The lottery is a somewhat peculiar one: Each ticket for the lottery is a buyer-determined string of $30$ $1$'s and $0$'s. The winning lottery number is drawn by flipping a coin 30 times and reporting a "$1$" for heads and a "$0$" for tails. The same bent coin is always used, and it has a probability of $0.1$ of turning up heads and a probability of $0.9$ of turning up tails. The prize money for the lottery is $\$10,000,000$, and each ticket costs only \$1. 
 
 Let's make sure to load the `stats` package.
 ```{r,eval=TRUE}
@@ -66,7 +76,7 @@ Each flip of a coin like this with probability, $p$, of heads is an example of a
 
 $P_n(k) = \binom{n}{k} p^k (1-p)^{n-k},$
 
-where $p$ is the probability of heads ($1$'s), $n$ is the length of our lottery ticket, and $k$ is the number of heads in the ticket. The prefactor $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ is called the binomial coefficient and describes the number of unique ways of placing $k$ identical objects in $n$ bins. Capital "$P$" represents the probability distribution of $k$ heads.
+where $p$ is the probability of heads ($1$'s), $n$ is the length of our lottery ticket, and $k$ is the number of heads in the ticket. The prefactor $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ is called the binomial coefficient and describes the number of unique ways of placing $k$ identical objects in $n$ bins. Capital "$P_n$" represents the probability distribution of $k$ heads out of $n$ tosses.
 
 You can use the function `rbinom` to generate draws from a Bernoulli distribution. In our lottery, this would amount to flipping the coin $n_\textrm{flips}$ times. 
 ```{r,eval=TRUE}
@@ -85,7 +95,7 @@ Compare a draw from your lottery with your neighbor. Do you draw the same sequen
 ? RNG
 ```
 
-You will notice that the function `RNGkind` is the interface for querying the current state of the RNG. Let's find out what the current settings are:
+That should open documentation in the "Help" pane. You will notice that the function `RNGkind` is the interface for querying the current state of the RNG. Let's find out what the current settings are:
 
 ```{r,eval=TRUE}
 RNGkind()
@@ -93,7 +103,7 @@ RNGkind()
 
 The first part is the RNG algorithm, the second specifies the algorithm for transforming uniformly distributed random numbers into random samples from the normal, or Gaussian, distribution. The twister algorithm based on Mersenne prime numbers, $M_n = 2^n -1$, where $n$ is also prime, is a state-of-the-art pseudo-random number generation scheme, developed by Matsumoto and Nishimura in 1997. NB: RNG's should technically be called *pseudo*-random number generators or PRNG's, in part because they all have some period after which they will produce exactly the same sequence. The trick is to find an algorithm with a period so long you'll never notice the "P" in the "PRNG". The Mersenne Twister algorithm has a period of $2^{19937}-1$ and passes many statistical tests for randomness.
 
-The seed to an RNG is usually a large integer that provides an initialization the RNG algorithm. Scrolling down to "Note" you'll learn that the seed to `R`'s RNG is set by the current time and sometimes the process ID. That means that your simulation results will depend on when you start your `R` session, run your code, and even some local information in your processing environment. Compare the output of `runif` with your neighbor.
+The seed to an RNG is usually a large integer that provides an initialization the RNG algorithm. Scrolling down to "Note" in the "Help" pane, you'll learn that the seed to `R`'s RNG is set by the current time and the process ID. That means that your simulation results will depend on when you start your `R` session, run your code, and even some local information in your processing environment. Compare the output of `runif` with your neighbor.
 
 ```{r,eval=FALSE}
 runif(5)
@@ -410,7 +420,7 @@ and then start editing it. We could use a text editor, but
 for the moment let's stick to the command:
 
 ```{r, engine = 'bash', eval = FALSE}
-$ echo "An abstract of an Essay on the Origin of Species and Varieties Through natural selection" > origin.txt
+$ echo "An abstract of an Essay on the Origin of Species..." > origin.txt
 ```
 
 and check that our command went through:
@@ -457,7 +467,8 @@ The long line of numbers and letters after the word `commit` is the "checksum" a
 Now, let's change a tracked file:
 
 ```{r, engine = 'bash', eval = FALSE}
-echo "On the Origin of Species, by Means of Natural Selection, or the Preservation of Favoured Races in the Struggle for Life" > origin.txt
+echo "On the Origin of Species, by Means of Natural Selection, " > origin.txt
+echo "or the Preservation of Favoured Races in the Struggle for Life" >> origin.txt
 ```
 
 a much more powerful, albeit a bit long, title. The
@@ -488,29 +499,38 @@ $ git log
 That's it! For 99$\%$ of your time working with `git`, all you need to do
 is to follow these simple steps:
 
-* When you are creating a new project
+## Summary of Daily `git` Commands
+
+Creating an entirely new project:
 ```{r, engine = 'bash', eval = FALSE}
 $ mkdir newproject
 $ cd newproject
 $ git init # initialize repository
 ```
 
-* Daily routine:
-* 1) Change the files
-* 2) Check status
+`git`ifying an existing project:
 ```{r, engine = 'bash', eval = FALSE}
-$ git status
-```
-* 3) Add files to the snapshot
-```{r, engine = 'bash', eval = FALSE}
-$ git add --all
-```
-* 4) Commit the snapshot
-```{r, engine = 'bash', eval = FALSE}
-$ git commit -m "my descriptive message"
+$ cd existingproject
+$ git init
 ```
 
-Besides these basic commands, `git` allows you to do much more. We
+Once you already have a version controlled project in `git`, your daily routine:
+
+  1) Work! Make new files, change files, etc.
+  2) Add new or changed files to the snapshot:
+    ```{r, engine = 'bash', eval = FALSE}
+    $ git add [FILENAME]
+    ```
+  3) Check the local repo's status to see if you forgot to add any files
+    ```{r, engine = 'bash', eval = FALSE}
+    $ git status
+    ```
+  4) Commit the snapshot
+    ```{r, engine = 'bash', eval = FALSE}
+    $ git commit -m "my descriptive message"
+    ```
+
+These are a few of the most basic commands, but `git` allows you to do much more. We
 explore a few of the more advanced features in the next sections.
 
 ### Moving and removing files
@@ -522,6 +542,8 @@ $ git rm *.txt
 $ git mv myoldname.txt mynewname.csv
 ```
 
+If you run `git status` and see you've accidentally added a file you didn't want to track (e.g. your data) you can use `git rm --cached [FILENAME]` to unstage a file (i.e. prevent it from being committed). NB: Even on your local machine, it's a good idea to store data *outside* your git repository (especially if it's sensitive medical data) so that you don't accidentally add it to your repository. Remember: `git` remembers everything.
+
 ### Deleting changes and reverting to last commit
 Sometimes, changes can go horribly wrong, such that you would like to scrap everything, and abandon all the changes you made to one (or more) file(s). This can be accomplished by typing:
 
@@ -529,44 +551,54 @@ Sometimes, changes can go horribly wrong, such that you would like to scrap ever
 $ git checkout filetoreset.txt
 ```
 
-once you run this command, the file will be in the last
+If you want to scrap *everything*, you can type `git log` to see a list of previous commits, each of which will have a `[REALLY LONG SEQUENCE OF CHARACTERS]` that uniquely identifies that commit snapshot. To scrap all your changes and go back to the state of your project at the time of that commit, just type
+
+```{r, engine = 'bash', eval = FALSE}
+$ git checkout [REALLY LONG SEQUENCE OF CHARACTERS]
+```
+
+Once you run this command, the file(s) will be in the last
 version you committed. Use this command with caution, as the changes
 you made are irrevocably lost.
+
 
 ## Remote repositories
 So far, we have been working with local repositories, hosted in only one computer. When collaborating (or when working on the same project from different computers), it is convenient to host the repository on a server, so that the collaborators can see your changes, and add
 their own.
 
-There are two main options: a) setup your own server (this is beyond the scope of this introduction, but see Section \ref{sec:gitrr} for pointers on how to do this); b) host your repositories on a website offering this service (for a fee, or for free).
+There are two main options: a) setup your own server (this is beyond the scope of this introduction); b) host your repositories on a website offering this service (for a fee, or for free).
 
-The most popular option for hosting Open Source projects, where the whole world can see what and when you commit, is [GitHub](http://github.com), which will store all your public repositories for free. 
+The most popular option for hosting open source projects, where the whole world can see what and when you commit, is [GitHub](http://github.com), which will store all your public repositories for free. In fact, as as student you can get private repositories for free! The [Student Developer Pack](https://education.github.com/pack) comes with access to lots of other goodies, but private repositories make it a necessity. They're useful in the early stages of your project when you're paranoid about anyone, let alone the entire world, seeing your hasty hacks. But remember to publicize your repository when you publish! (Note: probably still not HIPAA compliant)
 
 After the initial setup (which is specific to the service you use, and thus not treated here), you only need to add two new commands to your `git` workflow: `pull` and `push`. When you want to work on a project that is tracked by a remote repository, you `pull` the most recent version from the server and work on your local copy using the commands illustrated above. When you are done, you `push` your commits to the server so that other users can see them. Your workflow will look like:
 
-* Get the latest version of the project
-```{r, engine = 'bash', eval = FALSE}
-$ git pull
-```
-
-* Start making changes. When done run:
-```{r, engine = 'bash', eval = FALSE}
-$ git add --all
-```
-* Time to commit:
-```{r, engine = 'bash', eval = FALSE}
-$ git commit -m "A meaningful message"
-```
-* Rinse and repeat...
-
-* Ok, everyone should see my changes
-```{r, engine = 'bash', eval = FALSE}
-$ git push
-```
+  1) Wake up in the morning, get some coffee (or tea!), settle in at your computer, and type:
+    ```{r, engine = 'bash', eval = FALSE}
+    $ git pull
+    ```
+    This will grab any changes an enterprising, insomniac collaborator `push`ed at 4am this morning. Or it will grab the changes you `push`ed from your laptop at 4am this morning. (note the word `push`!)
+  2) Get to work! Everything works just like it does for a local repository (because you do have a local repository, in addition to the remote repository). When you create or modify files, either add them individually or run:
+    ```{r, engine = 'bash', eval = FALSE}
+    $ git add --all
+    ```
+  3) When you've hit a milestone, or loosely when you can explain what you've done in a line or two, `commit` your changes 
+    ```{r, engine = 'bash', eval = FALSE}
+    $ git commit -m "A meaningful message"
+    ```
+  4) Repeat steps 2 and 3 until...
+  
+  5) "Ok, everyone should see my changes." It's time to send your changes to the remote repository:
+    ```{r, engine = 'bash', eval = FALSE}
+    $ git push
+    ```
+    How often you should `push` will vary by project. If you're the only one working on your branch (see below), there's no reason not to `push` after every `commit`. If your computer abruptly transcends this existence, you'll only lose the progress since your last `push`.
 
 Note that the interaction with the server only happens when you `pull` and `push`. In between these commands, you are in control, and can decide when and what to communicate to your collaborators.
 
 ### Branching and merging
 Most VCSs allow you to *branch* from the main development of the project (i.e., experiment freely with your project without messing up the original version). It is like saying "Save as" with a different name, but with the possibility of easily merging the two parallel versions of the file. Typical examples of a branching point in scientific projects are: a) you want to try a different angle for the Introduction of your manuscript, but you are not sure it's going to be better; b) you want to try to rewrite a piece of code, to see whether it will be faster, but surely you do not want to ruin the current version that is working just fine; c) you want to keep working on the figures, while your collaborator is editing the manuscript. In these cases, you are working on an "experimental feature", while leaving the main project unaltered (or while other people are working on it). Once you are satisfied with your changes, you would like to *merge* them with the main version of the project.
+
+Frankly, you should always be working on a branch. 
 
 In `git`, creating a new branch is quite easy. Suppose that you are working on a project, and that you have never branched before. Suppose that you want to try amending a piece of the code (for example, to make it run faster), but don't want to touch the code that is already working. You need to *branch*:
 
@@ -574,60 +606,54 @@ In `git`, creating a new branch is quite easy. Suppose that you are working on a
 $ git branch fastercode
 ```
 
-creates the new branch `fastercode`. 
-
-* List branches in your repository
+creates the new branch `fastercode`. Now you can type
 ```{r, engine = 'bash', eval = FALSE}
 $ git branch
 ```
-
-* Switch branch
+to see a list of all the branches in your repository, including the default `master` and the newly created `fastercode`. To switch to your newly created branch, type
 ```{r, engine = 'bash', eval = FALSE}
 $ git checkout fastercode
 ```
-
-which means that now you can experiment freely. Suppose that you edit the code, and commit the changes:
-
-* Change the code, and then commit
+Now you can commit as usual, but the changes will not affect the `master` branch.
 ```{r, engine = 'bash', eval = FALSE}
 $ git commit -m "Managed to make code faster"
+$ git log
+[commit log including "Managed to make code faster"]
+$ git checkout master
+$ git log
+[commit log NOT including "Managed to make code faster"]
+$ git checkout fastercode
+$ git log
+[new commit still saved!]
 ```
 
 To summarize, here's how you work with branches:
 
-* Create a new branch
-```{r, engine = 'bash', eval = FALSE}
-$ git branch mybranch
-```
-* See that you are in master
-```{r, engine = 'bash', eval = FALSE}
-$ git branch
-```
-* Move to new branch
-```{r, engine = 'bash', eval = FALSE}
-$ git checkout mybranch
-```
-
-* Start working on the branch
-* ...
-* Add and commit changes
-```{r, engine = 'bash', eval = FALSE}
-$ git add --all
-$ git commit -m "my message"
-```
-
-* Once you are satisfied, and want to include the changes into the main project, move back to main trunk
-```{r, engine = 'bash', eval = FALSE}
-$ git checkout master
-```
-* Merge the branch
-```{r, engine = 'bash', eval = FALSE}
-$ git merge mybranch -m "message for merge"
-```
-* [optional] delete the branch
-```{r, engine = 'bash', eval = FALSE}
-$ git -d mybranch
-```
+  * Create a new branch
+    ```{r, engine = 'bash', eval = FALSE}
+    $ git branch mybranch
+    ```
+  * See list of branches, including indication of which branch you're currently on.
+    ```{r, engine = 'bash', eval = FALSE}
+    $ git branch
+    ```
+  * Move to new branch
+    ```{r, engine = 'bash', eval = FALSE}
+    $ git checkout mybranch
+    ```
+  * Start working on the branch. Everything described in the previous sections still works, just affecting the current branch rather than the `master` branch. (Note you'll get an error if you try to `pull` before `push`ing the new branch, since the remote doesn't have the new branch until you `push` it).
+  * Once you are satisfied, and want to include the changes into the main project, move back to main trunk
+    ```{r, engine = 'bash', eval = FALSE}
+    $ git checkout master
+    ```
+  * Merge the branch
+    ```{r, engine = 'bash', eval = FALSE}
+    $ git merge mybranch -m "message for merge"
+    ```
+  * [optional] delete the branch
+    ```{r, engine = 'bash', eval = FALSE}
+    $ git -d mybranch
+    ```
 
 ## References and readings
 ### Journal articles
@@ -649,17 +675,15 @@ A great way to try out Git in 15 minutes is [here](http://try.github.io).
 There are several Graphical User Interfaces for [git](http://git-scm.com/downloads/guis). 
 
 ## Data Challenge
-This tutorial has been focused on making your code reproducible and sharable with the wider world. Many journal now *require* that you submit your code and data when you publish your paper. One such article was recently written on the False Discovery Rate in medical research (Jaeger and Leek (2014) can be found in the `readings` folder). While an earlier article claimed that over 80% of medical results were probably false discoveries, this work uses a slightly more sophisticated analysis of the p-values reported in the medical literature, to determine whether the observed distribution of p-values is significantly different from those drawn from a uniform distribution. Reassuringly, the authors find that the false discovery rate is lower (~20%), but still troubling, across many medical journals. 
 
-* 1) Use the published code in:
-Jager, Leah R., and Jeffrey T. Leek. "An estimate of the science-wise false discovery rate and application to the top medical literature." Biostatistics 15.1 (2013): 1-12.
-...to reproduce the results of the paper. In particular, report the mean and standard deviaiont of the FDR of the journal The Lancet to 4 significant digits.
+For this challenge, we will be using the paper Jager, Leah R., and Jeffrey T. Leek. "An estimate of the science-wise false discovery rate and application to the top medical literature." Biostatistics 15.1 (2013): 1-12. The paper can be found in the `readings` folder.
 
-* 2) Use the scraped abstract data provided in `data` and use the authors' code to compute the FDR for the journal PNAS. Find the mean and s.d. of the FDR for this journal.
+This tutorial has been focused on making your code reproducible and sharable with the wider world. Many journal now *require* that you submit your code and data when you publish your paper. Jaeger, Leah, and Leek (2014) is one such article. While an earlier article claimed that over 80% of medical results were probably false discoveries, this work uses a slightly more sophisticated analysis of the p-values reported in the medical literature, to determine whether the observed distribution of p-values is significantly different from those drawn from a uniform distribution. Reassuringly, the authors find that the false discovery rate is lower (~20%), but still troubling, across many medical journals. 
 
-* 3) Bonus question: use the authors' code to first scrape PubMed for abstracts, and next compute the FDR for the Journal of Psychiatric Neuroscience. You will find a bug in the code that you will need to hunt down and fix.
-
-* 4) Bonus question: Find the part of the code where the authors' initialize their random number generator. 
+  1) Use the published code in Jaeger, Leah, and Leek (2014) to reproduce the reported mean and standard deviation of the FDR of *The Lancet* to 4 significant digits. Note that you should *not* need to scrape PubMed to do this.
+  2) Use the scraped abstract data provided in `data` and use the authors' code to compute the FDR for the journal PNAS. Find the mean and s.d. of the FDR for this journal.
+  3) Bonus question: use the authors' code to first scrape PubMed for abstracts, and next compute the FDR for the Journal of Psychiatric Neuroscience (PubMed abbreviation: J Psych Neuro). You will find a bug in the code that you will need to hunt down and fix.
+  4) Bonus question: Find the part of the code where the authors' initialize their random number generator. 
 
 
 Go to URL to submit your team's answers.
