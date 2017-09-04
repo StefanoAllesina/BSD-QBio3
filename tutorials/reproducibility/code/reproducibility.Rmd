@@ -3,12 +3,12 @@ title: "Reproducibility of data analysis"
 author: "Stephanie Palmer & Stefano Allesina & Graham Smith"
 date: "September 12-14, 2017"
 output:
+  pdf_document:
+    toc: yes
   html_document:
     theme: cosmo
     toc: yes
     toc_float: yes
-  pdf_document:
-    toc: yes
 urlcolor: blue
 ---
 
@@ -47,10 +47,13 @@ Let's make sure to load the `stats` package.
 library(stats)
 ```
 
-Next, let's explore how we simulate flipping this bent coin once. Here's one way to do it:
+Next, let's explore how we simulate flipping this bent coin once. We're going to use one of R's random number generator functions `runif`, which will give you uniformly distributed numbers on the interval $[0.1]$. Here's one way to do it:
 ```{r,eval=TRUE}
+# define the probability of heads
 p_heads <- 0.1
+# draw a random number from the interval [0,1]
 random_val <- runif(1)
+# threshold the random number based on p_heads to decide the sign of the flip 
 coinflip <- if (random_val < p_heads) 1 else 0
 # 1 is for heads, 0 is for tails
 ```

@@ -242,9 +242,12 @@ div.tocify {
 <p>To practice commenting code, let’s write a short program to generate a draw from a lottery. The lottery is a somewhat peculiar one: The winning lottery number is drawn by flipping a coin 30 times and reporting a “<span class="math inline">\(1\)</span>” for heads and a “<span class="math inline">\(0\)</span>” for tails. The same bent coin is always used, and it has a probability of <span class="math inline">\(0.1\)</span> of turning up heads and a probability of <span class="math inline">\(0.9\)</span> of turning up tails. Each ticket for the lottery is a buyer-determined string of <span class="math inline">\(30\)</span> <span class="math inline">\(1\)</span>’s and <span class="math inline">\(0\)</span>’s, and costs <span class="math inline">\(\$1\)</span>. The prize money for the lottery is <span class="math inline">\(\$10,000,000\)</span>.</p>
 <p>Let’s make sure to load the <code>stats</code> package.</p>
 <pre class="r"><code>library(stats)</code></pre>
-<p>Next, let’s explore how we simulate flipping this bent coin once. Here’s one way to do it:</p>
-<pre class="r"><code>p_heads &lt;- 0.1
+<p>Next, let’s explore how we simulate flipping this bent coin once. We’re going to use one of R’s random number generator functions <code>runif</code>, which will give you uniformly distributed numbers on the interval <span class="math inline">\([0.1]\)</span>. Here’s one way to do it:</p>
+<pre class="r"><code># define the probability of heads
+p_heads &lt;- 0.1
+# draw a random number from the interval [0,1]
 random_val &lt;- runif(1)
+# threshold the random number based on p_heads to decide the sign of the flip 
 coinflip &lt;- if (random_val &lt; p_heads) 1 else 0
 # 1 is for heads, 0 is for tails</code></pre>
 <blockquote>
@@ -257,7 +260,7 @@ coinflip &lt;- if (random_val &lt; p_heads) 1 else 0
 <p>You can use the function <code>rbinom</code> to generate draws from a Bernoulli distribution. In our lottery, this would amount to flipping the coin <span class="math inline">\(n_\textrm{flips}\)</span> times.</p>
 <pre class="r"><code>n_flips &lt;- 3
 rbinom(n_flips,1,p_heads)</code></pre>
-<pre><code># [1] 0 0 1</code></pre>
+<pre><code># [1] 0 0 0</code></pre>
 <blockquote>
 <p><strong>Exercise</strong></p>
 <p>If you could only buy one ticket for this lottery, which one would you buy? Modify your code (perhaps use <code>rbinom</code>) and run it several times (maybe 100 or even 1000) to sample from lots of possible lottery outcomes. Did you pick a good number? How many times did your number come up?</p>
