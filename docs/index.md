@@ -81,17 +81,17 @@ You will work on your laptop all day long. **If you don't have a laptop, please 
 
 ## Downloading the data
 
-It is very important to **download the data** before you leave for MBL, as the files are quite large. First, you need to download the repository containing all the boot camp lectures and data. There are two options
+It is very important to **download the data** before you leave for MBL, as the files are quite large. 
 
-*   If you're familiar with `Git`, clone the repository
+*   First, you need to download the repository containing all the boot camp lectures and data. There are two options
 
-    git clone https://github.com/StefanoAllesina/BSD-QBio3.git
+    *   If you're familiar with `Git`, clone the repository
+        `git clone https://github.com/StefanoAllesina/BSD-QBio3.git`
+        making sure that the directory is created within your home (Linux: `home/yourname`, Mac OSX: `Users/yourname`, Windows `Users/yourname`).
 
-making sure that the directory is created within your home (Linux: `home/yourname`, Mac OSX: `Users/yourname`, Windows `Users/yourname`).
+     *   If you're not familiar with `Git`, download the [zip file](https://github.com/StefanoAllesina/BSD-QBio3/archive/master.zip), and extract it to your home directory. Make sure to rename the folder to `BSD-QBio3` (it will be extracted as `BSD-QBio3-master`).
 
-*   If you're not familiar with `Git`, download the [zip file](https://github.com/StefanoAllesina/BSD-QBio3/archive/master.zip), and extract it to your home directory. Make sure to rename the folder to `BSD-QBio3` (it will be extracted as `BSD-QBio3-master`).
-
-Second, you need to download and unzip a large file containing all the data for the NGS tutorial. You can download the file [here](https://www.dropbox.com/s/kq7duts6i2heiup/ngs_workshop.zip?dl=0).
+*  Second, you need to download and unzip a large file containing all the data for the NGS tutorial. You can download the file [here](https://www.dropbox.com/s/kq7duts6i2heiup/ngs_workshop.zip?dl=0).
 
 ## Programming Challenges
 
