@@ -312,7 +312,7 @@ Throughout this introduction, we illustrate the advantages of using version cont
 ## Git
 For this introduction to version control, we use `git`, which is one of the most popular version control systems. `git` is also free software, and is available for all computer architectures. Many good tutorials are available online, and many websites will host your repositories for free.
 
-Other options you might want to consider are `Mercurial` (very similar to `git`) and Subversion Version Control (`svn`), which is an older system, but still widespread.
+Other options you might want to consider are `Mercurial` (very similar to `git`) and Subversion Version Control `svn`, which is an older system, but still widespread.
 
 There are two main paradigms for VCSs allowing multiple users to collaborate: in a *centralized* VCS (e.g., `svn`), the whole history of a project is stored exclusively on a server, and users download the most current snapshot of the project, modify it, and send the changes to the server; in a *distributed* VCS (e.g., `git`), the complete history of the repository is stored on each user's computer.
 
@@ -370,21 +370,23 @@ use of remote repositories for collaborative projects.
 ### Workflow
 Here is the typical day in the life of a git user:
 
-> When starting a new project, create a directory using
-  terminal and initialize a repository. Start working on your files
-  until you reach a milestone or until you are done for the day. Check
-  what has changed since your last snapshot. Decide which files to add
+> When starting a new project, 1) create a directory using
+  terminal and initialize a repository. 2) Start working on your files
+  until you reach a milestone or until you are done for the day. 3) Check
+  what has changed since your last snapshot. 4) Decide which files to add
   to the new snapshot of the project (selected files, or
-  everything). Create the snapshot by committing your changes,
-  including a detailed description. Start changing the files again,
+  everything). 5) Create the snapshot by committing your changes,
+  including a detailed description. 6) Start changing the files again,
   add them to the new snapshot, and commit.  
   
 As you can see, there are only a few commands that you need to master for everyday work. Let's try our hands at this workflow and create a simple repository. Open a terminal window and create a new directory called `git_test`.
 
 ```{r, engine = 'bash', eval = FALSE}
+$ mkdir git_test
 $ cd /git_test
 $ mkdir originspecies
 $ cd originspecies
+$ pwd
 $ git init
 ```
 
