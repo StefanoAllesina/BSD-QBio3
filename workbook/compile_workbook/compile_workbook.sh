@@ -4,10 +4,13 @@ pdftk ../other_docs/cover.pdf ../other_docs/blank.pdf cat output tmp.pdf
 ## Map # Revised
 pdftk tmp.pdf ../other_docs/map.pdf cat output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
-## Contact Info
-pandoc ../other_docs/contact_info.md -o ../other_docs/contact.pdf
-gs -o ../other_docs/contact2.pdf -dNoOutputFonts -sDEVICE=pdfwrite ../other_docs/contact.pdf
+## Contact Info # Revised
+pandoc ../other_docs/contact_info.md -o ../other_docs/contact2.pdf
+gs -o ../other_docs/contact2.pdf -dNoOutputFonts -sDEVICE=pdfwrite ../other_docs/contact2.pdf
 pdftk tmp.pdf ../other_docs/contact2.pdf cat output tmp2.pdf; mv tmp2.pdf tmp.pdf
+
+## Block Room Schedule (General)
+pdftk tmp.pdf ../../schedule/GeneralRoomSchedule.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
 ## General schedule # Revised
 pdftk tmp.pdf ../../schedule/GeneralSchedule.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
@@ -40,13 +43,11 @@ pdftk tmp.pdf ../../tutorials/defensive_programming/code/defensive_programming.p
 ## Data visualization
 pdftk tmp.pdf ../../tutorials/data_visualization/dataviz.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
-## Reproducibility #TODO
-#pdftk tmp.pdf ../../tutorials/advanced_computing_2/code/advanced_computing_2.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
+## Reproducibility
+pdftk tmp.pdf ../../tutorials/reproducibility/code/reproducibility.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
 ## Stats for data rich
 pdftk tmp.pdf ../../tutorials/stats_for_large_data/code/stats_for_large_data.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
-
-
 
 ## Workshops cover # Revised
 pdftk tmp.pdf ../other_docs/cover_workshops.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
