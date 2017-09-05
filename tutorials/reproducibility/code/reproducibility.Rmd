@@ -535,6 +535,12 @@ Once you already have a version controlled project in `git`, your daily routine:
 These are a few of the most basic commands, but `git` allows you to do much more. We
 explore a few of the more advanced features in the next sections.
 
+> **Exercise**
+>
+> Create a local git repo. Create three empty files inside the repo called `spiders`, `snakes`, and `monkeys` (e.g. by `touch FILENAME`). Compare the output of `git status` before and after adding each of the files. Commit your changes. Don't forget to use a descriptive message! What does `git status` say after the commit?
+>
+> Keep this repo around, we'll come back to it.
+
 ### Moving and removing files
 When you want to move or remove files or directories under version control, you should let `git` know, so that it can update the index of files to be tracked. Doing so is quite easy: simply put `git` in front of the command you would run to perform the operation:
 
@@ -563,6 +569,11 @@ Once you run this command, the file(s) will be in the last
 version you committed. Use this command with caution, as the changes
 you made are irrevocably lost.
 
+> **Exercise**
+>
+> Play around with the files you made in the last exercise. Add some names of spiders, snakes, and monkeys to their respective files. What is the difference between the output of `git status` now and in the previous exercise? Commit these changes. Now try renaming `snakes` to `serpents` using `git mv`. Try removing `spiders` using `git rm`. What does `git status` say? Does `spiders` actually disappear from the folder when you remove it from the repository? What happens when you commit your changes?
+>
+> We don't want to be mean to the poor spiders, so revert to the commit where you had the three files `spiders`, `snakes`, and `monkeys`, and each had a list of names written inside them. (I hope you actually committed then, and I hope you gave that commit a descriptive name...)
 
 ## Remote repositories
 So far, we have been working with local repositories, hosted in only one computer. When collaborating (or when working on the same project from different computers), it is convenient to host the repository on a server, so that the collaborators can see your changes, and add
@@ -596,6 +607,10 @@ After the initial setup (which is specific to the service you use, and thus not 
     How often you should `push` will vary by project. If you're the only one working on your branch (see below), there's no reason not to `push` after every `commit`. If your computer abruptly transcends this existence, you'll only lose the progress since your last `push`.
 
 Note that the interaction with the server only happens when you `pull` and `push`. In between these commands, you are in control, and can decide when and what to communicate to your collaborators.
+
+> **Exercise (for at home!)**
+>
+> Make a GitHub account! You can even create a GitHub repository and push your local repository to that new GitHub repository. Even though you created this remote repository after your local repository, are your previous commits saved?
 
 ### Branching and merging
 Most VCSs allow you to *branch* from the main development of the project (i.e., experiment freely with your project without messing up the original version). It is like saying "Save as" with a different name, but with the possibility of easily merging the two parallel versions of the file. Typical examples of a branching point in scientific projects are: a) you want to try a different angle for the Introduction of your manuscript, but you are not sure it's going to be better; b) you want to try to rewrite a piece of code, to see whether it will be faster, but surely you do not want to ruin the current version that is working just fine; c) you want to keep working on the figures, while your collaborator is editing the manuscript. In these cases, you are working on an "experimental feature", while leaving the main project unaltered (or while other people are working on it). Once you are satisfied with your changes, you would like to *merge* them with the main version of the project.
@@ -643,7 +658,7 @@ To summarize, here's how you work with branches:
     ```{r, engine = 'bash', eval = FALSE}
     $ git checkout mybranch
     ```
-  * Start working on the branch. Everything described in the previous sections still works, just affecting the current branch rather than the `master` branch. (Note you'll get an error if you try to `pull` before `push`ing the new branch, since the remote doesn't have the new branch until you `push` it).
+  * Start working on the branch. Everything described in the previous sections still works, just affecting the current branch rather than the `master` branch. (Note: when `push`ing the new branch, `git` will prompt you to set the upstream branch. Since you created this branch locally, the remote has no corresponding branch, so the line `git` prompts you to write will create the branch remotely, and then push local branch into the remote branch. "upstream" just refers to the remote branch corresponding to the local branch).
   * Once you are satisfied, and want to include the changes into the main project, move back to main trunk
     ```{r, engine = 'bash', eval = FALSE}
     $ git checkout master
@@ -656,6 +671,12 @@ To summarize, here's how you work with branches:
     ```{r, engine = 'bash', eval = FALSE}
     $ git -d mybranch
     ```
+
+> **Exercise**
+>
+> It's time for war. Create (at least two) new branches called `monkeys_are_the_best` or similar, and appropriately wage war on your enemies and shore up defenses (more monkeys might help -- Zizou, for example, is the best monkey name). Switch between branches to wage war on all sides. But don't be mean, then I'll feel bad for writing this exercise. Wage a *nice* war.
+>
+> Once you're satisfied with the carnage (the *nice* carnage), switch back to the master branch and try your hand at merging the branches into master. The first one should be simple! The second one? Less so. If both are simple, go back and wage better war (i.e. modify the same line in two branches). How do you resolve a merge where there are conflicts? This is in general not easy, but `git` tries to help as much as possible.
 
 ## References and readings
 ### Journal articles
