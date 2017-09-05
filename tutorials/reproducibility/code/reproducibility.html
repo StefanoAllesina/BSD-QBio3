@@ -227,8 +227,8 @@ div.tocify {
 </div>
 <div id="installation-notes" class="section level2">
 <h2>Installation notes</h2>
-<p>For this tutorial, relatively up-to-date versions of <code>R</code> and <code>RStudio</code> are needed. To install <code>R</code>, follow instructions at <a href="https://cran.rstudio.com/"><code>cran.rstudio.com</code></a>. Then install <code>Rstudio</code> following the instructions at <a href="https://www.rstudio.com/products/rstudio/download2/"><code>goo.gl/a42jYE</code></a>. Download the <code>ggplot2</code>, <code>cowplot</code>, <code>stats</code>, and <code>RMKdiscrete</code> packages. You should also install the UNIX utility <code>git</code>.</p>
-<p>For the bonus data challenge, you will also need to install the Unix utility <code>libcurl</code>. If you haven’t done so already, you can find installation instruction links here for OSX and Windows.</p>
+<p>For this tutorial, relatively up-to-date versions of <code>R</code> and <code>RStudio</code> are needed. To install <code>R</code>, follow instructions at <a href="https://cran.rstudio.com/"><code>cran.rstudio.com</code></a>. Then install <code>Rstudio</code> following the instructions at <a href="https://www.rstudio.com/products/rstudio/download2/"><code>goo.gl/a42jYE</code></a>. Download the <code>ggplot2</code>, <code>cowplot</code>, <code>stats</code>, and <code>RMKdiscrete</code> packages. You should also install the UNIX utility <code>git</code> for <a href="https://git-scm.com/download/mac">OSX</a> or <a href="https://git-for-windows.github.io/">Windows</a>.</p>
+<p>For the bonus data challenge, you will also need to install the Unix utility <code>libcurl</code>. If you haven’t done so already, you can find installation instruction links here by first clicking on the libcurl <a href="https://curl.haxx.se/dlwiz/?type=lib">Download Wizard</a>. You only need to install the pure binary libcurl package.</p>
 </div>
 <div id="commenting-your-code" class="section level2">
 <h2>Commenting your code</h2>
@@ -269,7 +269,7 @@ coinflip &lt;- if (random_val &lt; p_heads) 1 else 0
 <p>You can use the function <code>rbinom</code> to generate draws from a Bernoulli distribution. In our lottery, this would amount to flipping the coin <span class="math inline">\(n_\textrm{flips}\)</span> times.</p>
 <pre class="r"><code>n_flips &lt;- 3
 rbinom(n_flips,1,p_heads)</code></pre>
-<pre><code># [1] 0 1 0</code></pre>
+<pre><code># [1] 0 0 0</code></pre>
 <blockquote>
 <p><strong>Exercise</strong></p>
 <p>If you could only buy one ticket for this lottery, which one would you buy? Modify your code (perhaps use <code>rbinom</code>) and run it several times (maybe 100 or even 1000) to sample from lots of possible lottery outcomes. Did you pick a good number? How many times did your number come up?</p>
@@ -644,7 +644,7 @@ $ git log
 <li>Bonus question: use the authors’ code to first scrape PubMed for abstracts, and next compute the FDR for the Journal of Psychiatric Neuroscience (PubMed abbreviation: J Psych Neuro). You will find a bug in the code that you will need to hunt down and fix.</li>
 <li>Bonus question: Find the part of the code where the authors’ initialize their random number generator.</li>
 </ol>
-<p>Go to URL to submit your team’s answers.</p>
+<p>Go to <a href="https://goo.gl/forms/KDJDxw0Kzb1l8AcH2">this link</a> to submit your team’s answers.</p>
 </div>
 
 

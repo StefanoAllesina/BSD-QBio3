@@ -25,9 +25,9 @@ knitr::opts_chunk$set(
 This tutorial will cover methods for making your code reproducible, both by you and by others. In particular, we will discuss methods to ensure that you can: reproduce your calculations precisely, make your code readable, track changes to your code, and make your code freely accessible to the wider world via [github](http://github.com/). Along the way, you will get an introduction to stochastic processes and how they are used to model biological variability. By the end of this tutorial, you should know why it is important to save your seeds and merge your branches.
 
 ## Installation notes
-For this tutorial, relatively up-to-date versions of `R` and `RStudio` are needed. To install `R`, follow instructions at [`cran.rstudio.com`](https://cran.rstudio.com/). Then install `Rstudio` following the instructions at [`goo.gl/a42jYE`](https://www.rstudio.com/products/rstudio/download2/). Download the `ggplot2`, `cowplot`, `stats`, and `RMKdiscrete` packages. You should also install the UNIX utility `git`.
+For this tutorial, relatively up-to-date versions of `R` and `RStudio` are needed. To install `R`, follow instructions at [`cran.rstudio.com`](https://cran.rstudio.com/). Then install `Rstudio` following the instructions at [`goo.gl/a42jYE`](https://www.rstudio.com/products/rstudio/download2/). Download the `ggplot2`, `cowplot`, `stats`, and `RMKdiscrete` packages. You should also install the UNIX utility `git` for [OSX](https://git-scm.com/download/mac) or [Windows](https://git-for-windows.github.io/).
 
-For the bonus data challenge, you will also need to install the Unix utility `libcurl`. If you haven't done so already, you can find installation instruction links here for OSX and Windows.
+For the bonus data challenge, you will also need to install the Unix utility `libcurl`. If you haven't done so already, you can find installation instruction links here by first clicking on the libcurl [Download Wizard](https://curl.haxx.se/dlwiz/?type=lib). You only need to install the pure binary libcurl package.
 
 ## Commenting your code
 When you begin programming, you have written just a few programs and functions and it might be possible to hold all of your naming conventions, subroutine purposes, and little tricks in your mind at once. However, wait just a year or even just a few dozen code snippets later and you'll have a hard time deciphering, perhaps even running *your own* code if you don't take the time to comment your files carefully. Best practices in modern computational science also dictate that you share your code whenever you publish a result. This means that other people need to be able to read your code; it should run on other computers with other folks sending the input data and specifying or *changing* parameters. This might seem daunting, but a few simple habits will aid in keeping all of your code parsable by other humans, including your own future self.
@@ -688,4 +688,4 @@ This tutorial has been focused on making your code reproducible and sharable wit
   4) Bonus question: Find the part of the code where the authors' initialize their random number generator. 
 
 
-Go to URL to submit your team's answers.
+Go to [this link](https://goo.gl/forms/KDJDxw0Kzb1l8AcH2) to submit your team's answers.
