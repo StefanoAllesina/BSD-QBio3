@@ -191,7 +191,8 @@ library(cowplot)
 ``` 
 
 ```{r,eval=FALSE}
-g_spiders <- ggplot(x, aes(x=k_number_of_arthropods, y=P_k_spiders)) + geom_point(size = 3) + xlab("k spiders") + ylab("probabilty")
+g_spiders <- ggplot(x, aes(x=k_number_of_arthropods, y=P_k_spiders)) +  
+  geom_point(size = 3) + xlab("k spiders") + ylab("probabilty")
 g_spiders
 ```
 
@@ -210,7 +211,10 @@ Poisson_k_spiders <- data.frame(k=k, probability=dpois(k,mean_spiders))
 
 Add a line for the Poisson model to your plot of the observed spider probability.
 ```{r,eval=FALSE}
-g_spiders <- g_spiders + geom_line(data=Poisson_k_spiders, aes(x=k, y=probability), linetype='dashed', colour='#006400') + geom_point(data=Poisson_k_spiders, aes(x=k, y=probability), colour='#006400', shape=0, size = 3)
+g_spiders <- g_spiders + geom_line(data=Poisson_k_spiders, aes(x=k, y=probability),  
+                                   linetype='dashed', colour='#006400') +  
+                         geom_point(data=Poisson_k_spiders, aes(x=k, y=probability),  
+                                    colour='#006400', shape=0, size = 3)
 ```
 
 > **Exercise**
@@ -221,7 +225,11 @@ If the spider rate were closer to 7 spiders per board, what would you expect for
 
 ```{r,eval=FALSE}
 Poisson_k_spiders_mean_7 <- data.frame(k=k, probability=dpois(k,7))
-ggplot(x, aes(x=k_number_of_arthropods, y=P_k_spiders)) + geom_line(data=Poisson_k_spiders_mean_7, aes(x=k, y=probability), linetype='dashed', colour='#006400') + geom_point(data=Poisson_k_spiders_mean_7, aes(x=k, y=probability), colour='#006400', shape=0, size = 3) + xlab("k spiders") + ylab("probabilty")
+ggplot(x, aes(x=k_number_of_arthropods, y=P_k_spiders)) +  
+  geom_line(data=Poisson_k_spiders_mean_7, aes(x=k, y=probability), linetype='dashed',   
+            colour='#006400') +  
+  geom_point(data=Poisson_k_spiders_mean_7, aes(x=k, y=probability), colour='#006400',  
+             shape=0, size = 3) + xlab("k spiders") + ylab("probabilty")
 ```
 Does this distribution look familiar?
 
@@ -256,7 +264,8 @@ When $\lambda_2 =0$, we get precisely the Poisson distribution. Back to the sowb
 $\lambda_1 = \textrm{mean} (1 - \lambda_2)$.
 
 ```{r,eval=TRUE}
-mean_sowbugs <- sum(x$k_number_of_arthropods*x$C_count_of_boards_with_k_sowbugs) / sum(x$C_count_of_boards_with_k_sowbugs)
+mean_sowbugs <- sum(x$k_number_of_arthropods*x$C_count_of_boards_with_k_sowbugs) /  
+  sum(x$C_count_of_boards_with_k_sowbugs)
 lambda2_sowbugs = 0.53214
 lambda1_sowbugs = mean_sowbugs*(1-lambda2_sowbugs)
 ```
@@ -282,7 +291,8 @@ weevil_data$P_k_weevils <- weevil_data$C_count_of_beans_with_k_eggs/N_eggs
 
 $\ldots$and plot it. 
 ```{r,eval=FALSE}
-g_weevils <- ggplot(weevil_data, aes(x=k_number_of_eggs, y=P_k_weevils)) + geom_point(size = 3) + xlab("k spiders") + ylab("probabilty")
+g_weevils <- ggplot(weevil_data, aes(x=k_number_of_eggs, y=P_k_weevils)) +  
+  geom_point(size = 3) + xlab("k spiders") + ylab("probabilty")
 g_weevils
 ```
 
