@@ -68,6 +68,7 @@ You will work on your laptop all day long. **If you don't have a laptop, please 
     *   htmlwidgets
     *   ggcorrplot
     *   knitr
+    *   RMKdiscrete
 
     You can find instructions on how to install `R` packages in RStudio [here](https://www.youtube.com/watch?v=3RWb5U3X-T8).
 
@@ -77,7 +78,11 @@ You will work on your laptop all day long. **If you don't have a laptop, please 
 
 * **Software for NGS**: This will take a while, so start early. [Here are](https://github.com/StefanoAllesina/BSD-QBio3/blob/master/workshops/yang/NGS_workshop_software_installation.pdf) very detalied instructions. Follow them closely and contact Lixing Yang in case of problems.  
 
-* **UNIX Emulator**: If you are using Windows, you need to install a UNIX emulator. We suggest downloading the version control software `Git` (which we are not going to use, but that you might want to master!), because it ships with a small emulator (`Git Bash`). Simply go to [this page](https://git-scm.com/download/win) and follow the instructions.
+* **UNIX Emulator**: If you are using Windows, you need to install a UNIX emulator. We suggest downloading the version control software `Git` (you will need this anyway!), because it ships with a small emulator (`Git Bash`). Simply go to [this page](https://git-scm.com/download/win) and follow the instructions.
+
+* **Git**: For both Windows and Mac users, you need to install the version control software `Git`. Windows users may have already completed this as part of your UNIX emulator install. If so, you're all set. If not, Windows users can try [this link](https://git-for-windows.github.io/). For Mac users, please go [here](https://git-scm.com/download/mac) to download `Git`.
+
+* **libcurl**: For one of the bonus data challenges, you will also need to install the Unix utility `libcurl`. If you haven't done so already, you can find installation instruction links here by first clicking on the libcurl [Download Wizard](https://curl.haxx.se/dlwiz/?type=lib). You only need to install the pure binary libcurl package.
 
 ## Downloading the data
 
@@ -100,7 +105,7 @@ During the boot camp, the 12 groups of students will compete through 6 programmi
 * Submit your answer to [Programming Challenge 1 (Basic Programming I)](https://docs.google.com/forms/d/e/1FAIpQLSfrBRpsQc7XefhrUxHmm8W43SHfIxK-AtRUhEYjgaA_JD8TyQ/viewform?usp=sf_link)
 * Submit your answer to [Programming Challenge 2 (Basic Programming II)](https://docs.google.com/forms/d/e/1FAIpQLSf7aPH54rKd3Jn17sdSvtc_iB__0TEf2nioQb4iQiysCv18NQ/viewform?usp=sf_link)
 * Submit your answer for the tutorial on [Defensive Programming](https://docs.google.com/forms/d/e/1FAIpQLSd1MdL5enuJjKLmhNN4KJCNKglzt8QSuHjQEjjhzpVbRUBeQg/viewform?usp=sf_link)
-* Submit your answer for the tutorial on [Reproducibility]()
+* Submit your answer for the tutorial on [Reproducibility](https://goo.gl/forms/kmHCkM6BYgBSVMuw2)
 * Submit your answer for the tutorial on [Data Visualization](https://docs.google.com/forms/d/e/1FAIpQLSdY54V7vUjOVbd76I1E3pRMLznfiI1kXW7obmdrl7gQxPyEcA/viewform?usp=sf_link)
 * Submit your answer for the tutorial on [Stats for large data](https://docs.google.com/forms/d/e/1FAIpQLSf_fXbqPfhNZYUwcSTu_ZBNGJkBBoxoepr280KPjy7Kn_wjXw/viewform?usp=sf_link)
 
