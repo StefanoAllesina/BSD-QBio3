@@ -61,6 +61,15 @@ pdftk tmp.pdf ../../workshops/novembre/Handouts/MBL_WorkshopJN.pdf output tmp2.p
 ## Yang 
 pdftk tmp.pdf ../../workshops/yang/NGS_analysis_tutorial.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
+## Introductory math tutorials cover # Revised
+pdftk tmp.pdf ../other_docs/cover_math_intros.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
+
+## Stochastic # Revised
+pdftk tmp.pdf ../other_docs/intro_stochastic_processes_with_solutions.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
+
+## Dynamical # Revised
+pdftk tmp.pdf ../other_docs/intro_dynamical_systems_with_solutions.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
+
 ## Redistill to reduce size
 gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -sOutputFile=../workbook.pdf tmp.pdf
 ## remove tmp
