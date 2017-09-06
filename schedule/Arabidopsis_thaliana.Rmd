@@ -21,7 +21,8 @@ output:
 ## Group Schedule: *Arabidopsis thaliana*
  ![](https://github.com/StefanoAllesina/BSD-QBio3/raw/master/logo_group/Arabidopsis_thaliana.png)
 
-### Sunday, September 10 
+
+## Sunday, September 10 
 
 ------------------    -----------------------------------------------------
 **2:45-5:00**         Check-in (Swope)                                     
