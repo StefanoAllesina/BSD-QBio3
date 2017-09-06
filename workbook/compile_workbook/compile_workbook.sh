@@ -6,7 +6,7 @@ pdftk tmp.pdf ../other_docs/map.pdf cat output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
 ## Contact Info # Revised
 pandoc ../other_docs/contact_info.md -o ../other_docs/contact2.pdf
-##gs -o ../other_docs/contact2.pdf -dNoOutputFonts -sDEVICE=pdfwrite ../other_docs/contact2.pdf
+gs -o ../other_docs/contact.pdf -dNoOutputFonts -sDEVICE=pdfwrite ../other_docs/contact2.pdf
 pdftk tmp.pdf ../other_docs/contact2.pdf cat output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
 ## Block Room Schedule (General)
