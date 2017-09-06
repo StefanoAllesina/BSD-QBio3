@@ -27,7 +27,7 @@ output:
 **2:45-5:00**         Check-in                              
 **5:00-6:30**         Dinner                                
 **6:30-7:00**         Team building activities              
-**7:15-8:30**         Introduction – Allesina and Palmer    
+**7:15-8:30**         Introduction - Allesina and Palmer    
 ------------------    --------------------------------------
 
 ### Monday, September 11 
@@ -41,7 +41,7 @@ output:
 **2:30-2:45**         Coffee break                          
 **2:45-4:30**         Basic comp. II                        
 **5:00-6:30**         Dinner                                
-**6:15-7:30**         Welcome – R. Nishi & V. Prince        
+**6:15-7:30**         Welcome - R. Nishi & V. Prince        
 **7:35-8:10**         Life after PhD a)                      (*M.mulatta M.musculus*)
                       Life after PhD b)                      (*S.aegyptiacus T.roseae*)
                       Navigating first year a)               (*D.rerio X.laevis*)
@@ -66,12 +66,12 @@ output:
 
 ------------------    --------------------------------------
 **8:30-10:00**        Free time                              (*M.mulatta M.musculus O.bimaculoides P.polytes*)
-                      Imaging                                (*S.aegyptiacus T.roseae T.thermophila X.laevis*)
+                      Microscopy and ImageJ                  (*S.aegyptiacus T.roseae T.thermophila X.laevis*)
                       Trip on the Gemma                      (*A.thaliana C.elegans*)
                       Visit Marine Resources Center          (*D.melanogaster D.rerio*)
 **10:00-10:30**       Coffee break                          
 **10:30-12:00**       Free time                              (*M.mulatta M.musculus O.bimaculoides P.polytes*)
-                      Imaging                                (*S.aegyptiacus T.roseae T.thermophila X.laevis*)
+                      Microscopy and ImageJ                  (*S.aegyptiacus T.roseae T.thermophila X.laevis*)
                       Trip on the Gemma                      (*D.melanogaster D.rerio*)
                       Visit Marine Resources Center          (*A.thaliana C.elegans*)
 **12:00-1:00**        Lunch                                 
@@ -90,12 +90,12 @@ output:
 
 ------------------    --------------------------------------
 **8:30-10:00**        Free time                              (*S.aegyptiacus T.roseae T.thermophila X.laevis*)
-                      Imaging                                (*A.thaliana C.elegans D.melanogaster D.rerio*)
+                      Microscopy and ImageJ                  (*A.thaliana C.elegans D.melanogaster D.rerio*)
                       Trip on the Gemma                      (*M.mulatta M.musculus*)
                       Visit Marine Resources Center          (*O.bimaculoides P.polytes*)
 **10:00-10:30**       Coffee break                          
 **10:30-12:00**       Free time                              (*S.aegyptiacus T.roseae T.thermophila X.laevis*)
-                      Imaging                                (*A.thaliana C.elegans D.melanogaster D.rerio*)
+                      Microscopy and ImageJ                  (*A.thaliana C.elegans D.melanogaster D.rerio*)
                       Trip on the Gemma                      (*O.bimaculoides P.polytes*)
                       Visit Marine Resources Center          (*M.mulatta M.musculus*)
 **12:00-1:00**        Lunch                                 
@@ -114,12 +114,12 @@ output:
 
 ------------------    --------------------------------------
 **8:30-10:00**        Free time                              (*A.thaliana C.elegans D.melanogaster D.rerio*)
-                      Imaging                                (*M.mulatta M.musculus O.bimaculoides P.polytes*)
+                      Microscopy and ImageJ                  (*M.mulatta M.musculus O.bimaculoides P.polytes*)
                       Trip on the Gemma                      (*S.aegyptiacus T.thermophila*)
                       Visit Marine Resources Center          (*T.roseae X.laevis*)
 **10:00-10:30**       Coffee break                          
 **10:30-12:00**       Free time                              (*A.thaliana C.elegans D.melanogaster D.rerio*)
-                      Imaging                                (*M.mulatta M.musculus O.bimaculoides P.polytes*)
+                      Microscopy and ImageJ                  (*M.mulatta M.musculus O.bimaculoides P.polytes*)
                       Trip on the Gemma                      (*T.roseae X.laevis*)
                       Visit Marine Resources Center          (*S.aegyptiacus T.thermophila*)
 **12:00-1:00**        Lunch                                 
@@ -131,7 +131,7 @@ output:
                       Defensive programming                  (*A.thaliana D.rerio T.thermophila X.laevis*)
                       Reproducibility of data analysis       (*M.mulatta M.musculus O.bimaculoides P.polytes*)
 **5:00-6:30**         Dinner                                
-**7:15-8:00**         MBL Talk – J. Mark Welch + J. Morgan  
+**7:15-8:00**         MBL Talk - J. Mark Welch + J. Morgan  
 ------------------    --------------------------------------
 
 ### Friday, September 15 
@@ -157,7 +157,7 @@ output:
                       Workshop Novembre                      (*C.elegans M.mulatta X.laevis*)
                       Workshop Yang                          (*A.thaliana P.polytes T.roseae*)
 **5:00-6:30**         Dinner                                
-**7:15-8:00**         MBL Talk – R. Hanlon + Q & A          
+**7:15-8:00**         MBL Talk -  R. Hanlon + Q & A         
 ------------------    --------------------------------------
 
 ### Saturday, September 16 

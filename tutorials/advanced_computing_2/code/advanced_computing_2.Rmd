@@ -1,11 +1,10 @@
 ---
-author: "Stefano Allesina"
 title: "Advanced Computing 2 -- UNIX shell and Regular Expressions"
+author: "Stefano Allesina"
 output:
+  html_document: default
   pdf_document:
     highlight: tango
-  html_document: default
-
 ---
 
 # Advanced Computing 2

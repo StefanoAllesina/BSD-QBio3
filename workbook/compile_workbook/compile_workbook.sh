@@ -22,8 +22,8 @@ pdftk tmp.pdf ../other_docs/talk_list.pdf cat output tmp2.pdf; mv tmp2.pdf tmp.p
 ## Tutorials cover # Revised
 pdftk tmp.pdf ../other_docs/cover_tutorials.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
-## Imaging 
-pdftk tmp.pdf ../../tutorials/imaging/data/ImageProcessingExercises.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
+## Microscopy and ImageJ
+pdftk tmp.pdf ../../tutorials/microscopy_and_imageJ/data/ImageProcessingExercises.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
 ## Basic I # Revised
 pdftk tmp.pdf ../../tutorials/basic_computing_1/code/basic_computing_1.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf

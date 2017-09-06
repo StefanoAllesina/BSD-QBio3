@@ -27,7 +27,7 @@ output:
 **2:45-5:00**         Check-in (Swope)                                     
 **5:00-6:30**         Dinner (SWC)                                         
 **6:30-7:00**         Team building activities (follow Course Assistants)  
-**7:15-8:30**         Introduction – Allesina and Palmer (Speck)           
+**7:15-8:30**         Introduction - Allesina and Palmer (Speck)           
 ------------------    -----------------------------------------------------
 
 ### Monday, September 11 
@@ -41,7 +41,7 @@ output:
 **2:30-2:45**         Coffee break (LB302)                                 
 **2:45-4:30**         Basic comp. II (LBG70) Advanced comp. II (LB263)     
 **5:00-6:30**         Dinner (SWC)                                         
-**6:15-7:30**         Welcome – R. Nishi & V. Prince (Speck)               
+**6:15-7:30**         Welcome - R. Nishi & V. Prince (Speck)               
 **7:35-8:10**         Publishing primer b) (Loeb 3rd floor)                
 **8:15-8:50**         Navigating first year b) (Loeb 3rd floor)            
 **8:55-9:30**         Life after PhD b) (Loeb 3rd floor)                   
@@ -50,9 +50,9 @@ output:
 ### Tuesday, September 12 
 
 ------------------    -----------------------------------------------------
-**8:30-10:00**        Imaging (LBG70)                                      
+**8:30-10:00**        Microscopy and ImageJ (LBG70)                        
 **10:00-10:30**       Coffee break (LB302)                                 
-**10:30-12:00**       Imaging (LBG70)                                      
+**10:30-12:00**       Microscopy and ImageJ (LBG70)                        
 **12:00-1:00**        Lunch (SWC)                                          
 **1:00-2:30**         Data visualization (CH1)                             
 **2:30-2:45**         Coffee break (LB302)                                 
@@ -78,7 +78,7 @@ output:
 ### Thursday, September 14 
 
 ------------------    -----------------------------------------------------
-**8:30-10:00**        Trip on the Gemma (MRC dock – be 15 min early)       
+**8:30-10:00**        Trip on the Gemma (MRC dock - be 15 min early)       
 **10:00-10:30**       Coffee break (LB302)                                 
 **10:30-12:00**       Visit Marine Resources Center (MRC)                  
 **12:00-1:00**        Lunch (SWC)                                          
@@ -86,7 +86,7 @@ output:
 **2:30-2:45**         Coffee break (LB302)                                 
 **2:45-4:30**         Defensive programming (Speck)                        
 **5:00-6:30**         Dinner (SWC)                                         
-**7:15-8:00**         MBL Talk – J. Mark Welch + J. Morgan (Speck)         
+**7:15-8:00**         MBL Talk - J. Mark Welch + J. Morgan (Speck)         
 ------------------    -----------------------------------------------------
 
 ### Friday, September 15 
@@ -100,7 +100,7 @@ output:
 **2:30-2:45**         Coffee break (LB302)                                 
 **2:45-4:30**         Workshop Cobey (LB263)                               
 **5:00-6:30**         Dinner (SWC)                                         
-**7:15-8:00**         MBL Talk – R. Hanlon + Q & A                         
+**7:15-8:00**         MBL Talk -  R. Hanlon + Q & A                        
 ------------------    -----------------------------------------------------
 
 ### Saturday, September 16 

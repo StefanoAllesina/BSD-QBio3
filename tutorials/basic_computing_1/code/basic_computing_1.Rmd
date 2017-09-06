@@ -1,8 +1,9 @@
 ---
-author: "Stefano Allesina"
 title: "Basic Computing 1 -- Introduction to R"
-output: 
-  pdf_document: 
+author: "Stefano Allesina"
+output:
+  html_document: default
+  pdf_document:
     highlight: tango
 ---
 

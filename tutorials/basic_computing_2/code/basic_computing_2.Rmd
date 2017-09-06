@@ -2,9 +2,9 @@
 title: "Basic Computing 2 -- Packages, Functions, Documenting code"
 author: "Stefano Allesina"
 output:
+  html_document: default
   pdf_document:
     highlight: tango
-  html_document: default
 ---
 
 # Basic Computing 2

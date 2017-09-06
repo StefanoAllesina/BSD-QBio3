@@ -1,14 +1,13 @@
 ---
+title: "Advanced Computing 1 -- Data wrangling and plotting"
 author: "Stefano Allesina"
-title: "Advanced Computing 1 -- Data wrangling and visualization"
 output:
+  html_document: default
   pdf_document:
     highlight: tango
-  html_document: default
-
 ---
 
-# Data Wrangling and Visualization
+# Data Wrangling and Plotting
 
 - **Goal:** learn how to manipulate large data sets by writing efficient, consistent, and compact code. Introduce the use of `dplyr`, `tidyr`, and the "pipeline" operator `%>%`. Produce beautiful graphs and figures for scientific publications using `ggplot2`.
 
@@ -176,7 +175,7 @@ divvy %>%
   head(20) # display first 20 rows
 ```
 
-# Data visualization
+# Data plotting
 The most salient feature of scientific graphs should be clarity. Each figure should make crystal-clear a) what is being plotted; b) what are the axes; c) what do colors, shapes, and sizes represent; d) the message the figure wants to convey. Each figure is accompanied by a (sometimes long) caption, where the details can be explained further, but the main message should be clear from glancing at the figure (often, figures are the first thing editors and referees look at).
 
 Many scientific publications contain very poor graphics: labels are missing, scales are unintelligible, there is no explanation of some graphical elements. Moreover, some color graphs are impossible to understand if printed in black and white, or difficult to discern for color-blind people.
