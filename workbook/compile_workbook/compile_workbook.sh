@@ -97,6 +97,9 @@ pdftk tmp.pdf ../other_docs/intro_stochastic_processes_with_solutions.pdf output
 ## Dynamical # Revised
 pdftk tmp.pdf ../other_docs/intro_dynamical_systems_with_solutions.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
+## insert blank page
+pdftk tmp.pdf ../other_docs/blank.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
+
 ## Redistill to reduce size
 gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -sOutputFile=../workbook.pdf tmp.pdf
 ## remove tmp
