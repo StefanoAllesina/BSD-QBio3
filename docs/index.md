@@ -80,9 +80,13 @@ You will work on your laptop all day long. **If you don't have a laptop, please 
 
 * **UNIX Emulator**: If you are using Windows, you need to install a UNIX emulator. We suggest downloading the version control software `Git` (you will need this anyway!), because it ships with a small emulator (`Git Bash`). Simply go to [this page](https://git-scm.com/download/win) and follow the instructions.
 
-* **Git**: For both Windows and Mac users, you need to install the version control software `Git`. Windows users may have already completed this as part of your UNIX emulator install. If so, you're all set. If not, Windows users can try [this link](https://git-for-windows.github.io/). For Mac users, please go [here](https://git-scm.com/download/mac) to download `Git`.
+* **System tools** (git and curl)
 
-* **libcurl**: For one of the bonus data challenges, you will also need to install the Unix utility `libcurl`. If you haven't done so already, you can find installation instruction links here by first clicking on the libcurl [Download Wizard](https://curl.haxx.se/dlwiz/?type=lib). You only need to install the pure binary libcurl package.
+    * **Windows Users** If you installed the UNIX emulator already, you should be good to go! (if not, please email [Graham](mailto:grahams@uchicago.edu?Subject=Help%20BSD%20QBio))
+
+    * **Mac Users** The easiest way is to install Homebrew first, then to use Homebrew to install the system tools. Follow [these instructions](https://gist.github.com/derhuerst/1b15ff4652a867391f03#file-mac-md) to install Homebrew and git. Then type `brew install curl` to install curl.
+
+    * **Linux Users** Use your favorite package manager to install `git`. `curl`, on the other hand, isn't quite `curl`; If you're on Ubuntu, you'll want to install `libcurl4-openssl-dev`. If you have something other than Ubuntu, you should be able to find an equivalent.
 
 ## Downloading the data
 
