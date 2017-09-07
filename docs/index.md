@@ -76,7 +76,7 @@ You will work on your laptop all day long. **If you don't have a laptop, please 
 
 * **Install ImageJ**: go to [this page](http://imagej.net/Fiji/Downloads) and follow the instructions for your platform.
 
-* **Software for NGS**: This will take a while, so start early. [Here are](https://github.com/StefanoAllesina/BSD-QBio3/blob/master/workshops/yang/NGS_workshop_software_installation.pdf) very detalied instructions. Follow them closely and contact Lixing Yang in case of problems.  
+* **Software for NGS**: This will take a while, so start early. [Here are](https://github.com/StefanoAllesina/BSD-QBio3/blob/master/workshops/yang/NGS_workshop_software_installation.pdf) very detalied instructions. Follow them closely and contact Lixing Yang in case of problems.  **NOTE** There's a small typo in step 0.h.3: "ensemble-tools-release-88" should be "ensembl-tools-release-88"
 
 * **UNIX Emulator**: If you are using Windows, you need to install a UNIX emulator. We suggest downloading the version control software `Git` (you will need this anyway!), because it ships with a small emulator (`Git Bash`). Simply go to [this page](https://git-scm.com/download/win) and follow the instructions.
 
