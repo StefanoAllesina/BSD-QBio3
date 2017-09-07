@@ -64,6 +64,9 @@ pdftk tmp.pdf ../other_docs/blank.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
 ## Reproducibility
 pdftk tmp.pdf ../../tutorials/reproducibility/code/reproducibility.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
+## insert blank page
+pdftk tmp.pdf ../other_docs/blank.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
+
 ## Stats for data rich
 pdftk tmp.pdf ../../tutorials/stats_for_large_data/code/stats_for_large_data.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
