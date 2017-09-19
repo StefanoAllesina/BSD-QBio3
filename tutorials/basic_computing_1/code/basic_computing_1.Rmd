@@ -7,6 +7,11 @@ output:
     highlight: tango
 ---
 
+*Instructor note:* One difficulty with presenting this material is
+that a period and comma look very similar on the screen. Maybe a
+judicious voice of font for typing the code (e.g., Verdana, which has
+a more distinguishable comma and period) would help with this.
+
 # Basic Computing 1 
 
 - **Goal:** Introduce the stastical software `R`, and show how it can be used to analyze biological data in an automated, replicable way. Showcase the `RStudio` development environment, illustrate the notion of assignment, present the main data structures available in `R`. Show how to read and write data, how to execute simple programs, and how to modify the stream of execution of a program through conditional branching and looping.
@@ -45,6 +50,11 @@ The main hurdle new users face when approaching `R` is that it is based on a com
 
 A little history: `R` was modeled after the commercial statistical software `S` by Robert Gentleman and Ross Ihaka. The project was started in 1992, first released in 1994, and the first stable version appeared in 2000. Today, `R` is managed by the *R Core Team*.
 
+# Why R?
+
+*Add brief section here explaining WHY we are learning R, and not some
+other programming language, e.g., C++, Java, Python.*
+
 # RStudio
 
 For this introduction, we're going to use `RStudio`, an Integrated Development Environment (IDE) for `R`. The main advantage is that the environment will look identical irrespective of your computer architecture (Linux, Windows, Mac). Also, `RStudio` makes writing code much easier by automatically completing commands and file names (simply type the beginning of the name and press `Tab`), and allowing you to easily inspect data and code.
@@ -56,13 +66,31 @@ Typically, an `RStudio` window contains four panels:
 - **Environment** This panel lists all the variables you created (more on this later); another tab shows you the history of the commands you typed.
 - **Plots** This panel shows you all the plots you drew. Other tabs allow you to access the list of packages you have loaded, and the help page for commands (just type `help(name_of_command)` in the Console) and packages.
 
+*Instructor note:* I think it is also valuable to briefly show what R
+looks like when run from the command-line shell, e.g., Terminal on Mac.
+
 # How to write an `R` program
 
 An `R` program is simply a list of commands, which are executed one after the other. The commands are witten in a text file (with extension `.R`). When `R` executes the program, it will start from the beginning of the file and proceed toward the end of the file. Every time `R` encounters a command, it will execute it. Special commands can modify this basic flow of the program by, for example, executing a series of commands only when a condition is met, or repeating the execution of a series of commands multiple times.
 
 Note that if you were to copy and paste (or type) the code into the **Console** you would obtain exactly the same result. Writing a program is advatageous, however, because it can be automated and shared with other researchers. Moreover, after a while you will have a large code base, so that you can recycle much of your code in several programs.
 
+# Setting up your R programming environment
+
+A few setup details to make sure that everyone is good to go:
+
+1. Set your working directory.
+
+2. Create a new .R text file (e.g., `basic_computing1.R`, and document
+all the commands you write in this file.
+
+3. *Anything else?*
+
 # The most basic operation: assignment
+
+*Instructor note:* This section and the next few sections are a little
+on the boring side, but you need to learn the basics before you can do
+the fun stuff (e.g., analyzing data, creating cool plots).
 
 The most basic operation in any programming language is the assignment. In `R`, assignment is marked by the operator `<-`. When you type a command in `R`, it is executed, and the output is printed in the **Console**. For example:
 
@@ -74,8 +102,11 @@ If we want to save the result of this operation, we can assign it to a variable.
 
 ```{r, echo=TRUE, message=FALSE, eval=TRUE}
 x <- sqrt(9)
+x <- sqrt(x = 9)
 x
 ```
+
+*Instructor note:* This is a great opportunity to break down this statement carefully and explain what is going on.
 
 What has happened? We wrote a command containing an assignment operator (`<-`). `R` has evaluated the right-hand-side of the command (`sqrt(9)`), and has stored the result (`3`) in a newly created variable called `x`. Now we can use `x` in our commands: every time the command needs to be evaluated, the program will look up which value is associated with the variable `x`, and substitute it. For example:
 
@@ -93,10 +124,18 @@ v <- TRUE
 class(v)
 ```
 
-- `numeric`, storing real numbers (actually, their approximations, as computers have limited memory and thus cannot store numbers like $\pi$, or even $0.2$)
+- `numeric`, storing real numbers (actually, their approximations, as computers have limited memory and thus cannot store numbers like $\pi$, or even $1/3$)
 ```{r}
 v <- 3.77
 class(v)
+```
+
+We can also create numbers using scientific notation, e.g., Avogadro's
+constant:
+
+```{r}
+L <- 6.02214e23
+class(r)
 ```
 
 - `integer`, storing whole numbers 
@@ -126,6 +165,11 @@ x <- 2.3 # this is numeric
 x
 ```
 
+*Instructor note:* One basic data type that is missing from this list
+is a "factor". However, it is difficult to see why factors are useful
+until you have a data frame, so we will introduce them when we explore
+data frames below.
+
 # Operators and functions
 
 Each data type supports a certain number of operators and functions. For example, numeric variables can be combined with `+` (addition), `-` (subtraction), `*` (multiplication), `/` (division), and `^` (exponentiation). A possibly unfamiliar operator is the modulo (`%%`), calculating the remainder of an integer division:
@@ -135,6 +179,9 @@ Each data type supports a certain number of operators and functions. For example
 ```
 
 meaning that `5 %/% 3` (5 integer divided by 3) is 1 with a remainder of 2. The modulo operator is useful to determine whether a number is divisible for another: if $y$ is divisible by $x$, then `y %% x` is 0.
+
+*Instructor note:* I didn't have time to cover all these functions,
+ but useful for reference.
 
 Numeric types also support many built-in functions, such as:
 
@@ -152,7 +199,10 @@ Similarly, `character` variables have their own set of functions, such as
 - `paste(x, y, sep = "_")` concatenate strings, joining them using the separator `_`
 - `strsplit(x, "_")` separate the string using the separator `_`
 
-Calling a function meant for a certain data type on another will cause errors. If sensible, you can convert a type into another. For example:
+Calling a function meant for a certain data type on another will cause
+errors. (Unlike languages such as C and Java, R is not "strongly
+typed.") If sensible, you can convert a type into another. For
+example:
 
 ```{r}
 v <- "2.13"
@@ -162,6 +212,9 @@ class(v)
 as.numeric(v) * 2 
 ```
 
+*Need to introduce parentheses here. This is a good simple example:
+does `-2^2` give you the square of negative two? Why or why not?*
+
 If sensible, you can use the comparison operators `>` (greater), `<` (lower), `==` (equals), `!=` (differs), `>=` and `<=`, returning a logical value:
 
 ```{r}
@@ -170,6 +223,8 @@ If sensible, you can use the comparison operators `>` (greater), `<` (lower), `=
 2 <= sqrt(4)
 ```
 
+*Why are two equal signs being used here?*
+
 Similarly, you can concatenate several comparison and logical variables using `&` (and), `|` (or), and `!` (not):
 
 ```{r}
@@ -177,13 +232,15 @@ Similarly, you can concatenate several comparison and logical variables using `&
 (2 > 3) | (3 > 1)
 ```
 
+*Add an example here with the "not" logical operation.*
+
 # Data structures
 
 Besides these simple types, `R` provides structured data types, meant to collect and organize multiple values.
 
 ## Vectors
 
-The most basic data structure in `R` is the vector, which is an ordered collection of values of the same type. Vectors can be created by concatenating different values with the function `c()` (concatenate):
+The most basic data structure in `R` is the vector, which is an ordered collection of values of the same type. Vectors can be created by concatenating different values with the "combine" function `c()`:
 
 ```{r}
 x <- c(2, 3, 5, 27, 31, 13, 17, 19) 
@@ -197,9 +254,9 @@ x[8]
 x[9] # what if the element does not exist?
 ```
 
-`NA` stands for Not Available. Other special values are `NaN` (Not a Number, e.g., `0/0`), `Inf` (Infinity, e.g., `1/0`), and `NULL` (variable not set). You can test for special values using `is.na(x)`, `is.infinite(x)`, etc.
+`NA` stands for Not Available ("missing data"). Other special values are `NaN` (Not a Number, e.g., `0/0`), `Inf` (Infinity, e.g., `1/0`), and `NULL` (variable not set). You can test for special values using `is.na(x)`, `is.infinite(x)`, etc.
 
-Note that in `R` a single number (string, logical) is a vector of length 1 by default. That's why if you type `3` in the console you see `[1] 3` in the output.
+*Important:* Note that in `R` a single number (string, logical) is a vector of length 1 by default. That's why if you type `3` in the console you see `[1] 3` in the output.
 
 You can extract several elements at once (i.e., create another vector), using the colon (`:`) command, or by concatenating the indices:
 
@@ -208,6 +265,8 @@ x[1:3]
 x[4:7]
 x[c(1,3,5)]
 ```
+
+*Instructor note:* Explain what is `1:3`. It is also a vector!
 
 You can also use a vector of logical variables to extract values from vectors. For example, suppose we have two vectors:
 ```{r}
@@ -226,6 +285,12 @@ returns a vector of logical values, which we can use to subset the data:
 weight[sex == "M"]
 ```
 
+Alternatively,
+
+```{r}
+i <- which(sex == "M")
+weight[i]
+```
 
 Given that `R` was born for statistics, there are many statistical
 functions you can perform on vectors:
@@ -241,6 +306,9 @@ var(x) # unbiased sample variance
 mean(x ^ 2) - mean(x) ^ 2 # population variance
 summary(x) # print a summary
 ```
+
+The summary function is one of the most important functions in R
+because it works on many types of variables.
 
 You can generate vectors of sequential numbers using the colon
 command:
@@ -263,6 +331,8 @@ rep("abc", 3)
 rep(c(1,2,3), 3)
 ```
 
+*Instructor note:* There are some other useful vriants of `seq` and `rep`.
+
 > **Exercise:** 
 > 
 > - Create a vector containing all the even numbers between 2 and 100 (inclusive) and store it in variable `z`.
@@ -274,6 +344,8 @@ rep(c(1,2,3), 3)
 > - What happens if you type `z ^ 2`?
 
 ## Matrices
+
+*Instructor note:* This section may be skipped if you are short on time.
 
 A matrix is a two-dimensional table of values. In case of numeric values, you can perform the usual operations on matrices (product, inverse, decomposition, etc.):
 
@@ -317,6 +389,9 @@ mean(Z)
 ```
 
 ## Arrays
+
+*Instructor note:* This section may be skipped if you are short on time.
+
 If you need tables with more than two dimensions, use arrays:
 
 ```{r}
@@ -346,6 +421,15 @@ dim(M[,,1, drop = FALSE])
 ```
 
 ## Lists
+
+So far, everything we have seen so far was either a matrix or a
+vector. *We are now leaving "vector world."*
+
+*Instructor note:* I would consider a list to be an advanced data
+structure that will rarely be created by a beginning programmer. But
+it is useful to point out that the return values of functions are
+often lists (e.g., `lm`).
+
 Vectors are good if each element is of the same type (e.g., numbers, strings). Lists are used when we want to store elements of different types, or more complex objects (e.g., vectors, matrices, even lists of lists). Each element of the list can be referenced either by its index, or by a label:
 
 ```{r}
@@ -360,7 +444,9 @@ mylist[["Values"]][3]  # access third element in second vector
 
 ## Data frames
 
-Data frames contain data organized like in a spreadsheet. The columns (typically representing different measurements) can be of different types (e.g., a column could be the date of measurement, another the weight of the individual, or the volume of the cell, or the treatment of the sample), while the rows typically represent different samples.
+*Now things get more interesting!*
+
+Data frames contain data organized like in a spreadsheet. The columns (typically representing different measurements) can be of different types (e.g., a column could be the date of measurement, another the weight of the individual, or the volume of the cell, or the treatment of the sample), while the rows typically represent different samples. *Here we will create and manipulate spreadsheets similar to how we created and manipulated variables in the previous sections.*
 
 When you read a spreadsheet file in `R`, it is automatically stored as a data frame. The difference between a matrix and a data frame is that in a matrix all the values are of the same type (e.g., all numeric), while in a data frame each column can be of a different type.
 
@@ -369,13 +455,16 @@ Because typing a data frame by hand would be tedious, let's use a data set that 
 ```{r}
 data(trees) # Girth, height and volume of cherry trees
 str(trees) # structure of data frame
+summary(trees)
 ncol(trees)
 nrow(trees)
 head(trees) # print the first few rows
 trees$Girth # select column by name
 trees$Height[1:5] # select column by name; return first five elements
+summary(trees$Height)
 trees[1:3, ] #select rows 1 through 3
 trees[1:3, ]$Volume # select rows 1 through 3; return column Volume
+trees[1:3,"Volume"] # Same thing
 trees <- rbind(trees, c(13.25, 76, 30.17)) # add a row
 trees_double <- cbind(trees, trees) # combine columns
 colnames(trees) <- c("Circumference", "Height", "Volume") # change column names
@@ -389,6 +478,11 @@ colnames(trees) <- c("Circumference", "Height", "Volume") # change column names
 
 # Reading and writing data
 
+*Instructor note:* At this point, you should check in with the
+participants and have them run `getwd()` and, if necessary,
+`setwd(...)`, so that everyone is in the right working directory for
+loading the HGDP data set.
+
 In most cases, you will not generate your data in `R`, but import it from a file. By far, the best option is to have your data in a comma separated value text file or in a tab separated file. Then, you can use the function `read.csv` (or `read.table`) to import your data. The syntax of the functions is as follows:
 
 ```{r, eval = FALSE}
@@ -397,6 +491,11 @@ read.csv("MyFile.csv", header = TRUE) # The file has a header.
 read.csv("MyFile.csv", sep = ';') # Specify the column separator.
 read.csv("MyFile.csv", skip = 5) # Skip the first 5 lines.
 ```
+
+*Instructor note:* This is our first encounter with a complicated
+function---`read.csv` has over 20 arguments! Fortunately we don't need
+to know what all these arguments do because the `defaults` are usually
+sensible (but not always; e.g., `stringsAsFactors`).
 
 Note that columns containing strings are typically converted to *factors* (categorical values, useful when performing regressions). To avoid this behavior, you can specify `stringsAsFactors = FALSE` when calling the function.
 
@@ -459,6 +558,8 @@ print(x)
 ```
 
 and execute the script by pressing `Ctrl + Shift + S`. You should see `Hello World!` and `4` printed in your console.
+
+*Exercise:* Change `x <- 4` to `x <- round(rnorm(1))`.
 
 As you saw in this simple example, when `R` executes the program, it starts from the top and proceeds toward the end of the file. Every time it encounters a command (for example, `print(x)`, printing the value of `x` into the console), it executes it.
 
@@ -680,6 +781,7 @@ The file `../data/nobel_nominations.csv` contains the nominations to the Nobel p
 
 **Hints** 
 
+- Save your solution code for ech exercise in an .R file.
 - You will need to subset the data. To make operations clearer, you can give names to the columns. For example, suppose you stored the data in in a data frame called `nobel`. Then `colnames(nobel) <- c("Field", "Year", "Nominee")` will do the trick.
 - The simplest way to obtain a count from a vector is to use the command `table`. The command `sort(table(my_vector))` produces a table of the occurrences in `my_vector` sorted from few to many counts.
 - You can build a table using more than one vector. For example, store the Nobel nominations in the data frame `nobel`, and name the columns as suggested above. The command `head(table(nobel$Nominee, nobel$Field))` will build a table with the number of nominations in each field (column) for each nominee (rows).
