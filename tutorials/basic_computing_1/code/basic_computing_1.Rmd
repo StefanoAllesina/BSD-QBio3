@@ -495,7 +495,8 @@ read.csv("MyFile.csv", skip = 5) # Skip the first 5 lines.
 *Instructor note:* This is our first encounter with a complicated
 function---`read.csv` has over 20 arguments! Fortunately we don't need
 to know what all these arguments do because the `defaults` are usually
-sensible (but not always; e.g., `stringsAsFactors`).
+sensible (but not always; e.g., `stringsAsFactors` which we will
+encounter in Basic Computing 2).
 
 Note that columns containing strings are typically converted to *factors* (categorical values, useful when performing regressions). To avoid this behavior, you can specify `stringsAsFactors = FALSE` when calling the function.
 

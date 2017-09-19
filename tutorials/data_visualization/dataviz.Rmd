@@ -21,6 +21,28 @@ knitr::opts_chunk$set(
   fig.align = "center")
 ```
 
+## Instructor notes
+
++ This tutorial could be made more interactive by sprinkling
+mini-exercises in between some of the sections, and then asking people
+to share their solutions to the mini-exercises with the rest of the
+group. This worked well in the Basic Computing 1 lesson.
+
++ Most of the examples include tweaks to the plots that aren't
+necessary to create the plots. In the interest of time, you might
+simplify the demonstrations.
+
++ Another way to simplify the demonstrations is to *add layers* to
+existing ggplot objects rather than repeating code; e.g., `p <- p +
+scale_x_continuous(...)`.
+
++ Also, it is better to create new ggplot objects rather than modify
+existing ones in case you make a mistake, and have to redo everything;
+e.g., `p2 <- p + scale_x_continuous(...)`.
+
++ The students very much enjoyed the interactive plot, so don't skip
+that part.
+
 ## Introduction
 
 In this tutorial, we will use the ggplot2 package to create effective
@@ -589,6 +611,12 @@ are some less strongly correlated SNPs near 95 Mb that also have very
 small *p*-values; these observations suggest that another SNP in this
 region may be independently associated with abnormal BMD.
 
+*I ended up skipping the materials in the rest of this section due to
+lack of time. The downside is that we skip a cool plot, but the
+techniques presented here aren't helpful for any of the Challenges. I
+figured the students could explore this example on their
+own. ---Peter*
+
 One question that is still unanswered is why the association
 *p*-values drop off very suddenly at around 95 Mb, and again around 97
 Mb. To better understand what is happening in this region of the
@@ -657,6 +685,11 @@ variation in BMD.
 This "block pattern" is very common, and is due to recombination not
 occurring uniformly across the genome. (We will explore this further
 in one of the exercises.)
+
+*Instructor note:* Once we reach this point, this participants should
+have the tools they need to tackle Parts 1 and 2 of the Programming
+Challenges. An option here is to give them some time to start working
+on the challenges, then resume
 
 ## Identifying candidate BMD genes
 
@@ -874,9 +907,19 @@ p <- p + labs(y = "BMD (mg/cm^2)",title = top.marker)
 print(p)
 ```
 
+*Although this above example is only taking what we did previously and
+combining it, the students appreciated how easy it is to comine plots
+once you do the work of creating the individual plots. Also note that
+we can easily avoid repeating code in this example by naming the plot
+variables "pbox", "pviolin" and "pcombined". ---Peter*
+
 Finally, here is a "cleaner" alternative using the `stat_summary`
 function. This gives us more flexibility, but requires a slightly more
 advanced understanding of ggplot2 to use correctly.
+
+*I ended up skipping this last example because it is too complicated
+to explain, and might only service to confuse them. Consider this an
+optional example for more advanced groups. ---Peter*
 
 ```{r bmd-vs-geno-violin-2, fig.height=3.5, fig.width=3.5}
 p <- ggplot(data = pdat,mapping = aes(x = genotype,y = BMD)) +
@@ -956,7 +999,7 @@ compare histograms. Above, we arranged multiple plots in a single
 figure and combined multiple data sets into a single plot. Another
 strategy is to combine the data sets into a single data frame, and use
 define the aesthetic mapping in a clever way to draw the histograms in
-one plot.
+one plot. (*Note:* For the HMDP data, use the BMD measured in femur.)
 
 ### Part 4: Add a "recombination track" to the BMD locus plot (most difficult)
 
