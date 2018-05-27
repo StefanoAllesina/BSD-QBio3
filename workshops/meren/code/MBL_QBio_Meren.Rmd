@@ -13,7 +13,7 @@ Course Assistant: **Alon Shaiber**
 
 The purpose of this document is to walk you through an analysis of microbiome data coming from samples collected from the oral cavity of 148 healthy individuals.
 
-The main question is: do microbes live in your tongue more similar to the ones that live on your cheek, or more similar to the ones that live on the tongue of the person next to you.
+The main question is: are the microbes that live in your tongue more similar to the ones that live on your cheek, or more similar to the ones that live on the tongue of the person next to you.
 
 Understanding how microbes partition a given environment is a central question. Why not all microbes live everywhere?
 
