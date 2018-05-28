@@ -1,5 +1,5 @@
 ---
-title: "Microbiome workshop"
+title: "QBio3 :: Microbiome workshop"
 subtitle: 'A glimpse into the microbial jungle in your mouth'
 
 author:
@@ -12,7 +12,7 @@ fig_height: 2
 ---
 
 ```{r include=FALSE}
-quick_test_run <- FALSE
+quick_test_run <- TRUE
 ```
 
 **Our planet *is* microbial**. The astonishing number of microbial organisms that occupy terrestrial and marine habitats of Earth represent a a biomass that exceeds every living organism that can be seen by naked eye, combined. They can survive in a wide range of environmental and chemical gradients: so even the most extreme environments we can find on Earth have some microbial ambassadors, carrying the flag of life to places where you don't want to go. They also are the engine of our planet really as they govern large and critical biogeochemical cycles that make Earth a habitable planet for much less talented organisms (such as ourselves) by doing the real tough jobs you don't want to do. Pretty much they are the best.
@@ -299,7 +299,7 @@ We still have the `ggplot` object in memory, let's add the data frame we just pu
 ```{r fig.height = 3}
 p <- p + geom_path(data=ellipses_df,
                    aes(x=x_coord, y=y_coord, colour=group),
-                   size=2,
+                   size=1,
                    linetype=1)
 p
 ```
@@ -334,7 +334,7 @@ p <- p + annotate("text",
                   x=oral_mds_group_means$MDS1,
                   y=oral_mds_group_means$MDS2,
                   label=oral_mds_group_means$group,
-                  size=7, 
+                  size=5, 
                   fontface = 2)
 p
 ```
