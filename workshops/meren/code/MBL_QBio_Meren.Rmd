@@ -12,7 +12,7 @@ fig_height: 2
 ---
 
 ```{r include=FALSE}
-quick_test_run <- TRUE
+quick_test_run <- FALSE
 ```
 
 **Our planet *is* microbial**. The astonishing number of microbial organisms that occupy terrestrial and marine habitats of Earth represent a a biomass that exceeds every living organism that can be seen by naked eye, combined. They can survive in a wide range of environmental and chemical gradients: so even the most extreme environments we can find on Earth have some microbial ambassadors, carrying the flag of life to places where you don't want to go. They also are the engine of our planet really as they govern large and critical biogeochemical cycles that make Earth a habitable planet for much less talented organisms (such as ourselves) by doing the real tough jobs you don't want to do. Pretty much they are the best.
