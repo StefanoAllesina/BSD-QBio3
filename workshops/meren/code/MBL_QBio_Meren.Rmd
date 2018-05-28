@@ -1,39 +1,43 @@
 ---
+title: "Microbiome workshop"
+subtitle: 'A glimpse into the microbial jungle in your mouth'
+
+author:
+- A. Murat Eren^[Department of Medicine, University of Chicago] ^[Marine Biological Laboratory]
+- Alon Shaiber^[The Biophysical Sciences Program at the University of Chicago.]
 output: 
   pdf_document: 
     highlight: tango
+fig_height: 2
 ---
 
-# Microbiome workshop: A glimpes into the microbial jungle in your mouth
+```{r include=FALSE}
+quick_test_run <- TRUE
+```
 
-Instructor: **A. Meren Urat**
-Course Assistant: **Alon Shaiber**
+**Our planet *is* microbial**. The astonishing number of microbial organisms that occupy terrestrial and marine habitats of Earth represent a a biomass that exceeds every living organism that can be seen by naked eye, combined. They can survive in a wide range of environmental and chemical gradients: so even the most extreme environments we can find on Earth have some microbial ambassadors, carrying the flag of life to places where you don't want to go. They also are the engine of our planet really as they govern large and critical biogeochemical cycles that make Earth a habitable planet for much less talented organisms (such as ourselves) by doing the real tough jobs you don't want to do. Pretty much they are the best.
 
-### Introduction
+**Our own body is microbial, too**. Just to put things into perspective, for every human cell that make up our own body, there is one or more bacterial cells that live on us. Starting from the moment we are born, microbes are with us throughout our jouney in life and even a litle after that: they help us maintain our health by extracting energy from things we can't digest, by synthesizing vitamins or metabolizing xenobiotics for us, and help us return all the things we borrowed in pristine conditions so other things can be built from us. They are just beautiful like that.
 
-Our planet *is* microbial. The astonishing number of microbial organisms that occupy terrestrial and marine habitats of Earth represent a a biomass that exceeds every living organism that can be seen by naked eye, combined. They can survive in a wide range of environmental and chemical gradients: so even the most extreme environments we can find on Earth have some microbial ambassadors, carrying the flag of life to places where you don't want to go. They also are the engine of our planet really as they govern large and critical biogeochemical cycles that make Earth a habitable planet for much less talented organisms (such as ourselves) by doing the real tough jobs you don't want to do. Pretty much they are the best.
+Microbiologists who realized early on that **a complete understanding of life is only possible through a complete understanding of microbes** have been studying the evolution and ecology of microbes everywhere relentlessly for many decades. Of course, the emergence of advanced molecular and computational approaches had a huge influence on this quest, and allowed people like Meren and Alon to be relevant to fundamental questions of mirobiology with their computational skills. **As a group (http://merenlab.org) we seek answers in very large seqeuncing datasets about microbial life**. How do they respond to changing environments? How do they evolve? What roles do they play in health and disease? To investigate these qeustions, we study all sorts of environments: from human gut to the surface ocean, from mosquito ovaries to sewage ecosystems.
 
-Our own body is microbial, too. Just to put things into perspective, for every human cell that make up our own body, there is one or more bacterial cells that live on us. Starting from the moment we are born, microbes are with us throughout our jouney in life and even a litle after that: they help us maintain our health by extracting energy from things we can't digest, by synthesizing vitamins or metabolizing xenobiotics for us, and help us return all the things we borrowed in pristine conditions so other things can be built from us. They are just beautiful like that.
-
-Microbiologists who realized early on that a complete understanding of life was only possible through a complete understanding of microbes have been studying the evolution and ecology of microbes everywhere relentlessly for many decades. Of course, the emergence of advanced molecular and computational approaches had a huge influence, and allowed people like Meren and Alon to be relevant to fundamental questions of mirobiology with their computational skills. As a group (http://merenlab.org) we seek answers in very large seqeuncing datasets about microbial life. How do they respond to changing environments? How do they evolve? What roles do they play in health and disease? To investigate these qeustions, we study all sorts of environments: from human gut to the surface ocean, from mosquito ovaries to sewage ecosystems.
-
-Where does the oral cavity fit here?
-
-Well, the oral cavity is also colonized by bacteria just like every other surface on our body. A complete microbial understanding of this environment has always been essential for medical reasons, but besides its immediate relevance for overall health, we believe the oral cavity represents a fascinating environment to study the ecology of microbes. Imagine how every microbial cell can go anywhere in the mouth due to the lack of any physical barriers, and continuous flow of saliva. But, their distribution is far from being random in that jungle of microbial life you all maintain in your mouths. And we are very curious to see whether we can make better sense of how they are distributed to later learn what makes them do that.
+Where does the oral cavity fit here? **The oral cavity is also colonized by bacteria** just like every other surface on your body. A complete microbial understanding of this environment has always been essential for medical reasons, but besides its immediate relevance for overall health, we believe **the oral cavity represents a fascinating environment to study the ecology of microbes**. Imagine how every microbial cell can go anywhere in the mouth due to the lack of any physical barriers, and continuous flow of saliva. But, their distribution is far from being random in that jungle of microbial life you all maintain in your mouths. And we are very curious to see whether we can make better sense of how they are distributed to later learn what makes them do that.
 
 **The purpose of this workshop** is to give you a glimpse of that invisible jungle in your mouth by making sense of high-throughput seqeuncing data from the oral cavity using `R` and `ggplot`.
 
 **At the end of this workshop** you will have an idea about how the community structures of naturally occurring microbes that live in a given environment can be studied with currently available molecular tools, sequencing technologies, and computational approaches. You will also gain more insights into the power of exploratory data visualization with `ggplot`, and the power of `R` in manipulating data.
 
-**When you are done here**, you will know *whether the microbes live in your tongue are more similar to the ones that live on your cheeks, or whether they are more similar to the ones that live on the tongue of the person next to you*.
+**When you are done here**, you will know *whether the microbes live on your tongue are more similar to the ones that live on your cheek, or whether they are more similar to the ones that live on the tongue of the person next to you*.
 
-### Setting the stage
+# Setting the stage
 
-The primary raw data we will be playing with throughout this tutorial come from the Human Microbiome Project (HMP, https://hmpdacc.org/), a National Institutes of Health initiative that attempted to make sense of the 'normal microbiome' of healthy individuals.
+The primary raw data we will be playing with throughout this tutorial come from the Human Microbiome Project (HMP, https://hmpdacc.org/), a National Institutes of Health (http://www.nih.gov) initiative that attempted to make sense of the 'normal microbiome' of healthy individuals. The HMP recruited many healthy volunteers, and collected multiple samples from each one of them to study microbes that lived in the heahlty human gut, urogenitary tract, oral and nasal cavities, as well as skin.
 
-The HMP recruited many healthy volunteers, and collected multiple samples from each one of them to study microbes that lived in the heahlty human gut, urogenitary tract, oral and nasal cavities, as well as skin. Here we will focus only on the oral cavity here to characterize the microbial communities of this particular environment (because the oral cavity is the best), and we will do this in a highly resolved manner using 'oligotypes'. The dataset we will re-analyze essentially comes from the supplementary tables of our 2014 study (http://www.pnas.org/content/111/28/E2875.short), which is available to you in PDF form in the `text` directory.
+Here we will focus only on the oral cavity here to characterize the microbial communities of this particular environment (because the oral cavity is the best), and we will do this in a highly resolved manner using 'oligotypes'. The dataset we will re-analyze essentially comes from the supplementary tables of our 2014 study (http://www.pnas.org/content/111/28/E2875.short), which is available to you in PDF form in the `text` directory. In the same directory you can also find a copy of Carl Zimmer's take on our study, "[The Zoo in the Mouth](http://phenomena.nationalgeographic.com/2014/06/25/the-zoo-in-the-mouth/)".
 
-Let's first load the libraries we are going to be using:
+---
+
+OK. First things first. We will need the following libraries throughout this toturial for statistical analyses (`vegan`), re-formatting the input data (`reshape2`), and to visualize it (`ggplot2`):
 
 ```{r}
 suppressPackageStartupMessages(library(vegan))
@@ -59,19 +63,28 @@ samples <- as.data.frame(read.table('../data/samples.txt',
                                     sep="\t"))
 ```
 
+
+```{r include=FALSE}
+if(quick_test_run==TRUE){
+  oligotypes <- oligotypes[1:100, ]
+  samples <- samples[1:100, ]
+}
+```
+
+
 Feel free to take a look at its format:
 
 ```{r}
 head(samples)
 ```
 
-Samples in our data describes the following two main environments:
+Samples in our data describes two main environments:
 
 ```{r}
 levels(samples$environment)
 ```
 
-These ten more specific body sites:
+And more specifically, ten body sites:
 
 ```{r}
 levels(samples$site)
@@ -91,25 +104,34 @@ length(levels(samples$sample))
 
 Fine. We have everything we need.
 
+# A visualization-driven exploration of the data
 
-### A visualization-driven exploration of the data
+A couple of sentences about exploratory data analysis and the importance of visualization (and maybe some links).
 
-Introduction to MDS here:
+A couple of sentences regarding the widely used approaches.
 
-We can take a very quick look at the data:
+A simple introduction to MDS here.
 
-```{r}
+Here we create an ordination of our data using MDS:
+
+```{r echo=TRUE, results="hide"}
 # generate the mds object using the Morisita-Horn distance
 # (this will take some time)
 mds <- metaMDS(oligotypes[,-1], distance='horn')
+```
 
+We take a very quick look at the resulting ordination:
+
+```{r fig.height = 4}
 # show it
 plot(mds)
 ```
 
-We an all agree that this looks quite useless. We could use `ggplot` to manipulate it and add more information into it in an intuitive manner, but `ggplot` will not like how the `mds` object is formatted. We better turn it into a data frame rich with information:
+We can all agree that this looks quite useless.
 
-```{r}
+Instead of the `plot` function, we could use [`ggplot`](http://ggplot.yhathq.com/) to have more control over our visualization needs by adding ad hoc information into our plots in an intuitive manner. But `ggplot` will not like the way `mds` object is formatted. But we can turn that object into a data frame rich with information:
+
+```{r fig.height = 3}
 # generate a data frame
 mds_df <- data.frame(MDS1 = mds$points[,1],
                      MDS2 = mds$points[,2],
@@ -123,15 +145,15 @@ head(mds_df)
 
 Well, this is more like it. Now we can take a look this with `ggplot`:
 
-```{r}
+```{r fig.height = 3}
 p <- ggplot(data = mds_df, aes(MDS1, MDS2))
 p <- p + geom_point(size=1)
 p
 ```
 
-This is not much better than the previous plot, but this time we can easily manipulate our visual objects. Let's say we color our points in this display by `environment` to ask this very question: "from the perspective of microbes, do our guts look like our mouths?":
+This is not much better than the previous plot, but this time we can easily manipulate our visual objects. Let's say we color our points in this display by `environment` to ask this very question: *from the perspective of microbes, do our guts look like our mouths?*:
 
-```{r}
+```{r fig.height = 3}
 p <- ggplot(data = mds_df, aes(MDS1, MDS2))
 p <- p + geom_point(aes(color=environment), size=1)
 p
@@ -153,15 +175,15 @@ oral_samples$site <- factor(oral_samples$site)
 
 Since we changed the shape of the data quite a bit, it is better to re-compute the ordination of our samples:
 
-```{r}
+```{r echo=TRUE, results="hide"}
 # new mds object:
 oral_mds <- metaMDS(oral_oligotypes[,-1], distance='horn')
 
 # generating a data frame from it:
 oral_mds_df <- data.frame(MDS1 = oral_mds$points[,1],
-                         MDS2 = oral_mds$points[,2],
-                         individual=with(oral_samples, get("individual")),
-                         site=with(oral_samples, get("site")))
+                          MDS2 = oral_mds$points[,2],
+                          individual=with(oral_samples, get("individual")),
+                          site=with(oral_samples, get("site")))
 
 # taking a quick look from it because why not:
 head(oral_mds_df)
@@ -169,7 +191,7 @@ head(oral_mds_df)
 
 Alright! Let's take a quick look:
 
-```{r}
+```{r fig.height = 3}
 p <- ggplot(data = oral_mds_df, aes(MDS1, MDS2))
 p <- p + geom_point(size=1)
 p
@@ -185,7 +207,7 @@ p
 
 Ouch. We don't see anything, because the legend takes the entire space. Let's disable the legend and try again:
 
-```{r}
+```{r fig.height = 3}
 p <- ggplot(data = oral_mds_df, aes(MDS1, MDS2))
 p <- p + geom_point(aes(color=individual), size=1)
 p <- p + theme(legend.position="none")
@@ -196,7 +218,7 @@ Much better. But this doesn't seem to have any structure. Why?
 
 OK. How about we color samples based on oral sites:
 
-```{r}
+```{r fig.height = 3}
 p <- ggplot(data = oral_mds_df, aes(MDS1, MDS2))
 p <- p + geom_point(aes(color=site), size=1)
 p <- p + theme(legend.position="none")
@@ -209,7 +231,7 @@ What does this tell us?
 
 (It would be great to do an anova here to show oral sites explain a much more significant amount of variance in the dataset before moving on to the next chapter)
 
-### Making publication-ready visualizations with R
+# Making publication-ready visualizations with R
 
 Let's say we wish to put some circles around our gorups to help visualize their distribution and dispersal.
 
@@ -274,7 +296,7 @@ nrow(ellipses_df)
 
 We still have the `ggplot` object in memory, let's add the data frame we just put together:
 
-```{r}
+```{r fig.height = 3}
 p <- p + geom_path(data=ellipses_df,
                    aes(x=x_coord, y=y_coord, colour=group),
                    size=2,
@@ -284,7 +306,7 @@ p
 
 There is always room for improvement:
 
-```{r}
+```{r fig.height = 3}
 p <- p + geom_polygon(data=ellipses_df,
                       aes(x=x_coord, y=y_coord, group=group, fill=group),
                       alpha=0.15)
@@ -307,7 +329,7 @@ oral_mds_group_means
 
 And we can extend the `ggplot` object with one more layer:
 
-```{r}
+```{r fig.height = 3}
 p <- p + annotate("text",
                   x=oral_mds_group_means$MDS1,
                   y=oral_mds_group_means$MDS2,
@@ -317,6 +339,6 @@ p <- p + annotate("text",
 p
 ```
 
-### Conclusions
+# Conclusions
 
 Summary of what we did.
