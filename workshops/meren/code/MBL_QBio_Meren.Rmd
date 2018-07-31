@@ -339,6 +339,3 @@ p <- p + annotate("text",
 p
 ```
 
-# Conclusions
-
-Summary of what we did.
