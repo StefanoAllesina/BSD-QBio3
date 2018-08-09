@@ -206,7 +206,7 @@ Poisson_k_spiders <- data.frame(k=k, probability=lambda^k*exp(-lambda)/factorial
 You can also use the built-in function `dpois` from the `stats` package to generate the probabilities in `Poisson_k_spiders`.
 
 ```{r,eval=FALSE}
-Poisson_k_spiders <- data.frame(k=k, probability=dpois(k,mean_spiders))
+Poisson_k_spiders <- data.frame(k=k, probability=dpois(k,spider_rate))
 ```
 
 Add a line for the Poisson model to your plot of the observed spider probability.
