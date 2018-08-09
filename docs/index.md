@@ -113,5 +113,8 @@ During the boot camp, the 12 groups of students will compete through 6 programmi
 * Submit your answer for the tutorial on [Data Visualization](https://docs.google.com/forms/d/e/1FAIpQLSdY54V7vUjOVbd76I1E3pRMLznfiI1kXW7obmdrl7gQxPyEcA/viewform?usp=sf_link)
 * Submit your answer for the tutorial on [Stats for large data](https://docs.google.com/forms/d/e/1FAIpQLSf_fXbqPfhNZYUwcSTu_ZBNGJkBBoxoepr280KPjy7Kn_wjXw/viewform?usp=sf_link)
 
+### Notes
+This material is based upon work supported by the National Science Foundation under Grant Number 1734818
 
+Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.
 
